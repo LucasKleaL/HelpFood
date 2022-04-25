@@ -6,6 +6,9 @@ app.get("/", (req, res) => {
     res.send("Hello World HelpFood");
 });
 
+const { business } = require('../server/handlers/business')
+app.get('/business', business);
+
 app.listen(PORT, function () {
     console.log(`HelpFood server listening at: ${PORT}`);
 });
