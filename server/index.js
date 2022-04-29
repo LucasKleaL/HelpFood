@@ -9,6 +9,9 @@ app.get("/", (req, res) => {
 const { business } = require('../server/handlers/business')
 app.get('/business', business);
 
+const { donation } = require('../server/handlers/donation')
+app.get('/donation', donation);
+
 app.listen(PORT, function () {
     console.log(`HelpFood server listening at: ${PORT}`);
 });
