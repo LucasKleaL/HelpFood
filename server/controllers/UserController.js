@@ -1,9 +1,9 @@
-const User = require("./../models/User");
+const UserModel = require("../models/UserModel");
 
 class UserController {
     constructor(app) {
 
-        const user = new User();
+        const user = new UserModel();
 
         app.post('/user/add', (req, res) => {
             var result = user.add(

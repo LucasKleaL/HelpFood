@@ -1,7 +1,7 @@
 const { admin, db } = require("../util/admin");
 const { getAuth } = require("firebase-admin/auth");
 
-class User {
+class UserModel {
 
     constructor() {
 
@@ -18,8 +18,8 @@ class User {
             console.log("Successfully created a new user.", userRecord.uid);
             //creating the user doc in firestore
             await db.collection("Users").doc(userRecord.uid).set({
-                cpf: cpf,
-                ongName: ongName,
+                Cpf: cpf,
+                OngName: ongName,
             })
             return true;
         })
@@ -31,4 +31,4 @@ class User {
 
 }
 
-module.exports = User;
+module.exports = UserModel;

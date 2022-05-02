@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const UserController = require("./controllers/UserController");
+const DonationController = require("./controllers/DonationController");
 const PORT = process.env.PORT || 3001;
 
 var app = express();
@@ -21,3 +22,4 @@ app.listen(PORT, function () {
 });
 
 const userController = new UserController(app);
+const donationController = new UserController(app);
