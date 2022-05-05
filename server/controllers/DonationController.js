@@ -16,7 +16,7 @@ class DonationController {
         });
 
         app.get('/donation/getDonationById', (req, res) => {
-            donation.getAllDonation(function (error, result) {
+            donation.getDonationById(function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {

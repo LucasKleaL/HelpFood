@@ -5,6 +5,26 @@ class UserController {
 
         const user = new UserModel();
 
+        app.get('/user/getAll', (req, res) => {
+            user.getAllUsers(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
+        app.get('/user/getUserById', (req, res) => {
+            user.getUserById(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
         app.post('/user/add', (req, res) => {
             var result = user.add(
                 req.body.name,
@@ -12,6 +32,18 @@ class UserController {
                 req.body.email,
                 req.body.password,
                 req.body.ongName
+            );
+            if (result) {
+                res.sendStatus(200)
+            }
+            else {
+                res.sendStatus(500);
+            }
+        });
+
+        app.post('/user/RemoveUserById', (req, res) => {
+            var result = user.removeUserById(
+                req.body.userId
             );
             if (result) {
                 res.sendStatus(200)

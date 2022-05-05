@@ -7,6 +7,51 @@ class UserModel {
 
     }
 
+    async getAllUsers(result) {
+        const snapshot = await db.collection('Users').get();
+        let resultGetAllUsers = snapshot.docs.map(doc => doc.data());
+        result(null, resultGetAllUsers);  
+    }
+
+    async getUserById(userId, result) {
+        db.collection('Users').doc(userId).get().then((doc) => {
+            if (!doc.exists) {
+                let resultGetUserById = { message: 'No such document!' };
+                result(null, resultGetUserById);
+            } else {
+                result(null, doc.data());
+            }
+        }).catch(error => {
+            result(null, error);
+        });
+    };
+
+    async removeUserById(userId) {
+        getAuth()
+        .deleteUser(userId)
+        .then(() => {
+            db.collection('Users').doc(userId).get().then((snapshot) => {
+                if (snapshot.exists) {
+                    let docRef = db.collection('Users').doc(userId);
+                    docRef.delete().then(()=> {
+                        console.log("Successfully removed user from firestore");
+                        return true;
+                    }).catch(()=>{
+                        console.log("Error removing a user from firestore", error);
+                        return false;
+                    });
+                } else {
+                    console.log("User not found", error);
+                    return false;
+                }
+            });
+        })
+        .catch((error) => {
+            console.log('Error deleting user:', error);
+        });
+        
+    };
+
     async add(name, cpf, email, password, ongName) {
         await admin.auth()
         .createUser({

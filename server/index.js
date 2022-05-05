@@ -11,11 +11,6 @@ app.get("/", (req, res) => {
     res.send("Hello World HelpFood");
 });
 
-const { business } = require('../server/handlers/business')
-app.get('/business', business);
-
-const { donation } = require('../server/handlers/donation')
-app.get('/donation', donation);
 
 app.listen(PORT, function () {
     console.log(`HelpFood server listening at: localhost:${PORT}`);
