@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const UserController = require("./controllers/UserController");
+const DonationController = require("./controllers/DonationController");
 const PORT = process.env.PORT || 3001;
 
 var app = express();
@@ -17,7 +18,8 @@ const { donation } = require('../server/handlers/donation')
 app.get('/donation', donation);
 
 app.listen(PORT, function () {
-    console.log(`HelpFood server listening at: ${PORT}`);
+    console.log(`HelpFood server listening at: localhost:${PORT}`);
 });
 
 const userController = new UserController(app);
+const donationController = new DonationController(app);

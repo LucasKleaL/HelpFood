@@ -1,7 +1,7 @@
 const { admin, db } = require("../util/admin");
 const { getAuth } = require("firebase-admin/auth");
 
-class User {
+class UserModel {
 
     constructor() {
 
@@ -31,4 +31,4 @@ class User {
 
 }
 
-module.exports = User;
+module.exports = UserModel;
