@@ -1,73 +1,95 @@
 const { admin, db } = require("../util/admin");
 const { getAuth } = require("firebase-admin/auth");
+db.settings({ ignoreUndefinedProperties: true })
 
 class DonationModel {
 
     constructor() {
 
     }
+    async getAllDonation(result) {
+        const snapshot = await db.collection('Donation').get();
+        let resultGetAllDonation = snapshot.docs.map(doc => doc.data());
+        result(null, resultGetAllDonation);  
+    }
 
-    async addDonation(body, result) {
-        await db.collection('Donation')
+    async getDonationById(donationId, result) {
+        db.collection('Donation').doc(donationId).get().then((doc) => {
+            if (!doc.exists) {
+                let resultGetUserById = { message: 'No such document!' };
+                result(null, resultGetUserById);
+            } else {
+                result(null, doc.data());
+            }
+        }).catch(error => {
+            result(null, error);
+        });
+    };
+
+    async addDonation(description, businessDonor, address, weight, quantity, typeFood, shelfLife) {
+        await db.collection('Donation').doc()
         .set({
-            Description: body.description,
-            BusinessDonor: body.businessDonor,
-            Address: body.address,
-            Weight: body.weight,
-            Quantity: body.quantity,
-            TypeFood: body.typeFood,
-            ShelfLife: body.shelfLife
+            Description: description,
+            BusinessDonor: businessDonor,
+            Address: address,
+            Weight: weight,
+            Quantity: quantity,
+            TypeFood: typeFood,
+            ShelfLife: shelfLife
         })
         .then(()=> {
-            let resultAddDonation = { message: 'Donation Inserted Successfully' };
-            result(null, resultAddDonation);
+            console.log("Successfully created a new donation");
+
+            return true;
         }).catch((error)=>{
-            console.log(error); 
-            let resultAddDonation = { message: 'Donation not inserted' };
-            result(null, resultAddDonation);
+            console.log("Error creating a new donation ", error);
+            return false;
         });   
     }
 
-    async removeDonationById(donationId, result) {
+
+
+    async removeDonationById(donationId) {
+        console.log(donationId)
         db.collection('Donation').doc(donationId).get().then((snapshot) => {
             if (snapshot.exists) {
                 let docRef = db.collection('Donation').doc(donationId);
                 docRef.delete().then(()=> {
-                    let resultDeleteDonationById = { message: 'Donation Deleted Successfully' };
-                    result(null, resultDeleteDonationById);
+                    console.log("Successfully removed donation");
+                    return true;
                 }).catch(()=>{
-                    let resultDeleteDonationById = { message: 'Donation Not Deleted' };
-                    result(null, resultDeleteDonationById);
+                    console.log("Error removing a donation ", error);
+                    return false;
                 });
             } else {
-                let resultDeleteDonationById = { message: 'Donation Not Found' };
-                result(null, resultDeleteDonationById);
+                console.log("Donation not found", error);
+                return false;
             }
         });
     };
 
-    async updateDonation(body, result) {
-        dbFirestore.collection('Donation').doc(body.donationId).get().then((snapshot) => {
+    async updateDonation(donationId, description, businessDonor, address, weight, quantity, typeFood, shelfLife) {
+        db.collection('Donation').doc(donationId).get().then((snapshot) => {
             if (snapshot.exists) {
-                let docRef = dbFirestore.collection('Donation').doc(body.donationId);
+                let docRef = db.collection('Donation').doc(donationId);
                 docRef.update({
-                    Description: body.description,
-                    BusinessDonor: body.businessDonor,
-                    Address: body.address,
-                    Weight: body.weight,
-                    Quantity: body.quantity,
-                    TypeFood: body.typeFood,
-                    ShelfLife: body.shelfLife
+                    Description: description,
+                    BusinessDonor: businessDonor,
+                    Address: address,
+                    Weight: weight,
+                    Quantity: quantity,
+                    TypeFood: typeFood,
+                    ShelfLife: shelfLife
                 }).then(()=> {
-                    let resultUpdateDonation = { message: 'DonationInfo Updated Successfully' };
-                    result(null, resultUpdateDonation);
+                    console.log("Successfully updated donation");
+                    return true;
                 }).catch(()=>{
-                    let resultUpdateDonation = { message: 'DonationInfo Not Updated' };
-                    result(null, resultUpdateDonation); 
+                    console.log("Donation not updated", error);
+                    return false;
                 });
             } else {
-                let resultUpdateDonation = { message: 'Donation Not Found' };
-                result(null, resultUpdateDonation);
+                console.log("Donation not found", error);
+                return false;
             }
         });
     };

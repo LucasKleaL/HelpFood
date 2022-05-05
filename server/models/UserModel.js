@@ -18,8 +18,8 @@ class UserModel {
             console.log("Successfully created a new user.", userRecord.uid);
             //creating the user doc in firestore
             await db.collection("Users").doc(userRecord.uid).set({
-                Cpf: cpf,
-                OngName: ongName,
+                cpf: cpf,
+                ongName: ongName,
             })
             return true;
         })

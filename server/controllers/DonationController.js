@@ -5,7 +5,28 @@ class DonationController {
 
         const donation = new DonationModel();
 
+        app.get('/donation/getAll', (req, res) => {
+            donation.getAllDonation(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
+        app.get('/donation/getDonationById', (req, res) => {
+            donation.getAllDonation(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
         app.post('/donation/add', (req, res) => {
+            console.log(req.params.description)
             var result = donation.addDonation(
                 req.body.description,
                 req.body.businessDonor,
@@ -23,8 +44,9 @@ class DonationController {
             }
         });
 
-        app.post('/donation/updateDonation', (req, res) => {
+        app.post('/donation/UpdateDonation', (req, res) => {
             var result = donation.updateDonation(
+                req.body.donationId,
                 req.body.description,
                 req.body.businessDonor,
                 req.body.address,
@@ -41,9 +63,9 @@ class DonationController {
             }
         });
 
-        app.get('/donation/removeDonationById', (req, res) => {
+        app.post('/donation/RemoveDonationById', (req, res) => {
             var result = donation.removeDonationById(
-                req.params.donationId
+                req.body.donationId
             );
             if (result) {
                 res.sendStatus(200)

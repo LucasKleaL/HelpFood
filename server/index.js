@@ -18,8 +18,8 @@ const { donation } = require('../server/handlers/donation')
 app.get('/donation', donation);
 
 app.listen(PORT, function () {
-    console.log(`HelpFood server listening at: ${PORT}`);
+    console.log(`HelpFood server listening at: localhost:${PORT}`);
 });
 
 const userController = new UserController(app);
-const donationController = new UserController(app);
+const donationController = new DonationController(app);
