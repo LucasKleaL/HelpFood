@@ -1,6 +1,5 @@
 const { admin, db } = require("../util/admin");
 const { getAuth } = require("firebase-admin/auth");
-db.settings({ ignoreUndefinedProperties: true })
 
 class CompanyModel {
 

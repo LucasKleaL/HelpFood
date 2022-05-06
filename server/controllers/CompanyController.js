@@ -26,7 +26,6 @@ class CompanyController {
         });
 
         app.post('/company/add', (req, res) => {
-            console.log(req.params.description)
             var result = company.addCompany(
                 req.body.name,
                 req.body.cnpj,
