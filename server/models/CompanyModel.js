@@ -26,10 +26,13 @@ class CompanyModel {
         });
     };
 
-    async addCompany() {
+    async addCompany(name, cnpj, donations, allowed) {
         await db.collection('Company').doc()
         .set({
-            //TODO
+            Name: name,
+            Cnpj: cnpj,
+            Donations: donations,
+            Allowed: allowed
         })
         .then(()=> {
             console.log("Successfully created a new company");
@@ -62,12 +65,15 @@ class CompanyModel {
         });
     };
 
-    async updateCompany(companyId) {
+    async updateCompany(companyId, name, cnpj, donations, allowed) {
         db.collection('Company').doc(companyId).get().then((snapshot) => {
             if (snapshot.exists) {
                 let docRef = db.collection('Company').doc(companyId);
                 docRef.update({
-                    //TODO
+                    Name: name,
+                    Cnpj: cnpj,
+                    Donations: donations,
+                    Allowed: allowed
                 }).then(()=> {
                     console.log("Successfully updated company");
                     return true;

@@ -28,7 +28,10 @@ class CompanyController {
         app.post('/company/add', (req, res) => {
             console.log(req.params.description)
             var result = company.addCompany(
-                //TODO
+                req.body.name,
+                req.body.cnpj,
+                req.body.donations,
+                req.body.allowed
             );
             if (result) {
                 res.sendStatus(200)
@@ -40,7 +43,10 @@ class CompanyController {
 
         app.post('/company/UpdateCompany', (req, res) => {
             var result = company.updateCompany(
-                //TODO
+                req.body.name,
+                req.body.cnpj,
+                req.body.donations,
+                req.body.allowed
             );
             if (result) {
                 res.sendStatus(200)
