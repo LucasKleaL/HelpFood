@@ -1,8 +1,9 @@
 import { React, useState } from "react";
 import { Container, Grid, Button, Box, Select, Typography } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-
+import Login from '../components/LoginForm'
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
+import CustomizedDialogs from "../components/Dialog";
 import "./../styles/landingpage.css";
 
 function LandingPage() {
@@ -49,6 +50,10 @@ function LandingPage() {
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>Doar</Button>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button>
+                            <CustomizedDialogs title="Entrar na rede" titleButton="Entrar">
+                                <Login />
+                            </CustomizedDialogs>
+                            
                         </ThemeProvider>
                     </div>
                 </header>
