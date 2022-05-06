@@ -1,9 +1,8 @@
 import { React, useState } from "react";
 import { Container, Grid, Button, Box, Select, Typography } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-import Login from '../components/LoginForm'
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
-import CustomizedDialogs from "../components/Dialog";
+import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import "./../styles/landingpage.css";
 
 function LandingPage() {
@@ -21,7 +20,14 @@ function LandingPage() {
         fontSize: "2rem",
         marginRight: "0.5rem",
         textTransform: "capitalize",
-        fontWeight: "900"
+        fontWeight: "900",
+    }
+
+    const HeaderTitleStyle = {
+        color: "var(--white)",
+        fontSize: "2rem",
+        fontWeight: "900",
+        marginLeft: "1rem",
     }
 
     const WallpaperTitleStyle = {
@@ -29,7 +35,7 @@ function LandingPage() {
         fontSize: "2rem",
         fontWeight: "900",
         width: "40%", 
-        textAlign: "center"
+        textAlign: "center",
     }
 
     const WallpaperSecondTitleStyle = {
@@ -37,7 +43,14 @@ function LandingPage() {
         fontSize: "1.5rem",
         fontWeight: "900",
         width: "40%", 
-        textAlign: "center"
+        textAlign: "center",
+    }
+
+    const BodyDropDownArrowStyle = {
+        color: "var(--white)",
+        fontSize: "3rem",
+        marginTop: "1rem",
+        cursor: "pointer"
     }
 
     return (
@@ -45,23 +58,24 @@ function LandingPage() {
             <div className="header-wallpaper">
 
                 <header>
+                    <div style={{float: "left", marginTop: "0.5"}}>
+                        <Typography className="nunito-text" style={HeaderTitleStyle}>HelpFoods</Typography>
+                    </div>
+
                     <div style={{float: "right", marginTop: "0.5rem"}}>
                         <ThemeProvider theme={WhiteButtonTheme}>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>Doar</Button>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button>
-                            <CustomizedDialogs title="Entrar na rede" titleButton="Entrar">
-                                <Login />
-                            </CustomizedDialogs>
-                            
                         </ThemeProvider>
                     </div>
                 </header>
 
                 <div>
                     <Container align="center" style={{marginTop: "25vh"}}>
-                        <Typography style={WallpaperTitleStyle}>VOCÊ FAZ PARTE DE UMA EMPRESA QUE DESEJA DOAR?</Typography>
-                        <Typography style={WallpaperSecondTitleStyle}>OU DE UMA ONG QUE DESEJA RECEBER</Typography>
+                        <Typography className="nunito-text" style={WallpaperTitleStyle}>VOCÊ FAZ PARTE DE UMA EMPRESA QUE DESEJA DOAR?</Typography>
+                        <Typography className="nunito-text" style={WallpaperSecondTitleStyle}>OU DE UMA ONG QUE DESEJA RECEBER</Typography>
+                        <ArrowDropDownCircleIcon style={BodyDropDownArrowStyle} />
                     </Container>
                 </div>
 
