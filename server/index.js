@@ -1,27 +1,22 @@
-var express = require("express");
+const express = require("express");
 const cors = require("cors");
-var app = express();
+const UserController = require("./controllers/UserController");
+const DonationController = require("./controllers/DonationController");
+const CompanyController = require("./controllers/CompanyController");
 const PORT = process.env.PORT || 3001;
 
+var app = express();
 app.use(cors());
 app.use(express.json());
-
 app.get("/", (req, res) => {
     res.send("Hello World HelpFood");
 });
 
-const { business } = require('../server/handlers/business')
-app.get('/business', business);
-
-app.post('/user/add', (req, res) => {
-    const name = req.body.name;
-    console.log("Recebeu o nome: "+name);
-})
-
-const { donation } = require('../server/handlers/donation')
-app.get('/donation', donation);
-
 
 app.listen(PORT, function () {
-    console.log(`HelpFood server listening at: ${PORT}`);
+    console.log(`HelpFood server listening at: localhost:${PORT}`);
 });
+
+const userController = new UserController(app);
+const donationController = new DonationController(app);
+const companyController = new CompanyController(app);
