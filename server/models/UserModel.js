@@ -4,7 +4,6 @@ const { getAuth } = require("firebase-admin/auth");
 class UserModel {
 
     constructor() {
-
     }
 
     async getAllUsers(result) {
