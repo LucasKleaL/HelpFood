@@ -5,15 +5,19 @@ import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@mater
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import Axios from "axios";
 
 function LoginForm(){
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    let history = useHistory();
-
+    function authUser() {
+      Axios.post("http://localhost:3001/user/authUser", {
+          email: email,
+          password: senha
+      });
+  }
    /* function logar() {
         firebase.auth().signInWithEmailAndPassword(email, senha)
         .then( async (usuario)=>{
@@ -58,7 +62,7 @@ function LoginForm(){
                     }
                     label="Lembre-se de mim"
                  />
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Entrar</Button>
+                <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={authUser} fullWidth>Entrar</Button>
                 <Typography >
                     <Link href="#" >
                     Esqueceu sua senha?
