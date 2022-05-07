@@ -5,6 +5,19 @@ class UserController {
 
         const user = new UserModel();
 
+        app.post('/user/authUser', (req, res) => {
+            var result = user.authUser(
+                req.body.email,
+                req.body.password
+            );
+            if (result) {
+                res.sendStatus(200)
+            }
+            else {
+                res.sendStatus(500);
+            }
+        });
+
         app.get('/user/getAll', (req, res) => {
             user.getAllUsers(function (error, result) {
                 if (error) {

@@ -26,7 +26,6 @@ class DonationController {
         });
 
         app.post('/donation/add', (req, res) => {
-            console.log(req.params.description)
             var result = donation.addDonation(
                 req.body.description,
                 req.body.businessDonor,
