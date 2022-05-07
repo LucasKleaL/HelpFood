@@ -8,8 +8,10 @@ class UserModel {
 
     }
     async authUser(email, password) {
+        
         initializeApp(firebaseConfig)
         const auth = getAuth();
+
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential)=>{
             const user = userCredential.user;
