@@ -29,8 +29,10 @@ class CompanyController {
             var result = company.addCompany(
                 req.body.name,
                 req.body.cnpj,
+                req.body.email,
                 req.body.donations,
-                req.body.allowed
+                req.body.allowed,
+                req.body.password
             );
             if (result) {
                 res.sendStatus(200)

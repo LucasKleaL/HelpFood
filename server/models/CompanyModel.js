@@ -25,25 +25,30 @@ class CompanyModel {
         });
     };
 
-    async addCompany(name, cnpj, donations, allowed) {
-        await db.collection('Company').doc()
-        .set({
-            Name: name,
-            Cnpj: cnpj,
-            Donations: donations,
-            Allowed: allowed
+    async addCompany(name, cnpj, email, donations, allowed, password) {
+
+        await admin.auth()
+        .createUser({
+            email: email,
+            password: password,
+            displayName: name,
         })
-        .then(()=> {
-            console.log("Successfully created a new company");
-
+        .then(async (companyRecord) => {
+            console.log("Successfully created a new company. ", companyRecord.uid);
+            //creating the company doc in firestore
+            await db.collection("Company").doc(companyRecord.uid).set({
+                cnpj: cnpj,
+                donations: donations,
+                allowed: allowed,
+            })
             return true;
-        }).catch((error)=>{
-            console.log("Error creating a new company ", error);
+        })
+        .catch((error) => {
+            console.log("Error creating a new company.");
             return false;
-        });   
+        });
+
     }
-
-
 
     async removeCompanyById(companyId) {
         console.log(companyId)
