@@ -27,6 +27,7 @@ class DonationController {
 
         app.post('/donation/add', (req, res) => {
             var result = donation.addDonation(
+                req.body.name,
                 req.body.description,
                 req.body.businessDonor,
                 req.body.address,

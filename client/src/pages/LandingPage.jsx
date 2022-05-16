@@ -4,6 +4,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import "./../styles/landingpage.css";
+import LoginForm from "../components/LoginForm";
+import DonationForm from "../components/DonationForm";
 
 function LandingPage() {
 
@@ -67,6 +69,8 @@ function LandingPage() {
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>Doar</Button>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button>
+                            <LoginForm></LoginForm>
+                            <DonationForm></DonationForm>
                         </ThemeProvider>
                     </div>
                 </header>

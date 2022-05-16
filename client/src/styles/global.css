@@ -37,7 +37,13 @@ header {
     width: 100%;
     height: 5rem;
 }
-
+.sendButton{
+    cursor: pointer;
+}
+.sendButton:hover{
+    background-color: #13d48a !important;
+    color: #ffffff !important;
+}
 footer {
     width: 100%;
     background-color: black;

@@ -6,17 +6,23 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Axios from "axios";
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 
 function LoginForm(){
 
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
+    const [password, setPassword] = useState("");
+    let nonce = "HelpFood#sha256#420"
+    let hashPassword = Base64.stringify(sha256(nonce + password));
 
     function authUser() {
+      console.log(hashPassword)
       Axios.post("http://localhost:3001/user/authUser", {
           email: email,
-          password: senha
+          password: hashPassword
       });
+      
   }
    /* function logar() {
         firebase.auth().signInWithEmailAndPassword(email, senha)
@@ -42,7 +48,7 @@ function LoginForm(){
 
     const paperStyle={ padding: 20, width: 500, margin: "0 auto" }
     const avatarStyle={backgroundColor:'#1bbd7e'}
-    const btnstyle={margin:'8px 0'}
+    const btnstyle={margin:'8px 0', backgroundColor: '#1bbd7e'}
     
     return(
         <Grid>
@@ -52,7 +58,7 @@ function LoginForm(){
                      <Typography variant='caption' gutterBottom>Entre com os seus dados!</Typography>
                 </Grid>
                 <TextField label='E-mail' placeholder='Insira o e-mail' onChange={(e) => { setEmail(e.target.value) }} fullWidth required/>
-                <TextField label='Senha' placeholder='Insira a senha' type='password' onChange={(e) => { setSenha(e.target.value) }} fullWidth required/>
+                <TextField label='Senha' placeholder='Insira a senha' type='password' onChange={(e) => { setPassword(e.target.value) }} fullWidth required/>
                 <FormControlLabel
                     control={
                     <Checkbox
@@ -62,7 +68,7 @@ function LoginForm(){
                     }
                     label="Lembre-se de mim"
                  />
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={authUser} fullWidth>Entrar</Button>
+                <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={authUser} fullWidth>Entrar</Button>
                 <Typography >
                     <Link href="#" >
                     Esqueceu sua senha?

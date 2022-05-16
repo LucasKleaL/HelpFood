@@ -1,5 +1,6 @@
 const { admin, db } = require("../util/admin");
-const { getAuth } = require("firebase-admin/auth");
+const { firebase } = require("../util/firebase");
+const { getAuth, admin2 } = require("firebase-admin/auth");
 db.settings({ ignoreUndefinedProperties: true })
 
 class DonationModel {
@@ -26,9 +27,10 @@ class DonationModel {
         });
     };
 
-    async addDonation(description, businessDonor, address, weight, quantity, typeFood, shelfLife) {
-        await db.collection('Donation').doc()
-        .set({
+    async addDonation(name, description, businessDonor, address, weight, quantity, typeFood, shelfLife) {
+        await db.collection('Donation')
+        .add({
+            Name: name,
             Description: description,
             BusinessDonor: businessDonor,
             Address: address,
@@ -37,7 +39,22 @@ class DonationModel {
             TypeFood: typeFood,
             ShelfLife: shelfLife
         })
-        .then(()=> {
+        .then((docRef)=> {
+            let donationIdList = [];
+
+            db.collection('Company').doc(businessDonor).get().then((doc) => {
+                if (doc.exists) {
+                    donationIdList = doc.donations;
+                    db.collection("Company").doc(businessDonor).update({
+                        Donations: admin.firestore.FieldValue.arrayUnion(docRef.id)
+                    })
+                } else {
+                    console.log("Error creating a new donation, company not found");
+                }
+            }).catch(error => {
+                console.log("Error creating a new donation ", error);
+            });
+            
             console.log("Successfully created a new donation");
 
             return true;
@@ -46,7 +63,6 @@ class DonationModel {
             return false;
         });   
     }
-
 
 
     async removeDonationById(donationId) {
