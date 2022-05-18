@@ -8,19 +8,18 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Axios from "axios";
 
 const axios = require('axios');
+ function DonationDashboard() {
 
-async function DonationDashboard() {
+    let res = axios.get('http://localhost:3001/donation/getAll');
 
-    // let res = await axios.get('http://localhost:3001/donation/getAll');
-    //
-    // let name          = res.data.name;
-    // let description   = res.data.description;
-    // let businessDonor = res.data.businessDonor;
-    // let address       = res.data.address;
-    // let weight        = res.data.weight;
-    // let quantity      = res.data.quantity;
-    // let typeFood      = res.data.typeFood;
-    // let shelfLife     = res.data.shelfLife;
+     let Name          = res.data.Name;
+     let Description   = res.data.Description;
+     let BusinessDonor = res.data.BusinessDonor;
+     let Address       = res.data.Address;
+     let Weight        = res.data.Weight;
+     let Quantity      = res.data.Quantity;
+     let TypeFood      = res.data.TypeFood;
+     let ShelfLife     = res.data.ShelfLife;
     //
     //
     // const [donation, setDonation] = useState({
@@ -34,28 +33,29 @@ async function DonationDashboard() {
     //     shelfLife     : shelfLife,
     // });
 
-    const [donation, setDonation] = useState({
-        name          : 'name',
-        description   : 'description',
-        businessDonor : 'businessDonor',
-        address       : 'address',
-        weight        : 'weight',
-        quantity      : 'quantity',
-        typeFood      : 'typeFood',
-        shelfLife     : 'shelfLife',
-    });
+    // const [donation, setDonation] = useState({
+    //     name          : 'name',
+    //     description   : 'description',
+    //     businessDonor : 'businessDonor',
+    //     address       : 'address',
+    //     weight        : 'weight',
+    //     quantity      : 'quantity',
+    //     typeFood      : 'typeFood',
+    //     shelfLife     : 'shelfLife',
+    // });
+
 
     return (
         <>
-            <div>Doações</div>
-            <div>{donation.name        }</div>
-            <div>{donation.description }</div>
-            <div>{donation.businessDonor}</div>
-            <div>{donation.address     }</div>
-            <div>{donation.weight      }</div>
-            <div>{donation.quantity    }</div>
-            <div>{donation.typeFood    }</div>
-            <div>{donation.shelfLife   }</div>
+            <div>Doaçõsses</div>
+            <div>{Name        }</div>
+            <div>{Description }</div>
+            <div>{BusinessDonor}</div>
+            <div>{Address     }</div>
+            <div>{Weight      }</div>
+            <div>{Quantity    }</div>
+            <div>{TypeFood    }</div>
+            <div>{ShelfLife   }</div>
         </>
     );
 
