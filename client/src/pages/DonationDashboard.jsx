@@ -11,27 +11,38 @@ const axios = require('axios');
 
 async function DonationDashboard() {
 
-    let res = await axios.get('http://localhost:3001/donation/getAll');
-
-    let name          = res.data.name;
-    let description   = res.data.description;
-    let businessDonor = res.data.businessDonor;
-    let address       = res.data.address;
-    let weight        = res.data.weight;
-    let quantity      = res.data.quantity;
-    let typeFood      = res.data.typeFood;
-    let shelfLife     = res.data.shelfLife;
-
+    // let res = await axios.get('http://localhost:3001/donation/getAll');
+    //
+    // let name          = res.data.name;
+    // let description   = res.data.description;
+    // let businessDonor = res.data.businessDonor;
+    // let address       = res.data.address;
+    // let weight        = res.data.weight;
+    // let quantity      = res.data.quantity;
+    // let typeFood      = res.data.typeFood;
+    // let shelfLife     = res.data.shelfLife;
+    //
+    //
+    // const [donation, setDonation] = useState({
+    //     name          : name,
+    //     description   : description,
+    //     businessDonor : businessDonor,
+    //     address       : address,
+    //     weight        : weight,
+    //     quantity      : quantity,
+    //     typeFood      : typeFood,
+    //     shelfLife     : shelfLife,
+    // });
 
     const [donation, setDonation] = useState({
-        name          : name,
-        description   : description,
-        businessDonor : businessDonor,
-        address       : address,
-        weight        : weight,
-        quantity      : quantity,
-        typeFood      : typeFood,
-        shelfLife     : shelfLife,
+        name          : 'name',
+        description   : 'description',
+        businessDonor : 'businessDonor',
+        address       : 'address',
+        weight        : 'weight',
+        quantity      : 'quantity',
+        typeFood      : 'typeFood',
+        shelfLife     : 'shelfLife',
     });
 
     return (
@@ -39,7 +50,7 @@ async function DonationDashboard() {
             <div>Doações</div>
             <div>{donation.name        }</div>
             <div>{donation.description }</div>
-            <div>{donation.bsinessDonor}</div>
+            <div>{donation.businessDonor}</div>
             <div>{donation.address     }</div>
             <div>{donation.weight      }</div>
             <div>{donation.quantity    }</div>
