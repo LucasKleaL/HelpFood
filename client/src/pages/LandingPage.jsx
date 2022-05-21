@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { Link } from "react-router-dom";
 import { Container, Grid, Button, Box, Select, Typography } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
@@ -65,8 +66,10 @@ function LandingPage() {
                     <div style={{float: "right", marginTop: "0.5rem"}}>
                         <ThemeProvider theme={WhiteButtonTheme}>
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
-                            <Button variant="text" color="primary" style={HeaderButtonStyle}>Doar</Button>
-                            <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button>
+                            <Link to="/donate" style={{textDecoration: "none"}}>
+                                <Button variant="text" color="primary" style={HeaderButtonStyle}>Doar</Button>
+                            </Link>
+                            <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button>  
                         </ThemeProvider>
                     </div>
                 </header>
