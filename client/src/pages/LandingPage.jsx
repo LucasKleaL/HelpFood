@@ -7,6 +7,7 @@ import "./../styles/landingpage.css";
 import LoginForm from "../components/LoginForm";
 import DonationForm from "../components/DonationForm";
 
+
 function LandingPage() {
 
     const HeaderWallpaperStyle = {
