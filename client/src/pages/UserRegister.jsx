@@ -3,6 +3,7 @@ import { Container, Grid, Button, Box, TextField, Select } from "@material-ui/co
 import { ThemeProvider } from "@material-ui/core/styles";
 import MaterialButtonTheme from "./../themes/MaterialButtonTheme";
 import Axios from "axios";
+import Footer from "../components/Footer";
 
 function UserRegister () {
 
@@ -88,6 +89,7 @@ function UserRegister () {
                 </div>
 
             </Container>
+            <Footer></Footer>
         </div>
     )
 }

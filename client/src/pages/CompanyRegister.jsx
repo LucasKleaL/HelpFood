@@ -5,6 +5,7 @@ import MaterialButtonTheme from "./../themes/MaterialButtonTheme";
 import Axios from "axios";
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
+import Footer from "../components/Footer";
 
 function CompanyRegister () {
 
@@ -198,6 +199,7 @@ function CompanyRegister () {
                 </div>
 
             </Container>
+            <Footer></Footer>
         </div>
     )
 }

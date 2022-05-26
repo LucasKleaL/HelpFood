@@ -6,7 +6,7 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import "./../styles/landingpage.css";
 import LoginForm from "../components/LoginForm";
 import DonationForm from "../components/DonationForm";
-
+import Footer from "../components/Footer";
 
 function LandingPage() {
 
@@ -83,8 +83,8 @@ function LandingPage() {
                         <ArrowDropDownCircleIcon style={BodyDropDownArrowStyle} />
                     </Container>
                 </div>
-
             </div>
+            <Footer></Footer>
         </div>
     )
 }
