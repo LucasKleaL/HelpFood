@@ -28,10 +28,8 @@ class UserModel {
     async getUserAuth() {
         let isAuth = false;
         await getAuth().onAuthStateChanged((user) => {
-            console.log("currentUser "+user)
             if (user) {
                 const uid = user.uid;
-                console.log("currentUser "+user)
                 isAuth = true;
             }
         });
