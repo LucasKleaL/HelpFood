@@ -36,6 +36,13 @@ class UserModel {
         return isAuth;
     }
 
+    getCurrentUserId(result) {
+        initializeApp(firebaseConfig)
+        const auth = getAuth();
+        if (auth.currentUser !== null) 
+        result(null, auth.currentUser.uid);
+    }
+
     async getAllUsers(result) {
         const snapshot = await db.collection('Users').get();
         let resultGetAllUsers = snapshot.docs.map(doc => doc.data());
