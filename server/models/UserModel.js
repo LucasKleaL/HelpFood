@@ -2,24 +2,38 @@ const { admin, db } = require("../util/admin");
 const { firebaseConfig } = require("../util/firebase");
 const { getAuth, signInWithEmailAndPassword } = require("firebase/auth");
 const { initializeApp } = require('firebase/app')
+
+let auth;
+
 class UserModel {
 
     constructor() {
+        initializeApp(firebaseConfig);
+        auth = getAuth();
     }
     async authUser(email, password) {
         
-        initializeApp(firebaseConfig)
-        const auth = getAuth();
+        let isAuth = false;
 
-        signInWithEmailAndPassword(auth, email, password)
+        await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential)=>{
-            const user = userCredential.user;
-
-            console.log("Logado com sucesso" + user.name)
-
+            isAuth = true;
+            console.log("Sucessful login");
         }).catch((error)=>{
-          console.log("Email ou senha incorretos." + error.message)
+            console.log("Email ou senha incorretos." + error.message)
         });
+        return isAuth;
+    }
+
+    async getUserAuth() {
+        let isAuth = false;
+        await getAuth().onAuthStateChanged((user) => {
+            if (user) {
+                const uid = user.uid;
+                isAuth = true;
+            }
+        });
+        return isAuth;
     }
 
     getCurrentUserId(result) {

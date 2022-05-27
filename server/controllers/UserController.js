@@ -6,15 +6,32 @@ class UserController {
         const user = new UserModel();
 
         app.post('/user/authUser', (req, res) => {
-            var result = user.authUser(
+            let result = user.authUser(
                 req.body.email,
                 req.body.password
             );
             if (result) {
-                res.sendStatus(200)
+                result.then((response) => {
+                    console.log("auth node result: "+response)
+                    res.status(200).send(response);
+                })
             }
             else {
-                res.sendStatus(500);
+                console.log("auth node result: "+result)
+                res.status(500).send(false);
+            }
+        });
+
+        app.get('/user/getUserAuth', (req, res) => {
+            let result = user.getUserAuth();
+            if (result) {
+                result.then((response) => {
+                    console.log("getUserAuth: "+response);
+                    res.status(200).send(response);
+                })
+            }
+            else {
+                res.status(500).send(false);
             }
         });
 
