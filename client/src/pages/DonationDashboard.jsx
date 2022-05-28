@@ -1,36 +1,55 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 
-const test = []
+const teste = []
 function DonationDashboard() {
 
     const [items, setItems] = useState([]);
 
-    const response = fetch("http://localhost:3001/donation/getAll", {
-        method: "GET",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-        }
-    })
-        .then((res) => res.json())
-        .then(
-            (result) => {
-                setItems(result[0])
-                // console.log("entrou")
-                console.log(result[0])
-                test.push(result[0])
+    useLayoutEffect(() => {
+        debugger;
+        const response = fetch("http://localhost:3001/donation/getAll", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
             }
-        );
-    console.log(test[0])
+        })
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setItems(result)
+                    debugger;
+                }
+            );
+    })
 
+    //console.log(test[0])
+    console.log(teste)
+    debugger
     return (
-        <div>
-            <p>data {JSON.stringify(items)}</p>
-            {items.map((item) => (
-                <div>{item.name}</div>
-            ))}
-        </div>
+
+        <html>
+            <body>
+                 <div>
+                    <p id="demo"></p>
+
+                    <script>
+                        const txt = {teste}
+                        const obj = JSON.parse(txt);
+                        document.getElementById("demo").innerHTML = obj.ShelfLife + ", " + obj.Name;
+                    </script>
+
+                    <p>data {JSON.stringify(items)}</p>
+                    {items.map((item) => (
+                        <div>{item.name}</div>
+                    ))}
+                </div>
+            </body>
+        </html>
+
+
     )
+    debugger
 }
 export default DonationDashboard;
 
