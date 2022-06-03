@@ -23,17 +23,21 @@ function DonationDashboard() {
     }, [])
 
     return (
+        <div>
+            {items.map((item) => (
+                <div>{
+                    item.Address + ", " +
+                    item.BusinessDonor + ", " +
+                    item.Description + ", " +
+                    item.Name + ", " +
+                    item.Quantity + ", " +
+                    item.ShelfLife + ", " +
+                    item.TypeFood + ", " +
+                    item.Weight
+                }</div>
 
-        <html>
-            <body>
-                <div>
-                    <p>data {JSON.stringify(items)}</p>
-                    {items.map((item) => (
-                        <div>{item.name}</div>
-                    ))}
-                </div>
-            </body>
-        </html>
+            ))}
+        </div>
     )
 }
 export default DonationDashboard;
