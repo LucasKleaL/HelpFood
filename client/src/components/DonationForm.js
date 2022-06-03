@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
-import { Redirect } from 'react-router'
-import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Grid, Paper, Avatar, TextField, Button, Typography } from '@material-ui/core'
 import FastfoodIcon from '@mui/icons-material/Fastfood';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Axios from "axios";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -18,8 +14,15 @@ function DonationForm() {
   const [quantity, setQuantity] = useState("");
   const [typeFood, setTypeFood] = useState("");
   const [shelfLife, setShelfLife] = useState("");
+  const [donationImage, setDonationImage] = useState("");
   const MySwal = withReactContent(Swal)
 
+
+  function getImgFromInput(e) {
+    let file = e.target.files[0];
+    setDonationImage(file);
+    console.log(donationImage);
+  }
 
   function alertSuccessDonation() {
     MySwal.fire({
@@ -39,6 +42,7 @@ function DonationForm() {
 
   //Consulta o id do usuário que é o mesmo da empresa e em seguida cria a doação no banco
   function addDonation() {
+    debugger
     Axios.get('http://localhost:3001/user/getCurrentUserId').then(resp => {
       setBusinessDonor(resp.data)
     });
@@ -49,6 +53,7 @@ function DonationForm() {
     }
   }
   function postDonation() {
+    debugger
     Axios.post("http://localhost:3001/donation/add", {
       name: name,
       description: description,
@@ -57,11 +62,12 @@ function DonationForm() {
       weight: weight,
       quantity: quantity,
       typeFood: typeFood,
-      shelfLife: shelfLife
+      shelfLife: shelfLife, 
+      donationImage: donationImage
     }).then((response) => {
       if (response.status === 200) {
         alertSuccessDonation()
-      }else{
+      } else {
         alertErrorDonation()
       }
     });
@@ -84,10 +90,9 @@ function DonationForm() {
         <TextField label='Peso' placeholder='Insira o peso total aproximado' onChange={(e) => { setWeight(e.target.value) }} fullWidth required />
         <TextField label='Quantidade' placeholder='Insira o total de unidades' onChange={(e) => { setQuantity(e.target.value) }} fullWidth required />
         <TextField label='Tipo' placeholder='Insira o tipo de alimento' onChange={(e) => { setTypeFood(e.target.value) }} fullWidth required />
-        <TextField label='Validade' placeholder='Validade do alimento' type='date' onChange={(e) => { setShelfLife(e.target.value) }} fullWidth required />
-
+        <TextField placeholder='Validade do alimento' type='date' style={{ paddingTop:"13px", paddingBottom:"13px" }} onChange={(e) => { setShelfLife(e.target.value) }} fullWidth required />
+        <Button variant="contained" component="label" style={{ marginBottom:"13px"}}>Foto do alimento<input type="file" id="donationImg" onChange={(e) => { getImgFromInput(e) }} hidden/></Button>
         <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={addDonation} fullWidth>Enviar</Button>
-
       </Paper>
     </Grid>
   )

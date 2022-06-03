@@ -34,7 +34,8 @@ class DonationController {
                 req.body.weight,
                 req.body.quantity,
                 req.body.typeFood,
-                req.body.shelfLife
+                req.body.shelfLife,
+                req.body.donationImage
             );
             if (result) {
                 res.sendStatus(200)

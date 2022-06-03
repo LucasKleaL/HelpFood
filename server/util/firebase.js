@@ -1,5 +1,6 @@
 const firebase = require("firebase/app");
 const doc = require("firebase/firestore")
+const storage = require("firebase/storage");
 
 // Import the functions you need from the SDKs you need
 //import { initializeApp } from "firebase/app";
@@ -18,7 +19,6 @@ const firebaseConfig = {
   appId: "1:561309052030:web:de8b1a8b587300b61cfc2f",
   measurementId: "G-Y5SW3SNE08"
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-module.exports = { firebase, firebaseConfig, doc };
+module.exports = { firebase, firebaseConfig, doc, storage };

@@ -1,6 +1,9 @@
 const { admin, db } = require("../util/admin");
-const { firebase } = require("../util/firebase");
-const { getAuth, admin2 } = require("firebase-admin/auth");
+const { firebase, storage } = require("../util/firebase");
+const { getStorage, ref, uploadBytes } = require("firebase/storage")
+const { getAuth } = require("firebase-admin/auth");
+const { v4: uuidv4 } = require('uuid');
+const storageRef = admin.storage().bucket(`gs://helpfood-29ce0.appspot.com`);
 db.settings({ ignoreUndefinedProperties: true })
 
 class DonationModel {
@@ -27,7 +30,7 @@ class DonationModel {
         });
     };
 
-    async addDonation(name, description, businessDonor, address, weight, quantity, typeFood, shelfLife) {
+    async addDonation(name, description, businessDonor, address, weight, quantity, typeFood, shelfLife, donationImage) {
         await db.collection('Donation')
         .add({
             Name: name,
@@ -41,7 +44,7 @@ class DonationModel {
         })
         .then((docRef)=> {
             let donationIdList = [];
-
+            const donationId = docRef.id;
             db.collection('Company').doc(businessDonor).get().then((doc) => {
                 if (doc.exists) {
                     donationIdList = doc.donations;
@@ -54,6 +57,14 @@ class DonationModel {
             }).catch(error => {
                 console.log("Error creating a new donation ", error);
             });
+            const destination = `donations/${docRef.id}.png`;
+            const storage = getStorage();
+            const storageRef = ref(storage, 'some-child');
+
+            //'file' comes from the Blob or File API
+            // uploadBytes(storageRef, donationImage).then((snapshot) => {
+           // console.log('Uploaded a blob or file!');
+           // });
             
             console.log("Successfully created a new donation");
 
@@ -64,6 +75,9 @@ class DonationModel {
         });   
     }
 
+    async uploadImage(destination){
+
+    }
 
     async removeDonationById(donationId) {
         console.log(donationId)
