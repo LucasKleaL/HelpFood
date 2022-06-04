@@ -4,10 +4,14 @@ import { Redirect } from 'react-router'
 import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@material-ui/core'
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import Axios from "axios";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 function DonationForm() {
   const [name, setName] = useState("");
@@ -83,8 +87,24 @@ function DonationForm() {
         <TextField label='Endereço' placeholder='Insira o endereço de retirada' onChange={(e) => { setAddress(e.target.value) }} fullWidth required />
         <TextField label='Peso' placeholder='Insira o peso total aproximado' onChange={(e) => { setWeight(e.target.value) }} fullWidth required />
         <TextField label='Quantidade' placeholder='Insira o total de unidades' onChange={(e) => { setQuantity(e.target.value) }} fullWidth required />
-        <TextField label='Tipo' placeholder='Insira o tipo de alimento' onChange={(e) => { setTypeFood(e.target.value) }} fullWidth required />
-        <TextField label='Validade' placeholder='Validade do alimento' type='date' onChange={(e) => { setShelfLife(e.target.value) }} fullWidth required />
+        <FormControl variant="standard" fullWidth required>
+        <InputLabel id="demo-simple-select-standard-label">Tipo de alimento</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={typeFood} label="Tipo de alimento" onChange={(e) => { setTypeFood(e.target.value) }} fullWidth required
+        >
+          <MenuItem value={"Lanche"}>Lanche</MenuItem>
+          <MenuItem value={"Comida"}>Comida</MenuItem>
+          <MenuItem value={"Bebida"}>Bebida</MenuItem>
+          <MenuItem value={"Verduras"}>Verdura</MenuItem>
+          <MenuItem value={"Legume"}>Legume</MenuItem>
+          <MenuItem value={"Fruta"}>Fruta</MenuItem>
+
+        </Select>
+        </FormControl>
+
+        <TextField label='Validade' type='date' onChange={(e) => { setShelfLife(e.target.value) }} fullWidth required />
 
         <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={addDonation} fullWidth>Enviar</Button>
 
