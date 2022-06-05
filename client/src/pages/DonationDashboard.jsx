@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
-
+import Doacao from "../components/Doacao";
 
 function DonationDashboard() {
 
@@ -25,19 +25,16 @@ function DonationDashboard() {
     return (
         <div>
             {items.map((item) => (
-                <div>{
-                    item.Address + ", " +
-                    item.BusinessDonor + ", " +
-                    item.Description + ", " +
-                    item.Name + ", " +
-                    item.Quantity + ", " +
-                    item.ShelfLife + ", " +
-                    item.TypeFood + ", " +
-                    item.Weight
-                }</div>
-
+                <div style={{backgroundColor:"green"}}>
+                    {item.BusinessDonor}
+                    <div><h1>teste</h1></div>
+                    <div style={{backgroundColor:"black"}}>{item.Address}</div>
+                    <div>{item.Address}</div>
+                    <div>{item.Address}</div>
+                </div>
             ))}
         </div>
+
     )
 }
 export default DonationDashboard;
