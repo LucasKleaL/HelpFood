@@ -1,6 +1,6 @@
+import { Button } from '@mui/material';
 import React, { useState, useEffect, useLayoutEffect } from 'react'
-import Doacao from "../components/Doacao";
-
+import "./../styles/dashboard.css";
 function DonationDashboard() {
 
     const [items, setItems] = useState([]);
@@ -23,18 +23,27 @@ function DonationDashboard() {
     }, [])
 
     return (
-        <div className="center">
+        <div className="center" style={{ borderRadius: "1px" }}>
             {items.map((item) => (
-                <div className={"center"}>
-                    <div className={"text-align"} style={{backgroundColor:"green"}}><h1>{item.Name}</h1></div>
-                    <div><h1>Endereço:</h1> {item.Address}</div>
-                    <div><h1>Código doação:</h1> {item.BusinessDonor}</div>
-                    <div><h1>Descrição:</h1> {item.Description}</div>
-                    <div><h1>Quantidade:</h1> {item.Quantity}</div>
-                    <div><h1>Validade:</h1> {item.ShelfLife}</div>
-                    <div><h1>Categoria:</h1> {item.TypeFood}</div>
-                    <div><h1>Quantidade:</h1> {item.Weight}</div>
-                    <div className={"text-align"}><button >Botão</button></div>
+
+                <div className={"containerCard"} style={{float: "left", padding: "10px" }}>
+                    <div _ngcontent-rkn-c119="" style={{padding: "0px"}} className="card flex-row align-items-center m-2 ng-star-inserted">
+                        <div _ngcontent-rkn-c119="" className="col-5 image-container">
+                            <img _ngcontent-rkn-c119="" alt="HelpFood" src="https://app.comidainvisivel.com.br/assets/images/alimento/thum_nophoto1.jpg" /></div>
+                        <div _ngcontent-rkn-c119="" className="col-7 card-container pl-2"><div _ngcontent-rkn-c119="" className="card-content-header d-flex justify-content-between align-items-center w-100 pb-2">
+                            <div _ngcontent-rkn-c119="" className="card-content-title flex-1"> {item.TypeFood} </div><div _ngcontent-rkn-c119="" className="card-distancia"> 297km </div>
+                        </div>
+                            <div _ngcontent-rkn-c119="" className="card-content-body">
+                                <h6 _ngcontent-rkn-c119="" className="text-uppercase font-weight-bold">{item.Name}</h6>
+                                <p _ngcontent-rkn-c119="">{item.Weight}</p>
+                                <p _ngcontent-rkn-c119="">Fracionamento: {item.Quantity} un.</p>
+                                <Button variant="outlined">Solicitar</Button>
+                            </div>
+                        </div>
+                        <div _ngcontent-rkn-c119="" className="row position-absolute pin-card">
+
+                        </div>
+                    </div>
                 </div>
             ))}
         </div>
