@@ -14,6 +14,7 @@ import "./../styles/admin.css";
 
 import Footer from "../components/Footer";
 import PieChartComponent from "../components/Chart";
+import TopMenu from "../components/TopMenu";
 
 function LandingPage() {
 
@@ -42,6 +43,7 @@ function LandingPage() {
                     setItems(result)
                 }
             );
+        console.log(items)
         var comidaFilter = items.filter(function(item){
             var type = item.TypeFood === "Comida";     
             return type   
@@ -80,7 +82,6 @@ function LandingPage() {
 
     }
 
-
     const HeaderTitleStyle = {
         color: "var(--white)",
         fontSize: "2rem",
@@ -98,6 +99,8 @@ function LandingPage() {
 
     return (
         <div style={{ backgroundColor: "white" }}>
+            <TopMenu/>
+
             <div style={{ backgroundColor: "white" }}>
 
                 <header>
