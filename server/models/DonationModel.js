@@ -9,9 +9,24 @@ class DonationModel {
 
     }
     async getAllDonation(result) {
-        const snapshot = await db.collection('Donation').get();
-        let resultGetAllDonation = snapshot.docs.map(doc => doc.data());
-        result(null, resultGetAllDonation);  
+        await db.collection('Donation').get().then((data) => {
+			let donations = [];
+			data.forEach((doc) => {
+				donations.push({
+                    Id: doc.id,
+                    Address: doc.data().Address,
+                    BusinessDonor: doc.data().Address,
+                    Description: doc.data().Description,
+                    Name: doc.data().Name,
+                    Quantity: doc.data().Quantity,
+                    ShelfLife: doc.data().ShelfLife,
+                    TypeFood: doc.data().TypeFood,
+                    Weight: doc.data().Weight
+				});
+			});
+            result(null, donations);  
+
+		});
     }
 
     async getDonationById(donationId, result) {
