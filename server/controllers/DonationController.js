@@ -15,8 +15,9 @@ class DonationController {
             });
         });
 
-        app.get('/donation/getDonationById', (req, res) => {
-            donation.getDonationById(function (error, result) {
+        app.get('/donation/getDonationById/:id', (req, res) => {
+            const itemId = req.params.id;
+            donation.getDonationById(itemId, function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {
