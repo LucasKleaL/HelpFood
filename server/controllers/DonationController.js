@@ -31,11 +31,14 @@ class DonationController {
                 req.body.name,
                 req.body.description,
                 req.body.businessDonor,
-                req.body.address,
+                req.body.district,
                 req.body.weight,
                 req.body.quantity,
                 req.body.typeFood,
-                req.body.shelfLife
+                req.body.shelfLife,
+                req.body.street,
+                req.body.number,
+                req.body.phone
             );
             if (result) {
                 res.sendStatus(200)

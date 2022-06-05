@@ -14,18 +14,21 @@ class DonationModel {
             data.forEach((doc) => {
                 donations.push({
                     Id: doc.id,
-                    Address: doc.data().Address,
+                    District: doc.data().District,
                     BusinessDonor: doc.data().BusinessDonor,
                     Description: doc.data().Description,
                     Name: doc.data().Name,
                     Quantity: doc.data().Quantity,
                     ShelfLife: doc.data().ShelfLife,
                     TypeFood: doc.data().TypeFood,
-                    Weight: doc.data().Weight
+                    Weight: doc.data().Weight,
+                    Street: doc.data().District,
+                    Number: doc.data().Number,
+                    Phone: doc.data().Phone,
+                    Active: doc.data().Active
                 });
             });
             result(null, donations);
-
         });
     }
 
@@ -39,14 +42,18 @@ class DonationModel {
                 let donations = [];
                 donations.push({
                     Id: doc.id,
-                    Address: doc.data().Address,
+                    District: doc.data().District,
                     BusinessDonor: doc.data().BusinessDonor,
                     Description: doc.data().Description,
                     Name: doc.data().Name,
                     Quantity: doc.data().Quantity,
                     ShelfLife: doc.data().ShelfLife,
                     TypeFood: doc.data().TypeFood,
-                    Weight: doc.data().Weight
+                    Weight: doc.data().Weight,
+                    Street: doc.data().District,
+                    Number: doc.data().Number,
+                    Phone: doc.data().Phone,
+                    Active: doc.data().Active
                 });
                 result(null, donations);
             }
@@ -55,17 +62,21 @@ class DonationModel {
         });
     };
 
-    async addDonation(name, description, businessDonor, address, weight, quantity, typeFood, shelfLife) {
+    async addDonation(name, description, businessDonor, district, weight, quantity, typeFood, shelfLife, street, number, phone) {
         await db.collection('Donation')
             .add({
                 Name: name,
                 Description: description,
                 BusinessDonor: businessDonor,
-                Address: address,
+                District: district,
                 Weight: weight,
                 Quantity: quantity,
                 TypeFood: typeFood,
-                ShelfLife: shelfLife
+                ShelfLife: shelfLife,
+                Street: street,
+                Number: number,
+                Phone: phone,
+                Active: true
             })
             .then((docRef) => {
                 let donationIdList = [];

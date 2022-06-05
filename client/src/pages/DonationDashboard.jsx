@@ -31,7 +31,7 @@ function DonationDashboard() {
                         <div _ngcontent-rkn-c119="" className="col-5 image-container">
                             <img _ngcontent-rkn-c119="" alt="HelpFood" src="https://app.comidainvisivel.com.br/assets/images/alimento/thum_nophoto1.jpg" /></div>
                         <div _ngcontent-rkn-c119="" className="col-7 card-container pl-2"><div _ngcontent-rkn-c119="" className="card-content-header d-flex justify-content-between align-items-center w-100 pb-2">
-                            <div _ngcontent-rkn-c119="" className="card-content-title flex-1"> {item.TypeFood} </div><div _ngcontent-rkn-c119="" className="card-distancia"> 297km </div>
+                            <div _ngcontent-rkn-c119="" className="card-content-title flex-1"> {item.TypeFood} </div><div _ngcontent-rkn-c119=""> {item.District} </div>
                         </div>
                             <div _ngcontent-rkn-c119="" className="card-content-body">
                                 <h6 _ngcontent-rkn-c119="" className="text-uppercase font-weight-bold">{item.Name}</h6>
