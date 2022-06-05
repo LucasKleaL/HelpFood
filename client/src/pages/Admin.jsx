@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import { Container, Grid, Button, Box, Select, Typography } from "@material-ui/core";
-import Paper from '@material-ui/core/Paper';
 import {
     Chart,
     PieSeries,
@@ -13,7 +12,6 @@ import {
 import "./../styles/admin.css";
 
 import Footer from "../components/Footer";
-import PieChartComponent from "../components/Chart";
 import TopMenu from "../components/TopMenu";
 
 function LandingPage() {
@@ -26,10 +24,6 @@ function LandingPage() {
     let [countLegumes, setCountLegumes] = useState(0);
     let [countFrutas, setCountFrutas] = useState(0);
     useEffect(() => {
-        
-    }, [])
-
-    function teste() {
         const response = fetch("http://localhost:3001/donation/getAll", {
             method: "GET",
             headers: {
@@ -41,45 +35,50 @@ function LandingPage() {
             .then(
                 (result) => {
                     setItems(result)
+                    teste(result)
                 }
             );
         console.log(items)
-        var comidaFilter = items.filter(function(item){
+    }, [])
+
+    function teste(result) {
+        var comidaFilter = result.filter(function(item){
             var type = item.TypeFood === "Comida";     
             return type   
         });
         setCountComidas(comidaFilter.length)
 
-        var lancheFilter = items.filter(function(item){
+        var lancheFilter = result.filter(function(item){
             var type = item.TypeFood === "Lanche";     
             return type   
         });
         setCountLanches(lancheFilter.length)
 
-        var bebidaFilter = items.filter(function(item){
+        var bebidaFilter = result.filter(function(item){
             var type = item.TypeFood === "Bebida";     
             return type   
         });
         setCountBebidas(bebidaFilter.length)
 
-        var verduraFilter = items.filter(function(item){
+        var verduraFilter = result.filter(function(item){
             var type = item.TypeFood === "Verdura";     
             return type   
         });
         setCountVerduras(verduraFilter.length)
 
-        var legumeFilter = items.filter(function(item){
+        var legumeFilter = result.filter(function(item){
             var type = item.TypeFood === "Legume";     
             return type   
         });
         setCountLegumes(legumeFilter.length)
 
-        var frutaFilter = items.filter(function(item){
+        var frutaFilter = result.filter(function(item){
             var type = item.TypeFood === "Fruta";     
             return type   
         });
         setCountFrutas(frutaFilter.length)
 
+        console.log(frutaFilter.length)
     }
 
     const HeaderTitleStyle = {
@@ -98,6 +97,7 @@ function LandingPage() {
     ];
 
     return (
+        
         <div style={{ backgroundColor: "white" }}>
             <TopMenu/>
 
@@ -113,13 +113,12 @@ function LandingPage() {
                     <Chart
                         data={data}
                         label={"test"}
+                        
                     >
                         <PieSeries valueField="value" argumentField="argument" />
                         <Title text="Doações recebidas" />
-                        <Animation></Animation>
                         <Legend></Legend>
                     </Chart>
-                    <Button onClick={teste}>Mostrar dados</Button>
                 </div>
             </div>
             <Footer></Footer>
