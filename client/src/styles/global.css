@@ -29,9 +29,11 @@
     --red-fire: #FF0000;
 }
 
+/*
 body {
     background-color: var(--black-background);
 }
+*/
 
 header {
     width: 100%;
