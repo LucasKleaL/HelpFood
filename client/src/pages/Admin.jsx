@@ -118,6 +118,7 @@ function LandingPage() {
                         <PieSeries valueField="value" argumentField="argument" />
                         <Title text="Doações recebidas" />
                         <Legend></Legend>
+                        <Animation/>
                     </Chart>
                 </div>
             </div>
