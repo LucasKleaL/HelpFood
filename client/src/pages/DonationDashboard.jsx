@@ -1,6 +1,14 @@
 import { Button } from '@mui/material';
 import React, { useState, useEffect, useLayoutEffect } from 'react'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 import "./../styles/dashboard.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLemon } from '@fortawesome/free-solid-svg-icons'
 function DonationDashboard() {
 
     const [items, setItems] = useState([]);
@@ -26,25 +34,36 @@ function DonationDashboard() {
         <div className="center" style={{ borderRadius: "1px" }}>
             {items.map((item) => (
 
-                <div className={"containerCard"} style={{float: "left", padding: "10px" }}>
-                    <div _ngcontent-rkn-c119="" style={{padding: "0px"}} className="card flex-row align-items-center m-2 ng-star-inserted">
-                        <div _ngcontent-rkn-c119="" className="col-5 image-container">
-                            <img _ngcontent-rkn-c119="" alt="HelpFood" src="https://app.comidainvisivel.com.br/assets/images/alimento/thum_nophoto1.jpg" /></div>
-                        <div _ngcontent-rkn-c119="" className="col-7 card-container pl-2"><div _ngcontent-rkn-c119="" className="card-content-header d-flex justify-content-between align-items-center w-100 pb-2">
-                            <div _ngcontent-rkn-c119="" className="card-content-title flex-1"> {item.TypeFood} </div><div _ngcontent-rkn-c119=""> {item.District} </div>
-                        </div>
-                            <div _ngcontent-rkn-c119="" className="card-content-body">
-                                <h6 _ngcontent-rkn-c119="" className="text-uppercase font-weight-bold">{item.Name}</h6>
-                                <p _ngcontent-rkn-c119="">{item.Weight}</p>
-                                <p _ngcontent-rkn-c119="">Fracionamento: {item.Quantity} un.</p>
-                                <Button variant="outlined">Solicitar</Button>
-                            </div>
-                        </div>
-                        <div _ngcontent-rkn-c119="" className="row position-absolute pin-card">
+                <Card sx={{ maxWidth: 315, minWidth: 315, float: "left", margin: 1 }}>
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image="https://static.vecteezy.com/ti/vetor-gratis/p1/2554852-seamless-pattern-with-food-on-dark-blue-background-gr%C3%A1tis-vetor.jpg"
+                        alt="green iguana"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {item.Name}
+                        </Typography>
+                        <Typography variant="body2" >
+                            {item.Description}
+                        </Typography>
 
-                        </div>
-                    </div>
-                </div>
+                    </CardContent>
+                    <Divider />
+                    <CardContent>
+                        <Typography variant="body2" color="text.secondary">
+                            {item.TypeFood + " "}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Validade: {item.ShelfLife}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Solicitar</Button>
+                        <Button size="small">Detalhes</Button>
+                    </CardActions>
+                </Card>
             ))}
         </div>
 
