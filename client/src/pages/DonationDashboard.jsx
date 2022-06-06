@@ -41,8 +41,14 @@ function DonationDashboard() {
                         image="https://static.vecteezy.com/ti/vetor-gratis/p1/2554852-seamless-pattern-with-food-on-dark-blue-background-gr%C3%A1tis-vetor.jpg"
                         alt="green iguana"
                     />
+                    <div>
+                        <Typography variant="body2" color="text.secondary" sx={{ float: "right", paddingRight: "4px" }}>
+                            Validade: {item.ShelfLife}
+                        </Typography>
+                    </div>
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
+
+                        <Typography gutterBottom variant="h6" component="div">
                             {item.Name}
                         </Typography>
                         <Typography variant="body2" >
@@ -50,18 +56,21 @@ function DonationDashboard() {
                         </Typography>
 
                     </CardContent>
-                    <Divider />
+
                     <CardContent>
-                        <Typography variant="body2" color="text.secondary">
-                            {item.TypeFood + " "}
+                        <Typography variant="body2" color="text.secondary" sx={{ float: "right", paddingRight: "4px" }}>
+                            {item.Quantity} un.
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Validade: {item.ShelfLife}
+                        <Typography variant="body2" color="text.secondary" >
+                            Bairro: {item.District}
                         </Typography>
+
                     </CardContent>
-                    <CardActions>
-                        <Button size="small">Solicitar</Button>
-                        <Button size="small">Detalhes</Button>
+                    <Divider />
+
+                    <CardActions sx={{ alignContent: "center" }}>
+                        <Button size="small" sx={{ width: "50%" }}>Solicitar</Button>
+                        <Button size="small" sx={{ width: "50%" }}>Detalhes</Button>
                     </CardActions>
                 </Card>
             ))}
