@@ -15,8 +15,9 @@ class DonationController {
             });
         });
 
-        app.get('/donation/getDonationById', (req, res) => {
-            donation.getDonationById(function (error, result) {
+        app.get('/donation/getDonationById/:id', (req, res) => {
+            const itemId = req.params.id;
+            donation.getDonationById(itemId, function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {
@@ -30,11 +31,14 @@ class DonationController {
                 req.body.name,
                 req.body.description,
                 req.body.businessDonor,
-                req.body.address,
+                req.body.district,
                 req.body.weight,
                 req.body.quantity,
                 req.body.typeFood,
-                req.body.shelfLife
+                req.body.shelfLife,
+                req.body.street,
+                req.body.number,
+                req.body.phone
             );
             if (result) {
                 res.sendStatus(200)

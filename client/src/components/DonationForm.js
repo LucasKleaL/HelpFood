@@ -4,22 +4,34 @@ import { Redirect } from 'react-router'
 import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@material-ui/core'
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import Axios from "axios";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 function DonationForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [businessDonor, setBusinessDonor] = useState("");
-  const [address, setAddress] = useState("");
+  const [district, setDistrict] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [weight, setWeight] = useState("");
   const [quantity, setQuantity] = useState("");
   const [typeFood, setTypeFood] = useState("");
   const [shelfLife, setShelfLife] = useState("");
   const MySwal = withReactContent(Swal)
 
+  useEffect(() => {
+    Axios.get('http://localhost:3001/user/getCurrentUserId').then(resp => {
+      setBusinessDonor(resp.data)
+    });
+}, [])
 
   function alertSuccessDonation() {
     MySwal.fire({
@@ -39,11 +51,8 @@ function DonationForm() {
 
   //Consulta o id do usuário que é o mesmo da empresa e em seguida cria a doação no banco
   function addDonation() {
-    Axios.get('http://localhost:3001/user/getCurrentUserId').then(resp => {
-      setBusinessDonor(resp.data)
-    });
     if (businessDonor === "" | businessDonor === undefined) {
-      return;
+      alertErrorDonation();
     } else {
       postDonation();
     }
@@ -53,11 +62,14 @@ function DonationForm() {
       name: name,
       description: description,
       businessDonor: businessDonor,
-      address: address,
+      district: district,
       weight: weight,
       quantity: quantity,
       typeFood: typeFood,
-      shelfLife: shelfLife
+      shelfLife: shelfLife,
+      street: street,
+      phone: phone,
+      number: number
     }).then((response) => {
       if (response.status === 200) {
         alertSuccessDonation()
@@ -80,11 +92,30 @@ function DonationForm() {
         </Grid>
         <TextField label='Nome' placeholder='Insira o nome do alimento' onChange={(e) => { setName(e.target.value) }} fullWidth required />
         <TextField label='Descrição' placeholder='Descreva a doação' type='text' onChange={(e) => { setDescription(e.target.value) }} fullWidth required />
-        <TextField label='Endereço' placeholder='Insira o endereço de retirada' onChange={(e) => { setAddress(e.target.value) }} fullWidth required />
+        <TextField label='Bairro' placeholder='Insira o bairro de retirada' onChange={(e) => { setDistrict(e.target.value) }} fullWidth required />
+        <TextField label='Rua' placeholder='Insira a rua' onChange={(e) => { setStreet(e.target.value) }} fullWidth required />
+        <TextField label='Numero' placeholder='Insira o número do local' onChange={(e) => { setNumber(e.target.value) }} fullWidth required />
+        <TextField label='Contato' placeholder='Insira um número de contato' onChange={(e) => { setPhone(e.target.value) }} fullWidth required />
         <TextField label='Peso' placeholder='Insira o peso total aproximado' onChange={(e) => { setWeight(e.target.value) }} fullWidth required />
         <TextField label='Quantidade' placeholder='Insira o total de unidades' onChange={(e) => { setQuantity(e.target.value) }} fullWidth required />
-        <TextField label='Tipo' placeholder='Insira o tipo de alimento' onChange={(e) => { setTypeFood(e.target.value) }} fullWidth required />
-        <TextField label='Validade' placeholder='Validade do alimento' type='date' onChange={(e) => { setShelfLife(e.target.value) }} fullWidth required />
+        <FormControl variant="standard" fullWidth required>
+        <InputLabel id="demo-simple-select-standard-label">Tipo de alimento</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={typeFood} label="Tipo de alimento" onChange={(e) => { setTypeFood(e.target.value) }} fullWidth required
+        >
+          <MenuItem value={"Lanche"}>Lanche</MenuItem>
+          <MenuItem value={"Comida"}>Comida</MenuItem>
+          <MenuItem value={"Bebida"}>Bebida</MenuItem>
+          <MenuItem value={"Verdura"}>Verdura</MenuItem>
+          <MenuItem value={"Legume"}>Legume</MenuItem>
+          <MenuItem value={"Fruta"}>Fruta</MenuItem>
+
+        </Select>
+        </FormControl>
+
+        <TextField label='Validade' type='date' onChange={(e) => { setShelfLife(e.target.value) }} fullWidth required />
 
         <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={addDonation} fullWidth>Enviar</Button>
 

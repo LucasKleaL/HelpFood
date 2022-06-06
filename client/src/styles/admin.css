@@ -1,0 +1,7 @@
+
+@media screen and (min-width: 1025px) {
+    .chartContainer{
+        padding-left: 400px !important;
+        padding-right: 400px !important;
+    }
+}

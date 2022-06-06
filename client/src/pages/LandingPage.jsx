@@ -83,7 +83,8 @@ function LandingPage() {
                             </Link>
 
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button>  
-
+                            <LoginForm></LoginForm>
+                            <DonationForm></DonationForm>
                         </ThemeProvider>
                     </div>
                 </header>
