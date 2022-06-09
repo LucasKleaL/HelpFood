@@ -108,7 +108,7 @@ function DonationDashboard() {
     }
 
     return (
-        <div style={{minHeight: "1000px"}}>
+        <div>
             <TopMenu />
             {
                 items.length === 0 ?
