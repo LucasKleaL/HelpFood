@@ -48,6 +48,20 @@ class DonationController {
             }
         });
 
+        app.post('/donation/reserve', (req, res) => {
+            console.log(req.body.receiverId)
+            var result = donation.reserveDonation(
+                req.body.donationId,
+                req.body.receiverId
+            );
+            if (result) {
+                res.sendStatus(200)
+            }
+            else {
+                res.sendStatus(500);
+            }
+        });
+
         app.post('/donation/UpdateDonation', (req, res) => {
             var result = donation.updateDonation(
                 req.body.donationId,

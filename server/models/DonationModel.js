@@ -12,21 +12,23 @@ class DonationModel {
         await db.collection('Donation').get().then((data) => {
             let donations = [];
             data.forEach((doc) => {
-                donations.push({
-                    Id: doc.id,
-                    District: doc.data().District,
-                    BusinessDonor: doc.data().BusinessDonor,
-                    Description: doc.data().Description,
-                    Name: doc.data().Name,
-                    Quantity: doc.data().Quantity,
-                    ShelfLife: doc.data().ShelfLife,
-                    TypeFood: doc.data().TypeFood,
-                    Weight: doc.data().Weight,
-                    Street: doc.data().District,
-                    Number: doc.data().Number,
-                    Phone: doc.data().Phone,
-                    Active: doc.data().Active
-                });
+                if(doc.data().Active){
+                    donations.push({
+                        Id: doc.id,
+                        District: doc.data().District,
+                        BusinessDonor: doc.data().BusinessDonor,
+                        Description: doc.data().Description,
+                        Name: doc.data().Name,
+                        Quantity: doc.data().Quantity,
+                        ShelfLife: doc.data().ShelfLife,
+                        TypeFood: doc.data().TypeFood,
+                        Weight: doc.data().Weight,
+                        Street: doc.data().District,
+                        Number: doc.data().Number,
+                        Phone: doc.data().Phone,
+                        Active: doc.data().Active
+                    });
+                }
             });
             result(null, donations);
         });
@@ -103,6 +105,27 @@ class DonationModel {
             });
     }
 
+    async reserveDonation(donationId, receiverId) {
+        console.log(donationId)
+        await db.collection('Donation').doc(donationId).get().then((snapshot) => {
+            if (snapshot.exists) {
+                let docRef = db.collection('Donation').doc(donationId);
+                docRef.update({
+                    Receiver: receiverId,
+                    Active: false
+                }).then(() => {
+                    console.log("Successfully reserved donation");
+                    return true;
+                }).catch(() => {
+                    console.log("Donation not reserved", error);
+                    return false;
+                });
+            } else {
+                console.log("Donation not found", error);
+                return false;
+            }
+        });
+    }
 
     async removeDonationById(donationId) {
         console.log(donationId)
