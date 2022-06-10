@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useLayoutEffect } from "react";
 import { Button, Grid, Container, DataGrid } from '@mui/material';
-import  { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Axios from "axios";
 
 import LoginModal from "../components/LoginModal";
@@ -18,9 +18,24 @@ function Dashboard() {
     useLayoutEffect(() => {
         Axios.get("http://localhost:3001/user/getUserAuth")
             .then((result) => {
-                console.log("useEffect " + result.data)
                 setIsAuth(result.data);
-                
+                Axios.get("http://localhost:3001/user/getCurrentUserId")
+                    .then((result) => {
+                        var url = "http://localhost:3001/user/isBusiness/" + result.data
+                        Axios.get(url)
+                            .then((result) => {
+                                if(result.data === true){
+                                    setIsBusiness(true);
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             })
             .catch((error) => {
                 console.log(error);
@@ -28,17 +43,13 @@ function Dashboard() {
 
     }, []);
 
-    useEffect(() => {
-        
-        
-    }, [isAuth]);
     return (
         <div>
             <TopMenu />
             {
                 isAuth ? <div /> : <LoginModal />
             }
-            {
+             {
                 isBusiness ?
                     <Container maxWidth="lg" >
                         <Grid container justifyContent="center" paddingTop={15}>
@@ -48,6 +59,7 @@ function Dashboard() {
                     :
                     <DonationDashboard />
             }
+
             <Footer theme={themeComponent.getActualTheme()} />
         </div>
     )
