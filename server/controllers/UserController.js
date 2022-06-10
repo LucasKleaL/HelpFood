@@ -12,12 +12,10 @@ class UserController {
             );
             if (result) {
                 result.then((response) => {
-                    console.log("auth node result: "+response)
                     res.status(200).send(response);
                 })
             }
             else {
-                console.log("auth node result: "+result)
                 res.status(500).send(false);
             }
         });
@@ -26,7 +24,6 @@ class UserController {
             let result = user.getUserAuth();
             if (result) {
                 result.then((response) => {
-                    console.log("getUserAuth: "+response);
                     res.status(200).send(response);
                 })
             }
@@ -57,6 +54,17 @@ class UserController {
 
         app.get('/user/getUserById', (req, res) => {
             user.getUserById(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
+        app.get('/user/isBusiness/:id', (req, res) => {
+            var userId = req.params.id;
+            user.isBusiness(userId, function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {
