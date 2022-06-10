@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Grid, Button, Box, Select, Typography, Switch } from "@material-ui/core";
+import { Container, Grid, Button, Box, Select, Typography, } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
@@ -13,8 +13,6 @@ import ThemeComponent from "../components/ThemeComponent";
 function LandingPage() {
 
     const themeComponent = new ThemeComponent();
-
-    const [themeSwitch, setThemeSwitch] = useState(false);
 
     const HeaderWallpaperStyle = {
         width: "100%",
@@ -73,9 +71,6 @@ function LandingPage() {
 
                     <div style={{float: "right", marginTop: "0.5rem"}}>
                         <ThemeProvider theme={WhiteButtonTheme}>
-
-                            <Switch onChange={(e) => { setThemeSwitch(e.target.value); alert(e.target.value) }}/>
-                          
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
 
                             <Link to="/donate" style={{textDecoration: "none"}}>
