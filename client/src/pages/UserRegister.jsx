@@ -2,6 +2,8 @@ import { React, useState } from "react";
 import { Container, Grid, Button, Box, TextField, Select } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import MaterialButtonTheme from "./../themes/MaterialButtonTheme";
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 import Axios from "axios";
 import Footer from "../components/Footer";
 
@@ -15,12 +17,15 @@ function UserRegister () {
     const [retryPassword, setRetryPassword] = useState("");
 
     function addUser() {
+        let nonce = "HelpFood#sha256#420"
+        let hashPassword = Base64.stringify(sha256(nonce + password));
+
         Axios.post("http://localhost:3001/user/add", {
             name: name,
             cpf: cpf,
             email: email,
             ongName: ongName,
-            password: password,
+            password: hashPassword,
             retryPassword: retryPassword
         });
     }

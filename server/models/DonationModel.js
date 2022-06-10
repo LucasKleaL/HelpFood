@@ -35,7 +35,6 @@ class DonationModel {
     }
 
     async getDonationById(id, result) {
-        console.log(id);
         db.collection('Donation').doc(id).get().then((doc) => {
             if (!doc.exists) {
                 let resultGetUserById = { message: 'No such document!' };

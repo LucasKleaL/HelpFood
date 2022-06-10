@@ -62,6 +62,19 @@ class UserModel {
         });
     };
 
+    async isBusiness(userId, result) {
+        db.collection('Company').doc(userId).get().then((doc) => {
+            if (!doc.exists) {
+                let resultGetUserById = { message: 'No such document!' };
+                result(null, false);
+            } else {
+                result(null, true);
+            }
+        }).catch(error => {
+            result(null, error);
+        });
+    };
+
     async removeUserById(userId) {
         getAuth()
             .deleteUser(userId)
