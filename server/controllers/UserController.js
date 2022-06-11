@@ -42,6 +42,16 @@ class UserController {
             });
         });
 
+        app.get('/user/getCurrentUserData', (req, res) => {
+            user.getCurrentUserData(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
         app.get('/user/getAll', (req, res) => {
             user.getAllUsers(function (error, result) {
                 if (error) {
