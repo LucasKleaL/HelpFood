@@ -13,32 +13,71 @@ import TopMenu from "../components/TopMenu";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
+
 function CompanyDashboard() {
+    const [companyData, setCompanyData] = useState([]);
+    const [allOngs, setAllOngs] = useState([]);
+    useLayoutEffect(() => {
+        fetch("http://localhost:3001/user/getCurrentCompanyData", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setCompanyData(result)
+                }
+            );
+            fetch("http://localhost:3001/user/getAllOngs", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setAllOngs(result)
+                }
+            );
+
+    }, []);
 
     return (
         <div>
             <Container maxWidth="lg"  >
-                <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
-                    <Grid item>
-                        <h1 style={{ fontSize: "80px", color: "white" }}>COMPANY</h1>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
-                    <Grid item justifyContent="center">
-                        <h1 style={{paddingLeft: "30px", color: "white", fontSize: "30px" }}>Suas doações</h1>
-                        <br/>
-                        <br/>
-                        <Grid item style={{ backgroundColor: "white", padding: "65px", float: "left", margin: "40px", cursor: "pointer" }}>
-                            <h1 style={{ fontSize: "80px" }}>10</h1>
+                
+                {companyData.map((item) => (
+                    <Grid key={item.Id}>
+                        <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
+                            <Grid item>
+                                <h1 style={{ fontSize: "80px", color: "white" }}>{item.Name}</h1>
+                            </Grid>
+                        </Grid>
+                        <Divider style={{backgroundColor: "white", opacity: "25%"}}/>
+                        <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
+                            <Grid item justifyContent="center">
+                                <h1 className='titleCard' >Suas doações</h1>
+                                <br />
+                                <br />
+                                <Grid item className='cardDashboard'>
+                                    <h1 style={{ fontSize: "80px" }}>{item.Donations.length < 10 ? "0"+ item.Donations.length : item.Donations.length}</h1>
+                                </Grid>
+                            </Grid>
+                            <Grid item justifyContent="center">
+                                <h1 className='titleCard'>ONG's que precisam <br />da sua ajuda</h1>
+                                <Grid item className='cardDashboard'>
+                                    <h1 style={{ fontSize: "80px" }}>{allOngs.length < 10 ? "0"+ allOngs.length : allOngs.length}</h1>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item justifyContent="center">
-                        <h1 style={{paddingLeft: "30px", color: "white", fontSize: "30px" }}>ONG's que precisam <br/>da sua ajuda</h1>
-                        <Grid item style={{ backgroundColor: "white", padding: "65px", float: "left", margin: "40px", cursor: "pointer" }}>
-                            <h1 style={{ fontSize: "80px" }}>20</h1>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                ))}
+
             </Container>
         </div>
     )

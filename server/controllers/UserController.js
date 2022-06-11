@@ -62,6 +62,16 @@ class UserController {
             });
         });
 
+        app.get('/user/getAllOngs', (req, res) => {
+            user.getAllOngs(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
         app.get('/user/getUserById', (req, res) => {
             user.getUserById(function (error, result) {
                 if (error) {

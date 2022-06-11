@@ -78,6 +78,13 @@ class UserModel {
         let resultGetAllUsers = snapshot.docs.map(doc => doc.data());
         result(null, resultGetAllUsers);
     }
+    
+    async getAllOngs(result) {
+        const snapshot = await db.collection('Users').get();
+        let resultGetAllUsers = snapshot.docs.map(doc => doc.data().ongName);
+        var unique = resultGetAllUsers.filter((v, i, a) => a.indexOf(v) === i);
+        result(null, unique);
+    }
 
     async getUserById(userId, result) {
         db.collection('Users').doc(userId).get().then((doc) => {
