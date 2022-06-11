@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import ThemeComponent from "../components/ThemeComponent";
 import DonationDashboard from "../components/DonationDashboard";
 import TopMenu from "../components/TopMenu";
+import CompanyDashboard from "../components/CompanyDashboard";
 
 function Dashboard() {
 
@@ -24,7 +25,7 @@ function Dashboard() {
                         var url = "http://localhost:3001/user/isBusiness/" + result.data
                         Axios.get(url)
                             .then((result) => {
-                                if(result.data === true){
+                                if (result.data === true) {
                                     setIsBusiness(true);
                                 }
                             })
@@ -49,13 +50,9 @@ function Dashboard() {
             {
                 isAuth ? <div /> : <LoginModal />
             }
-             {
+            {
                 isBusiness ?
-                    <Container maxWidth="lg" >
-                        <Grid container justifyContent="center" paddingTop={15}>
-                            <h1 style={{ color: "white" }}>TODO Dashboard empresa</h1>
-                        </Grid>
-                    </Container>
+                    <CompanyDashboard/>
                     :
                     <DonationDashboard />
             }

@@ -21,7 +21,15 @@ function LoginForm(){
       Axios.post("http://localhost:3001/user/authUser", {
           email: email,
           password: hashPassword
-      });
+      }).then((response) => {
+        console.log("Login response "+response.data);
+        if (response.data) {
+            window.location.href="http://localhost:3000/dashboard";
+        }
+    })
+    .catch((error) => {
+        console.log("Error on login response "+error);
+    });
       
   }
    /* function logar() {
