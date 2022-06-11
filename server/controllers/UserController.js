@@ -42,8 +42,8 @@ class UserController {
             });
         });
 
-        app.get('/user/getCurrentUserData', (req, res) => {
-            user.getCurrentUserData(function (error, result) {
+        app.get('/user/getCurrentCompanyData', (req, res) => {
+            user.getCurrentCompanyData(function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {

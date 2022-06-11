@@ -24,34 +24,6 @@ class CompanyModel {
             result(null, error);
         });
     };
-    async getCompanyData(id, result) {
-        db.collection('Company').doc(id).get().then((doc) => {
-            if (!doc.exists) {
-                let resultGetUserById = { message: 'No such document!' };
-                result(null, resultGetUserById);
-            } else {
-                let donations = [];
-                donations.push({
-                    Id: doc.id,
-                    District: doc.data().District,
-                    BusinessDonor: doc.data().BusinessDonor,
-                    Description: doc.data().Description,
-                    Name: doc.data().Name,
-                    Quantity: doc.data().Quantity,
-                    ShelfLife: doc.data().ShelfLife,
-                    TypeFood: doc.data().TypeFood,
-                    Weight: doc.data().Weight,
-                    Street: doc.data().District,
-                    Number: doc.data().Number,
-                    Phone: doc.data().Phone,
-                    Active: doc.data().Active
-                });
-                result(null, donations);
-            }
-        }).catch(error => {
-            result(null, error);
-        });
-    };
 
     async addCompany(name, cnpj, email, donations, allowed, password) {
         await admin.auth()

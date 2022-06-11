@@ -43,7 +43,7 @@ class UserModel {
         result(null, auth.currentUser.uid);
     }
 
-    getCurrentUserData(result) {
+    getCurrentCompanyData(result) {
         initializeApp(firebaseConfig)
         const auth = getAuth();
         if (auth.currentUser == null){
