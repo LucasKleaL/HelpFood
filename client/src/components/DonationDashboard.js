@@ -1,5 +1,5 @@
-import { Button, Grid, Container, DataGrid } from '@mui/material';
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import {Button, Container, Grid} from '@mui/material';
+import React, {useEffect, useState} from 'react'
 import Axios from "axios";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,10 +8,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import "./../styles/dashboard.css";
-import Footer from "../components/Footer";
-import TopMenu from "../components/TopMenu";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {useHistory} from "react-router-dom";
 
 function DonationDashboard() {
 
@@ -106,22 +105,28 @@ function DonationDashboard() {
         })
     }
 
+    const history = useHistory();
+    const donation = () => {
+        history.push("/Details")
+        window.location.reload()
+    }
+
     return (
         <div>
             {
                 items.length === 0 ?
-                    <Container maxWidth="lg" >
+                    <Container maxWidth="lg">
                         <Grid container justifyContent="center" paddingTop={15}>
                             <h1>Nenhuma doação disponível no momento. 🙁</h1>
                         </Grid>
                     </Container>
                     :
-                    <Container maxWidth="lg" >
+                    <Container maxWidth="lg">
                         <Grid container spacing={1.3} padding={3}>
 
                             {items.map((item) => (
                                 <Grid item key={item.Id}>
-                                    <Card sx={{ maxWidth: 315, minWidth: 315 }}>
+                                    <Card sx={{maxWidth: 315, minWidth: 315}}>
                                         <CardMedia
                                             component="img"
                                             height="140"
@@ -129,7 +134,8 @@ function DonationDashboard() {
                                             alt="green iguana"
                                         />
                                         <div>
-                                            <Typography variant="body2" color="text.secondary" sx={{ float: "right", paddingRight: "4px" }}>
+                                            <Typography variant="body2" color="text.secondary"
+                                                        sx={{float: "right", paddingRight: "4px"}}>
                                                 Validade: {item.ShelfLife}
                                             </Typography>
                                         </div>
@@ -137,26 +143,29 @@ function DonationDashboard() {
                                             <Typography gutterBottom variant="h6" component="div">
                                                 {item.Name}
                                             </Typography>
-                                            <Typography variant="body2" >
+                                            <Typography variant="body2">
                                                 {item.Description}
                                             </Typography>
 
                                         </CardContent>
 
                                         <CardContent>
-                                            <Typography variant="body2" color="text.secondary" sx={{ float: "right", paddingRight: "4px" }}>
+                                            <Typography variant="body2" color="text.secondary"
+                                                        sx={{float: "right", paddingRight: "4px"}}>
                                                 {item.Quantity} un.
                                             </Typography>
-                                            <Typography variant="body2" color="text.secondary" >
+                                            <Typography variant="body2" color="text.secondary">
                                                 Bairro: {item.District}
                                             </Typography>
                                             <input type={"hidden"} id={item.Id} value={item.Id}></input>
                                         </CardContent>
-                                        <Divider />
+                                        <Divider/>
 
-                                        <CardActions sx={{ alignContent: "center" }}>
-                                            <Button size="small" sx={{ width: "50%" }} onClick={() => alertRequestDonation(item.Id)}>Solicitar</Button>
-                                            <Button size="small" sx={{ width: "50%" }}>Detalhes</Button>
+                                        <CardActions sx={{alignContent: "center"}}>
+                                            <Button size="small" sx={{width: "50%"}}
+                                                    onClick={() => alertRequestDonation(item.Id)}>Solicitar</Button>
+                                            <Button size="small" sx={{width: "50%"}}
+                                                    onClick={() => donation()}>Detalhes</Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
@@ -167,6 +176,7 @@ function DonationDashboard() {
         </div>
     )
 }
+
 export default DonationDashboard;
 
 
