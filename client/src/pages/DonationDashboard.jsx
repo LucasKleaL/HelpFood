@@ -8,17 +8,22 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import "./../styles/dashboard.css";
+import Header from '../components/Header';
 import Footer from "../components/Footer";
-import TopMenu from "../components/TopMenu";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import ThemeComponent from '../components/ThemeComponent';
 
 function DonationDashboard() {
+
+    const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
 
     const [items, setItems] = useState([]);
     const [donationId, setDonationId] = useState("");
     const [receiverId, setReceiverId] = useState("");
     const MySwal = withReactContent(Swal)
+
     useEffect(() => {
         const response = fetch("http://localhost:3001/donation/getAll", {
             method: "GET",
@@ -109,7 +114,9 @@ function DonationDashboard() {
 
     return (
         <div>
-            <TopMenu />
+
+            <Header theme={theme} />
+            
             {
                 items.length === 0 ?
                     <Container maxWidth="lg" >
@@ -167,7 +174,7 @@ function DonationDashboard() {
                     </Container>
             }
 
-            <Footer />
+            <Footer theme={theme} />
 
         </div>
     )

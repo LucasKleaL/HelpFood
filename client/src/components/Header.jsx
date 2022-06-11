@@ -1,10 +1,10 @@
 import { React, Component } from "react";
+import { Link } from "react-router-dom";
 import {
     AppBar,
     Toolbar,
     Typography,
     Grid,
-    Link,
     Icon,
     Container
 } from "@material-ui/core";
@@ -52,6 +52,7 @@ class Header extends Component {
         const HeaderTitleStyle = {
             color: fontColor,
             fontSize: "2rem",
+            cursor: "pointer",
         }
 
         const HeaderIconStyle = {
@@ -65,7 +66,9 @@ class Header extends Component {
             <header style={HeaderStyle}>
                 <div style={HeaderContainerStyle}>
                     <div style={{ width: "10rem", float: "left" }}>
-                        <Typography style={HeaderTitleStyle} >HelpFood</Typography>
+                        <Link to="/" style={{ textDecoration: "none" }} >
+                            <Typography style={HeaderTitleStyle} >HelpFood</Typography>
+                        </Link>
                     </div>
                     <div style={{ float: "right" }}>
                         <AccountCircle style={HeaderIconStyle} />

@@ -12,16 +12,25 @@ class ThemeComponent {
 
         // verify what is the theme to set the page body color style
         if (localTheme == "dark") {
-            document.body.style.backgroundColor = "var(--black-background)";
+            document.body.style.backgroundColor = "var(--gray-dark-background)";
         }
         else {
-            document.body.style.backgroundColor = "var(--white-background)";
+            document.body.style.backgroundColor = "var(--gray-line)";
         }
 
         return localTheme;
     }
 
     getTypographyColor(theme) {
+        if (theme == "dark") {
+            return "var(--gray-line)";
+        }
+        else {
+            return "var(--black-background)";
+        }
+    }
+
+    getTypographyContrastColor(theme) {
         if (theme == "dark") {
             return "var(--white)";
         }
@@ -52,8 +61,21 @@ class ThemeComponent {
         return "var(--black-background)";
     }
 
+    getCardBackgroundColor(theme) {
+        if (theme == "dark") {
+            return "var(--black-background)";
+        } 
+        else {
+            return "var(--white-background)";
+        }
+    }
+
     setThemeSwitch(theme) {
         localStorage.setItem("theme", theme);
+    }
+
+    handleSwitch() {
+
     }
 
 }
