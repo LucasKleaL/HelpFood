@@ -31,6 +31,8 @@ class DonationController {
                 req.body.name,
                 req.body.description,
                 req.body.businessDonor,
+                req.body.nameDonor,
+                req.body.emailDonor,
                 req.body.district,
                 req.body.weight,
                 req.body.quantity,

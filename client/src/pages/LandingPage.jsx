@@ -93,6 +93,7 @@ function LandingPage() {
                                     <LoginForm redirectCompany={redirectCompany} />
                                 </CustomizedDialogs>
                             </Button>
+                            <DonationForm></DonationForm>
                         </ThemeProvider>
                     </div>
                 </header>

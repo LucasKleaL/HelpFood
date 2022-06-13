@@ -31,7 +31,7 @@ function CompanyDashboard() {
                     setCompanyData(result)
                 }
             );
-        fetch("http://localhost:3001/user/getAllOngs", {
+            fetch("http://localhost:3001/user/getAllOngs", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -50,7 +50,7 @@ function CompanyDashboard() {
     return (
         <div>
             <Container maxWidth="lg"  >
-
+                
                 {companyData.map((item) => (
                     <Grid key={item.Id}>
                         <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
@@ -58,20 +58,20 @@ function CompanyDashboard() {
                                 <h1 style={{ fontSize: "80px", color: "white" }}>{item.Name}</h1>
                             </Grid>
                         </Grid>
-                        <Divider style={{ backgroundColor: "white", opacity: "25%" }} />
+                        <Divider style={{backgroundColor: "white", opacity: "25%"}}/>
                         <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
                             <Grid item justifyContent="center">
                                 <h1 className='titleCard' >Suas doações</h1>
                                 <br />
                                 <br />
                                 <Grid item className='cardDashboard'>
-                                    <h1 style={{ fontSize: "80px" }}>{item.Donations.length < 10 ? "0" + item.Donations.length : item.Donations.length}</h1>
+                                    <h1 style={{ fontSize: "80px" }}>{item.Donations.length < 10 ? "0"+ item.Donations.length : item.Donations.length}</h1>
                                 </Grid>
                             </Grid>
                             <Grid item justifyContent="center">
                                 <h1 className='titleCard'>ONG's que precisam <br />da sua ajuda</h1>
                                 <Grid item className='cardDashboard'>
-                                    <h1 style={{ fontSize: "80px" }}>{allOngs.length < 10 ? "0" + allOngs.length : allOngs.length}</h1>
+                                    <h1 style={{ fontSize: "80px" }}>{allOngs.length < 10 ? "0"+ allOngs.length : allOngs.length}</h1>
                                 </Grid>
                             </Grid>
                         </Grid>

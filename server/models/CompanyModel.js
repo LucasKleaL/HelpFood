@@ -39,6 +39,8 @@ class CompanyModel {
                 Cnpj: cnpj,
                 Donations: donations,
                 Allowed: allowed,
+                Name: name,
+                Email: email
             })
             return true;
         })

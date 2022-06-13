@@ -18,6 +18,9 @@ function DonationForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [businessDonor, setBusinessDonor] = useState("");
+  const [nameDonor, setNameDonor] = useState("");
+  const [emailDonor, setEmailDonor] = useState("");
+
   const [district, setDistrict] = useState("");
   const [street, setStreet] = useState("");
   const [number, setNumber] = useState("");
@@ -33,6 +36,14 @@ function DonationForm() {
     Axios.get('http://localhost:3001/user/getCurrentUserId').then(resp => {
       setBusinessDonor(resp.data)
     });
+    
+    Axios.get('http://localhost:3001/user/getCurrentUserEmail').then(resp => {
+      setEmailDonor(resp.data)
+    });
+    Axios.get('http://localhost:3001/user/getCurrentUserName').then(resp => {
+      setNameDonor(resp.data)
+    });
+    
   }, [])
 
   function alertSuccessDonation() {
@@ -60,10 +71,13 @@ function DonationForm() {
     }
   }
   function postDonation() {
+    alert(emailDonor)
     Axios.post("http://localhost:3001/donation/add", {
       name: name,
       description: description,
       businessDonor: businessDonor,
+      nameDonor: nameDonor,
+      emailDonor: emailDonor,
       district: district,
       weight: weight,
       quantity: quantity,

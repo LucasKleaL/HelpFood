@@ -43,6 +43,19 @@ class UserModel {
         result(null, auth.currentUser.uid);
     }
 
+    getCurrentUserName(result) {
+        initializeApp(firebaseConfig)
+        const auth = getAuth();
+        if (auth.currentUser !== null) 
+        result(null, auth.currentUser.displayName);
+    }
+    getCurrentUserEmail(result) {
+        initializeApp(firebaseConfig)
+        const auth = getAuth();
+        if (auth.currentUser !== null) 
+        result(null, auth.currentUser.email);
+    }
+
     getCurrentCompanyData(result) {
         initializeApp(firebaseConfig)
         const auth = getAuth();
