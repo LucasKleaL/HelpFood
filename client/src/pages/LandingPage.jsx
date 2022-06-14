@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Grid, Button, Box, Select, Typography, Switch } from "@material-ui/core";
+import { Container, Grid, Button, Box, Select, Typography, } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
@@ -80,6 +80,8 @@ function LandingPage() {
                         <ThemeProvider theme={WhiteButtonTheme}>
 
                             <Switch onChange={(e) => { setThemeSwitch(e.target.value); alert(e.target.value) }} />
+
+                            <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
 
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
 

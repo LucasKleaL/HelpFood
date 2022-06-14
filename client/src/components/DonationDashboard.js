@@ -8,17 +8,20 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import "./../styles/dashboard.css";
-import Footer from "../components/Footer";
-import TopMenu from "../components/TopMenu";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import ThemeComponent from './ThemeComponent';
 
 function DonationDashboard() {
+
+    const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
 
     const [items, setItems] = useState([]);
     const [donationId, setDonationId] = useState("");
     const [receiverId, setReceiverId] = useState("");
     const MySwal = withReactContent(Swal)
+
     useEffect(() => {
         fetch("http://localhost:3001/donation/getAll", {
             method: "GET",
@@ -106,6 +109,11 @@ function DonationDashboard() {
         })
     }
 
+    const ButtonStyle = {
+        width: "50%",
+        fontWeigth: "solid",
+    }
+
     return (
         <div>
             {
@@ -121,7 +129,7 @@ function DonationDashboard() {
 
                             {items.map((item) => (
                                 <Grid item key={item.Id}>
-                                    <Card sx={{ maxWidth: 315, minWidth: 315 }}>
+                                    <Card sx={{ maxWidth: 315, minWidth: 315, backgroundColor: themeComponent.getCardBackgroundColor(theme) }}>
                                         <CardMedia
                                             component="img"
                                             height="140"
@@ -129,25 +137,26 @@ function DonationDashboard() {
                                             alt="HelpFood img"
                                         />
                                         <div>
-                                            <Typography variant="body2" color="text.secondary" sx={{ float: "right", paddingRight: "4px" }}>
+                                            <Typography variant="body2" sx={{ color: themeComponent.getTypographyColor(theme), float: "right", paddingRight: "4px" }}>
                                                 Validade: {item.ShelfLife}
                                             </Typography>
                                         </div>
                                         <CardContent>
-                                            <Typography gutterBottom variant="h6" className="nameCard" component="div">
+
+                                            <Typography gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 {item.Name}
                                             </Typography>
-                                            <Typography variant="body2" title={item.Description} className="description">
+                                            <Typography variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 {item.Description}
                                             </Typography>
 
                                         </CardContent>
 
                                         <CardContent>
-                                            <Typography variant="body2" color="text.secondary" sx={{ float: "right", paddingRight: "4px" }}>
+                                            <Typography variant="body2" sx={{ float: "right", paddingRight: "4px", color: themeComponent.getTypographyColor(theme) }}>
                                                 {item.Quantity} un.
                                             </Typography>
-                                            <Typography variant="body2" color="text.secondary" >
+                                            <Typography variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 Bairro: {item.District}
                                             </Typography>
                                             <input type={"hidden"} id={item.Id} value={item.Id}></input>
@@ -155,8 +164,8 @@ function DonationDashboard() {
                                         <Divider />
 
                                         <CardActions sx={{ alignContent: "center" }}>
-                                            <Button size="small" sx={{ width: "50%" }} onClick={() => alertRequestDonation(item.Id)}>Solicitar</Button>
-                                            <Button size="small" sx={{ width: "50%" }}>Detalhes</Button>
+                                            <Button size="small" sx={ButtonStyle} onClick={() => alertRequestDonation(item.Id)} >Solicitar</Button>
+                                            <Button size="small" sx={ButtonStyle} >Detalhes</Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
