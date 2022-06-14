@@ -31,6 +31,7 @@ function LoginModal() {
           password: hashPassword
         }).then((response) => {
             console.log("Login response "+response.data);
+            debugger
             if (response.data) {
                 handleClose();
                 window.location.reload();

@@ -134,7 +134,7 @@ function DonationDashboard() {
                                             component="img"
                                             height="140"
                                             image="https://static.vecteezy.com/ti/vetor-gratis/p1/2554852-seamless-pattern-with-food-on-dark-blue-background-gr%C3%A1tis-vetor.jpg"
-                                            alt="green iguana"
+                                            alt="HelpFood img"
                                         />
                                         <div>
                                             <Typography variant="body2" sx={{ color: themeComponent.getTypographyColor(theme), float: "right", paddingRight: "4px" }}>
@@ -142,6 +142,7 @@ function DonationDashboard() {
                                             </Typography>
                                         </div>
                                         <CardContent>
+
                                             <Typography gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 {item.Name}
                                             </Typography>

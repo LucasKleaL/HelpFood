@@ -12,11 +12,15 @@ import Axios from "axios";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputMask from "react-input-mask";
 
 function DonationForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [businessDonor, setBusinessDonor] = useState("");
+  const [nameDonor, setNameDonor] = useState("");
+  const [emailDonor, setEmailDonor] = useState("");
+
   const [district, setDistrict] = useState("");
   const [street, setStreet] = useState("");
   const [number, setNumber] = useState("");
@@ -25,13 +29,22 @@ function DonationForm() {
   const [quantity, setQuantity] = useState("");
   const [typeFood, setTypeFood] = useState("");
   const [shelfLife, setShelfLife] = useState("");
+
   const MySwal = withReactContent(Swal)
 
   useEffect(() => {
     Axios.get('http://localhost:3001/user/getCurrentUserId').then(resp => {
       setBusinessDonor(resp.data)
     });
-}, [])
+    
+    Axios.get('http://localhost:3001/user/getCurrentUserEmail').then(resp => {
+      setEmailDonor(resp.data)
+    });
+    Axios.get('http://localhost:3001/user/getCurrentUserName').then(resp => {
+      setNameDonor(resp.data)
+    });
+    
+  }, [])
 
   function alertSuccessDonation() {
     MySwal.fire({
@@ -58,10 +71,13 @@ function DonationForm() {
     }
   }
   function postDonation() {
+    alert(emailDonor)
     Axios.post("http://localhost:3001/donation/add", {
       name: name,
       description: description,
       businessDonor: businessDonor,
+      nameDonor: nameDonor,
+      emailDonor: emailDonor,
       district: district,
       weight: weight,
       quantity: quantity,
@@ -73,7 +89,7 @@ function DonationForm() {
     }).then((response) => {
       if (response.status === 200) {
         alertSuccessDonation()
-      }else{
+      } else {
         alertErrorDonation()
       }
     });
@@ -82,6 +98,10 @@ function DonationForm() {
   const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
   const avatarStyle = { backgroundColor: '#1bbd7e' }
   const btnstyle = { margin: '8px 0', backgroundColor: '#1bbd7e' }
+  const TextFieldSytle = {
+    width: "20rem",
+    marginTop: "0.5rem"
+}
 
   return (
     <Grid>
@@ -95,27 +115,40 @@ function DonationForm() {
         <TextField label='Bairro' placeholder='Insira o bairro de retirada' onChange={(e) => { setDistrict(e.target.value) }} fullWidth required />
         <TextField label='Rua' placeholder='Insira a rua' onChange={(e) => { setStreet(e.target.value) }} fullWidth required />
         <TextField label='Numero' placeholder='Insira o número do local' onChange={(e) => { setNumber(e.target.value) }} fullWidth required />
-        <TextField label='Contato' placeholder='Insira um número de contato' onChange={(e) => { setPhone(e.target.value) }} fullWidth required />
+        <InputMask
+          mask="(99)99999-9999"
+          value={phone}
+          disabled={false}
+          onChange={(e) => setPhone(e.target.value)}
+        >
+          {() => <TextField label='Contato' placeholder='Insira um número de contato' fullWidth required />}
+        </InputMask>
         <TextField label='Peso' placeholder='Insira o peso total aproximado' onChange={(e) => { setWeight(e.target.value) }} fullWidth required />
         <TextField label='Quantidade' placeholder='Insira o total de unidades' onChange={(e) => { setQuantity(e.target.value) }} fullWidth required />
         <FormControl variant="standard" fullWidth required>
-        <InputLabel id="demo-simple-select-standard-label">Tipo de alimento</InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={typeFood} label="Tipo de alimento" onChange={(e) => { setTypeFood(e.target.value) }} fullWidth required
-        >
-          <MenuItem value={"Lanche"}>Lanche</MenuItem>
-          <MenuItem value={"Comida"}>Comida</MenuItem>
-          <MenuItem value={"Bebida"}>Bebida</MenuItem>
-          <MenuItem value={"Verdura"}>Verdura</MenuItem>
-          <MenuItem value={"Legume"}>Legume</MenuItem>
-          <MenuItem value={"Fruta"}>Fruta</MenuItem>
-
-        </Select>
+          <InputLabel id="demo-simple-select-standard-label">Tipo de alimento</InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={typeFood} label="Tipo de alimento" onChange={(e) => { setTypeFood(e.target.value) }} fullWidth required
+          >
+            <MenuItem value={"Lanche"}>Lanche</MenuItem>
+            <MenuItem value={"Comida"}>Comida</MenuItem>
+            <MenuItem value={"Bebida"}>Bebida</MenuItem>
+            <MenuItem value={"Verdura"}>Verdura</MenuItem>
+            <MenuItem value={"Legume"}>Legume</MenuItem>
+            <MenuItem value={"Fruta"}>Fruta</MenuItem>
+          </Select>
         </FormControl>
 
-        <TextField label='Validade' type='date' onChange={(e) => { setShelfLife(e.target.value) }} fullWidth required />
+        <InputMask
+          mask="99/99/9999"
+          value={shelfLife}
+          disabled={false}
+          onChange={(e) => setShelfLife(e.target.value)}
+        >
+          {() => <TextField label='Validade' placeholder='Insira a validade do alimento' fullWidth required />}
+        </InputMask>
 
         <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={addDonation} fullWidth>Enviar</Button>
 

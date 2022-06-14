@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useLayoutEffect } from "react";
 import { Button, Grid, Container, DataGrid } from '@mui/material';
-import  { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Axios from "axios";
 
 import LoginModal from "../components/LoginModal";
@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThemeComponent from "../components/ThemeComponent";
 import DonationDashboard from "../components/DonationDashboard";
+import CompanyDashboard from "../components/CompanyDashboard";
 import ThemeSwitchComponent from "../components/ThemeSwitchComponent";
 
 function Dashboard() {
@@ -48,9 +49,24 @@ function Dashboard() {
     useLayoutEffect(() => {
         Axios.get("http://localhost:3001/user/getUserAuth")
             .then((result) => {
-                console.log("useEffect " + result.data)
                 setIsAuth(result.data);
-                
+                Axios.get("http://localhost:3001/user/getCurrentUserId")
+                    .then((result) => {
+                        var url = "http://localhost:3001/user/isBusiness/" + result.data
+                        Axios.get(url)
+                            .then((result) => {
+                                if (result.data === true) {
+                                    setIsBusiness(true);
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             })
             .catch((error) => {
                 console.log(error);
@@ -58,10 +74,6 @@ function Dashboard() {
 
     }, []);
 
-    useEffect(() => {
-        
-        
-    }, [isAuth]);
     return (
         <div>
 
@@ -76,15 +88,13 @@ function Dashboard() {
             }
             {
                 isBusiness ?
-                    <Container maxWidth="lg" >
-                        <Grid container justifyContent="center" paddingTop={15}>
-                            <h1 style={{ color: "white" }}>TODO Dashboard empresa</h1>
-                        </Grid>
-                    </Container>
+                    <CompanyDashboard/>
                     :
                     <DonationDashboard />
             }
+
             <Footer theme={theme} />
+
         </div>
     )
 }

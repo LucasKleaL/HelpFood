@@ -41,9 +41,47 @@ class UserController {
                 }
             });
         });
+        
+        app.get('/user/getCurrentUserName', (req, res) => {
+            user.getCurrentUserName(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+        app.get('/user/getCurrentUserEmail', (req, res) => {
+            user.getCurrentUserEmail(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+        app.get('/user/getCurrentCompanyData', (req, res) => {
+            user.getCurrentCompanyData(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
 
         app.get('/user/getAll', (req, res) => {
             user.getAllUsers(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
+        app.get('/user/getAllOngs', (req, res) => {
+            user.getAllOngs(function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {
