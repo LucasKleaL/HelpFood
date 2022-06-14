@@ -79,8 +79,6 @@ function LandingPage() {
                     <div style={{ float: "right", marginTop: "0.5rem" }}>
                         <ThemeProvider theme={WhiteButtonTheme}>
 
-                            <Switch onChange={(e) => { setThemeSwitch(e.target.value); alert(e.target.value) }} />
-
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
 
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
