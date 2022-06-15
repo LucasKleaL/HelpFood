@@ -139,6 +139,17 @@ class UserController {
             }
         });
 
+        app.get('/user/logout', (req, res) => {
+            var result = user.logout();
+            console.log("user/logout")
+            if (result) {
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(500);
+            }
+        });
+
     }
 }
 

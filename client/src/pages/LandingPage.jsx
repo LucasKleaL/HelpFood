@@ -5,18 +5,12 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import "./../styles/landingpage.css";
-import LoginForm from "../components/LoginForm";
-import DonationForm from "../components/DonationForm";
-import CustomizedDialogs from "../components/Dialog";
 import Footer from "../components/Footer";
 import ThemeComponent from "../components/ThemeComponent";
 
 function LandingPage() {
 
     const themeComponent = new ThemeComponent();
-
-    const [themeSwitch, setThemeSwitch] = useState(false);
-    const [redirectCompany, setRedirectCompany] = useState(false);
 
     const HeaderWallpaperStyle = {
         width: "100%",
@@ -63,9 +57,6 @@ function LandingPage() {
         marginTop: "1rem",
         cursor: "pointer"
     }
-    function changeRedirectCompany(isCompany) {
-        setRedirectCompany(isCompany)
-    }
 
     return (
         <div>
@@ -79,23 +70,16 @@ function LandingPage() {
                     <div style={{ float: "right", marginTop: "0.5rem" }}>
                         <ThemeProvider theme={WhiteButtonTheme}>
 
-                            <Switch onChange={(e) => { setThemeSwitch(e.target.value); alert(e.target.value) }} />
-
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
 
-                            <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
+                            <Link to="/donate" style={{textDecoration: "none"}}>
+                                <Button variant="text" color="primary" style={HeaderButtonStyle}>Doar</Button>
+                            </Link>
 
-                            <Button onClick={() => changeRedirectCompany(false)}>
-                                <CustomizedDialogs title="Entrar na rede" titleButton="Receber" variant="text" color="primary" style={HeaderButtonStyle}>
-                                    <LoginForm redirectCompany={redirectCompany} />
-                                </CustomizedDialogs>
-                            </Button>
-                            <Button onClick={() => changeRedirectCompany(true)}>
-                                <CustomizedDialogs title="Entrar na rede" titleButton="Doar" variant="text" color="primary" style={HeaderButtonStyle}>
-                                    <LoginForm redirectCompany={redirectCompany} />
-                                </CustomizedDialogs>
-                            </Button>
-                            <DonationForm></DonationForm>
+                            <Link to="/dashboard">
+                                <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button> 
+                            </Link>
+                            
                         </ThemeProvider>
                     </div>
                 </header>

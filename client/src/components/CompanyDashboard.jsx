@@ -8,8 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import "./../styles/companyDashboard.css";
-import Footer from "../components/Footer";
-import TopMenu from "../components/TopMenu";
+import Footer from "./Footer";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
