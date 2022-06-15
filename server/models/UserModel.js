@@ -173,6 +173,18 @@ class UserModel {
             })
     }
 
+    async logout() {
+        getAuth().signOut()
+            .then((result) => {
+                console.log("Sucessful signout.")
+                return true;
+            })
+            .catch((error) => {
+                console.log("Error on signout "+error);
+                return false;
+            })
+    }
+
 }
 
 module.exports = UserModel;

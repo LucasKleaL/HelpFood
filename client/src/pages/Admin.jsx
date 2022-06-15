@@ -107,12 +107,6 @@ function LandingPage() {
         }
     }
 
-    const HeaderTitleStyle = {
-        color: "var(--white)",
-        fontSize: "2rem",
-        fontWeight: "900",
-        marginLeft: "1rem",
-    }
     const data = [
         { argument: 'Lanche', value: countLanches },
         { argument: 'Comida', value: countComidas },
@@ -132,7 +126,7 @@ function LandingPage() {
                 getThemeSwitch()
             }
 
-            <Container align="center">
+            <Container align="center" maxWidth="lg">
             <div style={{ backgroundColor: themeComponent.getBackgroundColor(theme) }}>
                 <div className="chartContainer" style={{ color: themeComponent.getTypographyColor(theme), backgroundColor: themeComponent.getBackgroundColor(theme) }}>
                     <Chart data={data} label={"test"} >

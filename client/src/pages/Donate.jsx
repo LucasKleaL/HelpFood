@@ -1,9 +1,11 @@
 import { React, useState, useEffect, useLayoutEffect  } from "react";
 import Axios from "axios";
-
+import { Container, Grid, Button, Box, Select, Typography, } from "@material-ui/core";
 import LoginModal from "../components/LoginModal";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThemeComponent from "../components/ThemeComponent";
+import DonationForm from "../components/DonationForm";
 
 function Donate() {
 
@@ -23,9 +25,17 @@ function Donate() {
 
     return(
         <div>
+
+            <Header />
+
             {
                 isAuth ? <div /> : <LoginModal />
             }
+
+            <Container>
+                <DonationForm />
+            </Container>
+
             <Footer theme={themeComponent.getActualTheme()} />
         </div>
     )

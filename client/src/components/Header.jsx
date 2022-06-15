@@ -1,4 +1,5 @@
 import { React, Component } from "react";
+import Axios from "axios";
 import { Link } from "react-router-dom";
 import {
     AppBar,
@@ -10,6 +11,7 @@ import {
 } from "@material-ui/core";
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 import ThemeComponent from "./ThemeComponent";
 
 class Header extends Component {
@@ -59,7 +61,19 @@ class Header extends Component {
             color: fontColor,
             fontSize: "2rem",
             cursor: "pointer",
-            marginTop: "0.5rem"
+            marginTop: "0.5rem",
+            marginRight: "1rem"
+        }
+
+        function logout() {
+            Axios.get("http://localhost:3001/user/logout")
+            .then((result) => {
+                console.log("logout");
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         }
 
         return (
@@ -72,6 +86,7 @@ class Header extends Component {
                     </div>
                     <div style={{ float: "right" }}>
                         <AccountCircle style={HeaderIconStyle} />
+                        <LogoutIcon style={HeaderIconStyle} onClick={logout} />
                     </div>
                 </div>
             </header>
