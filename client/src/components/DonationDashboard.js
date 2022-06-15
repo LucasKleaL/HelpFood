@@ -143,10 +143,10 @@ function DonationDashboard() {
                                         </div>
                                         <CardContent>
 
-                                            <Typography gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }} >
+                                            <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 {item.Name}
                                             </Typography>
-                                            <Typography variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }} >
+                                            <Typography className="description" variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 {item.Description}
                                             </Typography>
 
