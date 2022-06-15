@@ -11,6 +11,7 @@ import "./../styles/dashboard.css";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {useHistory} from "react-router-dom";
+import DetailsDonation from "../pages/DetailsDonation";
 
 function DonationDashboard() {
 
@@ -106,7 +107,8 @@ function DonationDashboard() {
     }
 
     const history = useHistory();
-    const donation = () => {
+    const donation = (donationId) => {
+        DetailsDonation(donationId)
         history.push("/Details")
         window.location.reload()
     }
@@ -165,7 +167,7 @@ function DonationDashboard() {
                                             <Button size="small" sx={{width: "50%"}}
                                                     onClick={() => alertRequestDonation(item.Id)}>Solicitar</Button>
                                             <Button size="small" sx={{width: "50%"}}
-                                                    onClick={() => donation()}>Detalhes</Button>
+                                                    onClick={() => donation(item.id)}>Detalhes</Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
