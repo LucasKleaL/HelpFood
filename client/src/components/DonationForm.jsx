@@ -31,14 +31,14 @@ function DonationForm() {
   const MySwal = withReactContent(Swal)
 
   useEffect(() => {
-    Axios.get('http://localhost:3001/user/getCurrentUserId').then(resp => {
+    Axios.get(window.url+'/user/getCurrentUserId').then(resp => {
       setBusinessDonor(resp.data)
     });
     
-    Axios.get('http://localhost:3001/user/getCurrentUserEmail').then(resp => {
+    Axios.get(window.url+'/user/getCurrentUserEmail').then(resp => {
       setEmailDonor(resp.data)
     });
-    Axios.get('http://localhost:3001/user/getCurrentUserName').then(resp => {
+    Axios.get(window.url+'/user/getCurrentUserName').then(resp => {
       setNameDonor(resp.data)
     });
     
@@ -70,7 +70,7 @@ function DonationForm() {
   }
   function postDonation() {
     alert(emailDonor)
-    Axios.post("http://localhost:3001/donation/add", {
+    Axios.post(window.url+"/donation/add", {
       name: name,
       description: description,
       businessDonor: businessDonor,

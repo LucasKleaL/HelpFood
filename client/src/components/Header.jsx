@@ -67,7 +67,7 @@ class Header extends Component {
         }
 
         function logout() {
-            Axios.get("http://localhost:3001/user/logout")
+            Axios.get(window.url+"/user/logout")
             .then((result) => {
                 console.log("logout");
                 window.location.reload();

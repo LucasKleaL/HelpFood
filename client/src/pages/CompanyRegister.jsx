@@ -46,7 +46,7 @@ function CompanyRegister () {
         let hashPassword = Base64.stringify(sha256(nonce + password));
         
         if (isName && isCnpj && isEmail && isPassword && isRetryPassword) {
-            Axios.post("http://localhost:3001/company/add", {
+            Axios.post(window.url+"/company/add", {
                 name: name,
                 cnpj: cnpj,
                 email: email,

@@ -47,12 +47,12 @@ function Dashboard() {
     }
 
     useLayoutEffect(() => {
-        Axios.get("http://localhost:3001/user/getUserAuth")
+        Axios.get(window.url+"/user/getUserAuth")
             .then((result) => {
                 setIsAuth(result.data);
-                Axios.get("http://localhost:3001/user/getCurrentUserId")
+                Axios.get(window.url+"/user/getCurrentUserId")
                     .then((result) => {
-                        var url = "http://localhost:3001/user/isBusiness/" + result.data
+                        var url = window.url+"/user/isBusiness/" + result.data
                         Axios.get(url)
                             .then((result) => {
                                 if (result.data === true) {
@@ -77,7 +77,7 @@ function Dashboard() {
     return (
         <div>
 
-            <Header theme={theme} />
+            <Header theme={theme} isAuth={isAuth} />
 
             {
                 getThemeSwitch()

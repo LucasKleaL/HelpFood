@@ -26,7 +26,7 @@ function UserRegister() {
         let nonce = "HelpFood#sha256#420"
         let hashPassword = Base64.stringify(sha256(nonce + password));
 
-        Axios.post("http://localhost:3001/user/add", {
+        Axios.post(window.url+"/user/add", {
             name: name,
             cpf: cpf,
             email: email,

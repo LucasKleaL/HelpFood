@@ -17,7 +17,7 @@ function CompanyDashboard() {
     const [companyData, setCompanyData] = useState([]);
     const [allOngs, setAllOngs] = useState([]);
     useLayoutEffect(() => {
-        fetch("http://localhost:3001/user/getCurrentCompanyData", {
+        fetch(window.url+"/user/getCurrentCompanyData", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -30,7 +30,7 @@ function CompanyDashboard() {
                     setCompanyData(result)
                 }
             );
-            fetch("http://localhost:3001/user/getAllOngs", {
+            fetch(window.url+"/user/getAllOngs", {
             method: "GET",
             headers: {
                 Accept: "application/json",

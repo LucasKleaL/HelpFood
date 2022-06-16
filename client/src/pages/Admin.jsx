@@ -24,7 +24,7 @@ function LandingPage() {
     const [countFrutas, setCountFrutas] = useState(0);
 
     useEffect(() => {
-        const response = fetch("http://localhost:3001/donation/getAll", {
+        const response = fetch(window.url+"/donation/getAll", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -143,7 +143,5 @@ function LandingPage() {
         </div>
     )
 }
-
-
 
 export default LandingPage;

@@ -25,7 +25,7 @@ function DonationDashboard() {
     const MySwal = withReactContent(Swal)
 
     useEffect(() => {
-        const response = fetch("http://localhost:3001/donation/getAll", {
+        const response = fetch(window.url+"/donation/getAll", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -43,10 +43,10 @@ function DonationDashboard() {
 
     function reserveDonation(donationId) {
         debugger
-        Axios.get("http://localhost:3001/user/getCurrentUserId")
+        Axios.get(window.url+"/user/getCurrentUserId")
             .then((result) => {
                 setReceiverId("atualiza")
-                Axios.post("http://localhost:3001/donation/reserve", {
+                Axios.post(window.url+"/donation/reserve", {
                     donationId: donationId,
                     receiverId: result.data
                 }).then((response) => {
@@ -57,7 +57,7 @@ function DonationDashboard() {
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
-                                const atualiza = fetch("http://localhost:3001/donation/getAll", {
+                                const atualiza = fetch(window.url+"/donation/getAll", {
                                     method: "GET",
                                     headers: {
                                         Accept: "application/json",
@@ -179,6 +179,5 @@ function DonationDashboard() {
         </div>
     )
 }
+
 export default DonationDashboard;
-
-

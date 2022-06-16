@@ -26,7 +26,7 @@ function LoginModal(props) {
     async function login() {
         let nonce = "HelpFood#sha256#420"
         let hashPassword = Base64.stringify(sha256(nonce + password));
-        await Axios.post("http://localhost:3001/user/authUser", {
+        await Axios.post(window.url+"/user/authUser", {
           email: email,
           password: hashPassword
         }).then((response) => {

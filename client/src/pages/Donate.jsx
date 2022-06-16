@@ -14,7 +14,7 @@ function Donate() {
     const theme = themeComponent.getActualTheme();
 
     useLayoutEffect(() => {
-        Axios.get("http://localhost:3001/user/getUserAuth")
+        Axios.get(window.url+"/user/getUserAuth")
         .then((result) => {
             console.log("useEffect "+result.data)
             setIsAuth(result.data);
