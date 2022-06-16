@@ -84,7 +84,7 @@ function Dashboard() {
             }
 
             {
-                isAuth ? <div /> : <LoginModal />
+                isAuth ? <div /> : <LoginModal isCompany={false} />
             }
             {
                 isBusiness ?

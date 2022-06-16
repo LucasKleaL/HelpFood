@@ -6,7 +6,7 @@ import Axios from "axios";
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 
-function LoginModal() {
+function LoginModal(props) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -77,10 +77,14 @@ function LoginModal() {
                             </div>
 
                             <div style={{"paddingTop": "1rem", "paddingBottom": "1rem"}}>
-                                <Typography >Não possui cadastro? 
-                                    <Link to="/company/add" style={{"textDecoration": "none"}} onClick={handleClose}>
-                                        <b className="b-signup"> Criar conta</b>
-                                    </Link>
+                                <Typography >Não possui cadastro?
+                                    {
+                                        props.isCompany ? 
+                                        <Link to="/company/add" style={{"textDecoration": "none"}} onClick={handleClose}> <b className="b-signup"> Criar conta</b></Link> 
+                                        : 
+                                        <Link to="/user/add" style={{"textDecoration": "none"}} onClick={handleClose}> <b className="b-signup"> Criar conta</b></Link> 
+                                    }
+                                    
                                 </Typography>
                             </div>
 

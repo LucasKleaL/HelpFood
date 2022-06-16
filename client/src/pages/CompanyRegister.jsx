@@ -5,9 +5,14 @@ import MaterialButtonTheme from "./../themes/MaterialButtonTheme";
 import Axios from "axios";
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
+import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ThemeComponent from "./../components/ThemeComponent";
 
 function CompanyRegister () {
+
+    const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
 
     // company register values
     const [name, setName] = useState("");
@@ -150,13 +155,10 @@ function CompanyRegister () {
 
     return (
         <div style={{height: "100%"}}>
-            <Container align="center">
 
-                <header>
-                    <div style={{float: "left", marginTop: "0.5"}}>
-                        <Typography className="nunito-text" style={HeaderTitleStyle}>HelpFoods</Typography>
-                    </div>
-                </header>
+            <Header theme={theme} />
+
+            <Container align="center" style={{marginTop: "6rem"}}>
 
                 <div>
                     <Box style={BoxStyle}>
@@ -199,7 +201,9 @@ function CompanyRegister () {
                 </div>
 
             </Container>
-            <Footer></Footer>
+
+            <Footer theme={theme} /> 
+
         </div>
     )
 }

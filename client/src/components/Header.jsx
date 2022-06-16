@@ -18,6 +18,7 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
+        
     }
 
     render() {
@@ -85,8 +86,15 @@ class Header extends Component {
                         </Link>
                     </div>
                     <div style={{ float: "right" }}>
-                        <AccountCircle style={HeaderIconStyle} />
-                        <LogoutIcon style={HeaderIconStyle} onClick={logout} />
+                        {
+                            this.props.isAuth ?
+                            <div>
+                                <AccountCircle style={HeaderIconStyle} />
+                                <LogoutIcon style={HeaderIconStyle} onClick={logout} />
+                            </div>
+                            :
+                            <div />
+                        }
                     </div>
                 </div>
             </header>

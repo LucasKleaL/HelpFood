@@ -11,6 +11,7 @@ function Donate() {
 
     const [isAuth, setIsAuth] = useState(false);
     const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
 
     useLayoutEffect(() => {
         Axios.get("http://localhost:3001/user/getUserAuth")
@@ -26,17 +27,17 @@ function Donate() {
     return(
         <div>
 
-            <Header />
+            <Header theme={theme} isAuth={isAuth} />
 
             {
-                isAuth ? <div /> : <LoginModal />
+                isAuth ? <div /> : <LoginModal isCompany={true} />
             }
 
-            <Container>
+            <Container style={{marginTop: "6rem"}}>
                 <DonationForm />
             </Container>
 
-            <Footer theme={themeComponent.getActualTheme()} />
+            <Footer theme={theme} />
         </div>
     )
 }
