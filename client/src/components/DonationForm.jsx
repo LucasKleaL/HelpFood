@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
-import { Redirect } from 'react-router'
-import { Grid, Paper, Avatar, TextField, Button, Typography, Link } from '@material-ui/core'
+import { Grid, Paper, Avatar, TextField, Button, Typography, ThemeProvider } from '@material-ui/core'
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
@@ -97,9 +95,9 @@ function DonationForm() {
 
   const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
   const avatarStyle = { backgroundColor: '#1bbd7e' }
-  const btnstyle = { margin: '8px 0', backgroundColor: '#1bbd7e' }
+  const btnstyle = { margin: '8px 0', }
+
   const TextFieldSytle = {
-    width: "20rem",
     marginTop: "0.5rem"
 }
 
@@ -111,21 +109,21 @@ function DonationForm() {
           <Typography variant='caption' gutterBottom>Insira os dados da sua doação!</Typography>
         </Grid>
         <TextField label='Nome' placeholder='Insira o nome do alimento' onChange={(e) => { setName(e.target.value) }} fullWidth required />
-        <TextField label='Descrição' placeholder='Descreva a doação' type='text' onChange={(e) => { setDescription(e.target.value) }} fullWidth required />
-        <TextField label='Bairro' placeholder='Insira o bairro de retirada' onChange={(e) => { setDistrict(e.target.value) }} fullWidth required />
-        <TextField label='Rua' placeholder='Insira a rua' onChange={(e) => { setStreet(e.target.value) }} fullWidth required />
-        <TextField label='Numero' placeholder='Insira o número do local' onChange={(e) => { setNumber(e.target.value) }} fullWidth required />
+        <TextField label='Descrição' placeholder='Descreva a doação' type='text' style={TextFieldSytle} onChange={(e) => { setDescription(e.target.value) }} fullWidth required />
+        <TextField label='Bairro' placeholder='Insira o bairro de retirada' style={TextFieldSytle} onChange={(e) => { setDistrict(e.target.value) }} fullWidth required />
+        <TextField label='Rua' placeholder='Insira a rua' style={TextFieldSytle} onChange={(e) => { setStreet(e.target.value) }} fullWidth required />
+        <TextField label='Numero' placeholder='Insira o número do local' style={TextFieldSytle} onChange={(e) => { setNumber(e.target.value) }} fullWidth required />
         <InputMask
           mask="(99)99999-9999"
           value={phone}
           disabled={false}
           onChange={(e) => setPhone(e.target.value)}
         >
-          {() => <TextField label='Contato' placeholder='Insira um número de contato' fullWidth required />}
+          {() => <TextField label='Contato' placeholder='Insira um número de contato' style={TextFieldSytle} fullWidth required />}
         </InputMask>
-        <TextField label='Peso' placeholder='Insira o peso total aproximado' onChange={(e) => { setWeight(e.target.value) }} fullWidth required />
-        <TextField label='Quantidade' placeholder='Insira o total de unidades' onChange={(e) => { setQuantity(e.target.value) }} fullWidth required />
-        <FormControl variant="standard" fullWidth required>
+        <TextField label='Peso' placeholder='Insira o peso total aproximado' style={TextFieldSytle} onChange={(e) => { setWeight(e.target.value) }} fullWidth required />
+        <TextField label='Quantidade' placeholder='Insira o total de unidades' style={TextFieldSytle} onChange={(e) => { setQuantity(e.target.value) }} fullWidth required />
+        <FormControl variant="standard" style={TextFieldSytle} fullWidth required>
           <InputLabel id="demo-simple-select-standard-label">Tipo de alimento</InputLabel>
           <Select
             labelId="demo-simple-select-standard-label"
@@ -147,11 +145,11 @@ function DonationForm() {
           disabled={false}
           onChange={(e) => setShelfLife(e.target.value)}
         >
-          {() => <TextField label='Validade' placeholder='Insira a validade do alimento' fullWidth required />}
+          {() => <TextField label='Validade' placeholder='Insira a validade do alimento' style={TextFieldSytle} fullWidth required />}
         </InputMask>
 
         <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={addDonation} fullWidth>Enviar</Button>
-
+        
       </Paper>
     </Grid>
   )
