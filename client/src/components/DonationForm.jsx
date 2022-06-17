@@ -34,7 +34,6 @@ function DonationForm() {
     Axios.get(window.url+'/user/getCurrentUserId').then(resp => {
       setBusinessDonor(resp.data)
     });
-    
     Axios.get(window.url+'/user/getCurrentUserEmail').then(resp => {
       setEmailDonor(resp.data)
     });

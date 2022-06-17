@@ -20,6 +20,8 @@ function DonationDashboard() {
     const [items, setItems] = useState([]);
     const [donationId, setDonationId] = useState("");
     const [receiverId, setReceiverId] = useState("");
+    const [receiverName, setReceiverName] = useState("");
+    const [receiverEmail, setReceiverEmail] = useState("");
     const MySwal = withReactContent(Swal)
 
     useEffect(() => {
@@ -36,16 +38,27 @@ function DonationDashboard() {
                     setItems(result)
                 }
             );
+
+        Axios.get(window.url + '/user/getCurrentUserEmail').then(resp => {
+            setReceiverEmail(resp.data)
+           
+        });
+        Axios.get(window.url + '/user/getCurrentUserName').then(resp => {
+            setReceiverName(resp.data)
+        });
     }, [])
 
 
     function reserveDonation(donationId) {
+
         Axios.get(window.url + "/user/getCurrentUserId")
             .then((result) => {
-                setReceiverId("atualiza")
                 Axios.post(window.url + "/donation/reserve", {
                     donationId: donationId,
-                    receiverId: result.data
+                    receiverId: result.data,
+                    receiverName: receiverName,
+                    receiverEmail: receiverEmail
+
                 }).then((response) => {
                     if (response.status === 200) {
                         Swal.fire(
@@ -128,7 +141,7 @@ function DonationDashboard() {
                         <Grid>
                             <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
                                 <Grid item>
-                                    <h3 style={{ fontSize: "80px", color: themeComponent.getTypographyColor(theme) }}>Doações disponíveis</h3>
+                                    <h3 style={{ fontSize: "60px", color: themeComponent.getTypographyColor(theme) }}>Doações disponíveis</h3>
                                 </Grid>
                             </Grid>
                         </Grid>

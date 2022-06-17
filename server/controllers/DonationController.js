@@ -51,10 +51,11 @@ class DonationController {
         });
 
         app.post('/donation/reserve', (req, res) => {
-            console.log(req.body.receiverId)
             var result = donation.reserveDonation(
                 req.body.donationId,
-                req.body.receiverId
+                req.body.receiverId,
+                req.body.receiverName,
+                req.body.receiverEmail
             );
             if (result) {
                 res.sendStatus(200)
