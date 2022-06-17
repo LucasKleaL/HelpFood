@@ -56,11 +56,6 @@ function LoginForm(props) {
                     label="Lembre-se de mim"
                 />
                 <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={authUser} fullWidth>Entrar</Button>
-                <Typography >
-                    <Link href="#" >
-                        Esqueceu sua senha?
-                    </Link>
-                </Typography>
                 <Typography > Não possui uma conta?
                     <br />
                     {props.redirectCompany ?

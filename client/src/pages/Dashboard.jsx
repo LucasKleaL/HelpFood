@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom'
 import Axios from "axios";
 
 import LoginModal from "../components/LoginModal";
+import LoginForm from "../components/LoginForm";
+
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThemeComponent from "../components/ThemeComponent";
@@ -45,6 +47,14 @@ function Dashboard() {
             themeComponent.setThemeSwitch("dark");
         }
     }
+    function getDashboard(){
+        if (isAuth && isBusiness) 
+            return <CompanyDashboard/>
+        else if(isAuth && isBusiness === false)
+            return <DonationDashboard />
+        else
+            return <LoginForm isCompany={false} />
+    }
 
     useLayoutEffect(() => {
         Axios.get(window.url+"/user/getUserAuth")
@@ -76,25 +86,14 @@ function Dashboard() {
 
     return (
         <div>
-
             <Header theme={theme} isAuth={isAuth} />
-
             {
                 getThemeSwitch()
             }
-
             {
-                isAuth ? <div /> : <LoginModal isCompany={false} />
+                getDashboard()
             }
-            {
-                isBusiness ?
-                    <CompanyDashboard/>
-                    :
-                    <DonationDashboard />
-            }
-
             <Footer theme={theme} />
-
         </div>
     )
 }

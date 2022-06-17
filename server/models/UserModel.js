@@ -12,16 +12,14 @@ class UserModel {
         auth = getAuth();
     }
     async authUser(email, password) {
-        
         let isAuth = false;
-
-        await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential)=>{
+        try {
+            let userCredential = await signInWithEmailAndPassword(auth, email, password)
             isAuth = true;
-            console.log("Sucessful login");
-        }).catch((error)=>{
+            console.log("Successful login");
+        }catch(error){
             console.log("Email ou senha incorretos." + error.message)
-        });
+        }
         return isAuth;
     }
 
@@ -39,27 +37,27 @@ class UserModel {
     getCurrentUserId(result) {
         initializeApp(firebaseConfig)
         const auth = getAuth();
-        if (auth.currentUser !== null) 
-        result(null, auth.currentUser.uid);
+        if (auth.currentUser !== null)
+            result(null, auth.currentUser.uid);
     }
 
     getCurrentUserName(result) {
         initializeApp(firebaseConfig)
         const auth = getAuth();
-        if (auth.currentUser !== null) 
-        result(null, auth.currentUser.displayName);
+        if (auth.currentUser !== null)
+            result(null, auth.currentUser.displayName);
     }
     getCurrentUserEmail(result) {
         initializeApp(firebaseConfig)
         const auth = getAuth();
-        if (auth.currentUser !== null) 
-        result(null, auth.currentUser.email);
+        if (auth.currentUser !== null)
+            result(null, auth.currentUser.email);
     }
 
     getCurrentCompanyData(result) {
         initializeApp(firebaseConfig)
         const auth = getAuth();
-        if (auth.currentUser == null){
+        if (auth.currentUser == null) {
             let resultGetUserData = { message: 'No such document!' };
             result(null, resultGetUserData);
         } else {
@@ -91,7 +89,7 @@ class UserModel {
         let resultGetAllUsers = snapshot.docs.map(doc => doc.data());
         result(null, resultGetAllUsers);
     }
-    
+
     async getAllOngs(result) {
         const snapshot = await db.collection('Users').get();
         let resultGetAllUsers = snapshot.docs.map(doc => doc.data().ongName);
@@ -180,7 +178,7 @@ class UserModel {
                 return true;
             })
             .catch((error) => {
-                console.log("Error on signout "+error);
+                console.log("Error on signout " + error);
                 return false;
             })
     }
