@@ -7,10 +7,13 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import "./../styles/landingpage.css";
 import Footer from "../components/Footer";
 import ThemeComponent from "../components/ThemeComponent";
+import CustomizedDialogs from "../components/Dialog";
+import LoginForm from "../components/LoginForm";
 
 function LandingPage() {
 
     const themeComponent = new ThemeComponent();
+    const [redirectCompany, setRedirectCompany] = useState(false);
 
     const HeaderWallpaperStyle = {
         width: "100%",
@@ -58,6 +61,10 @@ function LandingPage() {
         cursor: "pointer"
     }
 
+    function changeRedirectCompany(isCompany) {
+        setRedirectCompany(isCompany)
+    }
+
     return (
         <div>
             <div className="header-wallpaper">
@@ -72,13 +79,16 @@ function LandingPage() {
 
                             <Button variant="text" color="primary" style={HeaderButtonStyle}>About</Button>
 
-                            <Link to="/donate" style={{textDecoration: "none"}}>
-                                <Button variant="text" color="primary" style={HeaderButtonStyle}>Doar</Button>
-                            </Link>
-
-                            <Link to="/dashboard">
-                                <Button variant="text" color="primary" style={HeaderButtonStyle}>Receber</Button> 
-                            </Link>
+                            <Button onClick={() => changeRedirectCompany(false)}>
+                                <CustomizedDialogs title="Entrar na rede" titleButton="Receber" variant="text" color="primary" style={HeaderButtonStyle}>
+                                    <LoginForm redirectCompany={redirectCompany} />
+                                </CustomizedDialogs>
+                            </Button>
+                            <Button onClick={() => changeRedirectCompany(true)}>
+                                <CustomizedDialogs title="Entrar na rede" titleButton="Doar" variant="text" color="primary" style={HeaderButtonStyle}>
+                                    <LoginForm redirectCompany={redirectCompany} />
+                                </CustomizedDialogs>
+                            </Button>
                             
                         </ThemeProvider>
                     </div>

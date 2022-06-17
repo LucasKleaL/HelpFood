@@ -23,7 +23,7 @@ function DonationDashboard() {
     const MySwal = withReactContent(Swal)
 
     useEffect(() => {
-        fetch(window.url+"/donation/getAll", {
+        fetch(window.url + "/donation/getAll", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -40,10 +40,10 @@ function DonationDashboard() {
 
 
     function reserveDonation(donationId) {
-        Axios.get(window.url+"/user/getCurrentUserId")
+        Axios.get(window.url + "/user/getCurrentUserId")
             .then((result) => {
                 setReceiverId("atualiza")
-                Axios.post(window.url+"/donation/reserve", {
+                Axios.post(window.url + "/donation/reserve", {
                     donationId: donationId,
                     receiverId: result.data
                 }).then((response) => {
@@ -54,7 +54,7 @@ function DonationDashboard() {
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
-                                const atualiza = fetch(window.url+"/donation/getAll", {
+                                const atualiza = fetch(window.url + "/donation/getAll", {
                                     method: "GET",
                                     headers: {
                                         Accept: "application/json",
@@ -120,13 +120,20 @@ function DonationDashboard() {
                 items.length === 0 ?
                     <Container maxWidth="lg" >
                         <Grid container justifyContent="center" paddingTop={15}>
-                            <h1>Nenhuma doação disponível no momento. 🙁</h1>
+                            <h1 style={{ color: themeComponent.getTypographyContrastColor(theme) }}>Nenhuma doação disponível no momento. 🙁</h1>
                         </Grid>
                     </Container>
                     :
                     <Container maxWidth="lg" >
-                        <Grid container spacing={1.3} padding={3}>
-
+                        <Grid>
+                            <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
+                                <Grid item>
+                                    <h3 style={{ fontSize: "80px", color: themeComponent.getTypographyColor(theme) }}>Doações disponíveis</h3>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Divider style={{ backgroundColor: themeComponent.getTypographyContrastColor(theme), opacity: "25%" }} />
+                        <Grid container spacing={1.3} padding={3} justifyContent="center">
                             {items.map((item) => (
                                 <Grid item key={item.Id}>
                                     <Card sx={{ maxWidth: 315, minWidth: 315, backgroundColor: themeComponent.getCardBackgroundColor(theme) }}>
@@ -142,11 +149,10 @@ function DonationDashboard() {
                                             </Typography>
                                         </div>
                                         <CardContent>
-
-                                            <Typography gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }} >
+                                            <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 {item.Name}
                                             </Typography>
-                                            <Typography variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }} >
+                                            <Typography className="description" variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }} >
                                                 {item.Description}
                                             </Typography>
 

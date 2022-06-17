@@ -11,9 +11,14 @@ import "./../styles/companyDashboard.css";
 import Footer from "./Footer";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import ThemeComponent from './ThemeComponent';
 
 
 function CompanyDashboard() {
+
+    const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
+
     const [companyData, setCompanyData] = useState([]);
     const [allOngs, setAllOngs] = useState([]);
     useLayoutEffect(() => {
@@ -54,23 +59,23 @@ function CompanyDashboard() {
                     <Grid key={item.Id}>
                         <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
                             <Grid item>
-                                <h1 style={{ fontSize: "80px", color: "white" }}>{item.Name}</h1>
+                                <h1 style={{ fontSize: "80px", color: themeComponent.getTypographyColor(theme) }}>{item.Name}</h1>
                             </Grid>
                         </Grid>
-                        <Divider style={{backgroundColor: "white", opacity: "25%"}}/>
+                        <Divider style={{ backgroundColor: themeComponent.getTypographyContrastColor(theme), opacity: "25%" }} />
                         <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
                             <Grid item justifyContent="center">
-                                <h1 className='titleCard' >Suas doações</h1>
+                                <h1 className='titleCard' style={{ color: themeComponent.getTypographyColor(theme)}}>Suas doações</h1>
                                 <br />
                                 <br />
-                                <Grid item className='cardDashboard'>
-                                    <h1 style={{ fontSize: "80px" }}>{item.Donations.length < 10 ? "0"+ item.Donations.length : item.Donations.length}</h1>
+                                <Grid item className='cardDashboard' sx={{ backgroundColor: themeComponent.getCardBackgroundColor(theme) }}>
+                                    <h1 style={{ fontSize: "80px", color: themeComponent.getTypographyContrastColor(theme) }}>{item.Donations.length < 10 ? "0"+ item.Donations.length : item.Donations.length}</h1>
                                 </Grid>
                             </Grid>
                             <Grid item justifyContent="center">
-                                <h1 className='titleCard'>ONG's que precisam <br />da sua ajuda</h1>
-                                <Grid item className='cardDashboard'>
-                                    <h1 style={{ fontSize: "80px" }}>{allOngs.length < 10 ? "0"+ allOngs.length : allOngs.length}</h1>
+                                <h1 className='titleCard' style={{ color: themeComponent.getTypographyColor(theme)}}>ONG's que precisam <br />da sua ajuda</h1>
+                                <Grid item className='cardDashboard' sx={{ backgroundColor: themeComponent.getCardBackgroundColor(theme) }}>
+                                    <h1 style={{ fontSize: "80px", color: themeComponent.getTypographyContrastColor(theme) }}>{allOngs.length < 10 ? "0"+ allOngs.length : allOngs.length}</h1>
                                 </Grid>
                             </Grid>
                         </Grid>
