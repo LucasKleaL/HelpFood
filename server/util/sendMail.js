@@ -204,7 +204,7 @@ class sendMail {
             port: SMTP_CONFIG.port,
             secure: false,
             auth: {
-                user: SMTP_CONFIG.user,
+                user: SMTP_CONFIG.user2,
                 pass: SMTP_CONFIG.pass
             },
             tls: {
@@ -213,7 +213,7 @@ class sendMail {
         });
         try {
             let info = await transporter.sendMail({
-                from: '"HelpFood" <apphelpfood@hotmail.com>', // sender address
+                from: '"HelpFood" <helpfoodapp@hotmail.com>', // sender address
                 to: userEmail, // list of receivers
                 subject: "Recebemos o seu pedido!", // Subject line
                 html: `<html>
