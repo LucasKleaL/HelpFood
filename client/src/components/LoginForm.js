@@ -24,7 +24,7 @@ function LoginForm(props) {
         }).then((response) => {
             console.log("Login response " + response.data);
             if (response.data) {
-                window.location.href = window.url+"/dashboard";
+                window.location.href = "/dashboard";
             }
         })
             .catch((error) => {
