@@ -9,7 +9,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThemeSwitchComponent from "../components/ThemeSwitchComponent";
 
-function LandingPage() {
+function Admin() {
 
     const themeComponent = new ThemeComponent();
     const theme = themeComponent.getActualTheme();
@@ -144,4 +144,4 @@ function LandingPage() {
     )
 }
 
-export default LandingPage;
+export default Admin;

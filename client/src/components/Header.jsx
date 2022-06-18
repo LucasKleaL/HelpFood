@@ -7,7 +7,8 @@ import {
     Typography,
     Grid,
     Icon,
-    Container
+    Container, 
+    Button
 } from "@material-ui/core";
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -16,6 +17,7 @@ import ThemeComponent from "./ThemeComponent";
 
 class Header extends Component {
 
+    // eslint-disable-next-line no-useless-constructor
     constructor(props) {
         super(props);
         
@@ -43,6 +45,12 @@ class Header extends Component {
             height: "5rem",
             backgroundColor: headerColor,
             display: "flex",
+        }
+        const HeaderItemStyle = {
+            color: fontColor,
+            fontSize: "1rem",
+            cursor: "pointer",
+            padding: "7%"
         }
 
         const HeaderContainerStyle = {
@@ -76,7 +84,15 @@ class Header extends Component {
                 console.log(error);
             })
         }
-
+        function menuOptions(isBusiness, isAuth){
+            if(isBusiness && isAuth)
+                return <div style={{ width: "13rem", float: "left", marginLeft: "15px" }}>
+                        <Link to="/myDonations" style={{ textDecoration: "none" }} >
+                            <Typography style={HeaderItemStyle} >Minhas doações</Typography>
+                        </Link>   
+                    </div>
+                    
+        }
         return (
             <header style={HeaderStyle}>
                 <div style={HeaderContainerStyle}>
@@ -85,6 +101,9 @@ class Header extends Component {
                             <Typography style={HeaderTitleStyle} >HelpFood</Typography>
                         </Link>
                     </div>
+                    {
+                        menuOptions(this.props.isBusiness, this.props.isAuth)
+                    }
                     <div style={{ float: "right" }}>
                         {
                             this.props.isAuth ?
@@ -95,6 +114,7 @@ class Header extends Component {
                             :
                             <div />
                         }
+                        
                     </div>
                 </div>
             </header>

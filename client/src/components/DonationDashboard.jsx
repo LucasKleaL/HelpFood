@@ -41,7 +41,7 @@ function DonationDashboard() {
 
         Axios.get(window.url + '/user/getCurrentUserEmail').then(resp => {
             setReceiverEmail(resp.data)
-           
+
         });
         Axios.get(window.url + '/user/getCurrentUserName').then(resp => {
             setReceiverName(resp.data)

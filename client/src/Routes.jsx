@@ -5,6 +5,8 @@ import CompanyRegister from "./pages/CompanyRegister";
 import Donate from "./pages/Donate";
 import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
+import MyDonations from "./pages/MyDonations";
+
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -15,6 +17,7 @@ const Routes = () => {
                 <Route exact={true} path="/donate" component={Donate} />
                 <Route exact={true} path="/admin" component={Admin} />
                 <Route exact={true} path="/dashboard" component={Dashboard} />
+                <Route exact={true} path="/myDonations" component={MyDonations} />
             </Switch>
         </BrowserRouter>
     )

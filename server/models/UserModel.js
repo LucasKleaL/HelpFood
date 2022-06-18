@@ -17,7 +17,7 @@ class UserModel {
             let userCredential = await signInWithEmailAndPassword(auth, email, password)
             isAuth = true;
             console.log("Successful login");
-        }catch(error){
+        } catch (error) {
             console.log("Email ou senha incorretos." + error.message)
         }
         return isAuth;

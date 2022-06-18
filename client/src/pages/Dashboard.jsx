@@ -86,7 +86,7 @@ function Dashboard() {
 
     return (
         <div>
-            <Header theme={theme} isAuth={isAuth} />
+            <Header theme={theme} isAuth={isAuth} isBusiness={isBusiness} />
             {
                 getThemeSwitch()
             }
