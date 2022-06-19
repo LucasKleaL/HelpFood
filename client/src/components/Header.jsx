@@ -93,7 +93,7 @@ class Header extends Component {
                         </Link>   
                     </div>
                     <div style={{ width: "10rem", float: "left", marginLeft: "15px" }}>
-                        <Link to="/myDonations" style={{ textDecoration: "none" }} >
+                        <Link to="/donate" style={{ textDecoration: "none" }} >
                             <Typography style={HeaderItemStyle}>Doar</Typography>
                         </Link>   
                     </div>
