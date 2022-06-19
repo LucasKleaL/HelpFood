@@ -26,6 +26,28 @@ class DonationController {
             });
         });
 
+        app.get('/donation/getActiveDonationsByCompanyId/:id', (req, res) => {
+            const itemId = req.params.id;
+            donation.getActiveDonationsByCompanyId(itemId, function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
+        app.get('/donation/getDisabledDonationsByCompanyId/:id', (req, res) => {
+            const itemId = req.params.id;
+            donation.getDisabledDonationsByCompanyId(itemId, function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
         app.post('/donation/add', (req, res) => {
             var result = donation.addDonation(
                 req.body.name,

@@ -66,6 +66,61 @@ class DonationModel {
       result(null, error);
     });
   };
+  async getActiveDonationsByCompanyId(companyId, result) {
+    db.collection('Donation').get().then((data) => {
+      let donations = [];
+      data.forEach((doc) => {
+        if (doc.data().BusinessDonor === companyId && doc.data().Active) {
+          donations.push({
+            Id: doc.id,
+            District: doc.data().District,
+            BusinessDonor: doc.data().BusinessDonor,
+            Description: doc.data().Description,
+            Name: doc.data().Name,
+            Quantity: doc.data().Quantity,
+            ShelfLife: doc.data().ShelfLife,
+            TypeFood: doc.data().TypeFood,
+            Weight: doc.data().Weight,
+            Street: doc.data().District,
+            Number: doc.data().Number,
+            Phone: doc.data().Phone,
+            Active: doc.data().Active
+          });
+        }
+      });
+      result(null, donations);
+    }).catch(error => {
+      result(null, error);
+    });
+  };
+
+  async getDisabledDonationsByCompanyId(companyId, result) {
+    db.collection('Donation').get().then((data) => {
+      let donations = [];
+      data.forEach((doc) => {
+        if (doc.data().BusinessDonor === companyId && !doc.data().Active) {
+          donations.push({
+            Id: doc.id,
+            District: doc.data().District,
+            BusinessDonor: doc.data().BusinessDonor,
+            Description: doc.data().Description,
+            Name: doc.data().Name,
+            Quantity: doc.data().Quantity,
+            ShelfLife: doc.data().ShelfLife,
+            TypeFood: doc.data().TypeFood,
+            Weight: doc.data().Weight,
+            Street: doc.data().District,
+            Number: doc.data().Number,
+            Phone: doc.data().Phone,
+            Active: doc.data().Active
+          });
+        }
+      });
+      result(null, donations);
+    }).catch(error => {
+      result(null, error);
+    });
+  };
 
   async addDonation(name, description, businessDonor, nameDonor, emailDonor, district, weight, quantity, typeFood, shelfLife, street, number, phone) {
     await db.collection('Donation')

@@ -50,7 +50,7 @@ class Header extends Component {
             color: fontColor,
             fontSize: "1rem",
             cursor: "pointer",
-            padding: "7%"
+            padding: "9%"
         }
 
         const HeaderContainerStyle = {
@@ -86,11 +86,18 @@ class Header extends Component {
         }
         function menuOptions(isBusiness, isAuth){
             if(isBusiness && isAuth)
-                return <div style={{ width: "13rem", float: "left", marginLeft: "15px" }}>
+                return <div>
+                    <div style={{ width: "10rem", float: "left", marginLeft: "15px" }}>
                         <Link to="/myDonations" style={{ textDecoration: "none" }} >
                             <Typography style={HeaderItemStyle} >Minhas doações</Typography>
                         </Link>   
                     </div>
+                    <div style={{ width: "10rem", float: "left", marginLeft: "15px" }}>
+                        <Link to="/myDonations" style={{ textDecoration: "none" }} >
+                            <Typography style={HeaderItemStyle}>Doar</Typography>
+                        </Link>   
+                    </div>
+                </div>
                     
         }
         return (
