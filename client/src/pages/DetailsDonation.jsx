@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-
+function DetailsDonation(){
 const id = window.location.search;
 
 const urlParam = new URLSearchParams(id);
@@ -9,9 +9,6 @@ const paramId = urlParam.get("donationId");
 
 console.log(paramId);
 console.log("caiu")
-
-
-function DetailsDonation(){
     // const [donations, setDonation] = useState([]);
 
     // useEffect(() => {
@@ -30,25 +27,26 @@ function DetailsDonation(){
     //         );
     // }, [])
 
-    // return (
-    //     <div>
-    //         {/*{donations.map((donation) => (*/}
-    //         {/*    <div>{*/}
-    //         {/*        donation.Address + ", " +*/}
-    //         {/*        donation.BusinessDonor + ", " +*/}
-    //         {/*        donation.Description + ", " +*/}
-    //         {/*        donation.Name + ", " +*/}
-    //         {/*        donation.Quantity + ", " +*/}
-    //         {/*        donation.ShelfLife + ", " +*/}
-    //         {/*        donation.TypeFood + ", " +*/}
-    //         {/*        donation.Weight*/}
-    //         {/*    }</div>*/}
-    //
-    //         {/*))}*/}
-    //
-    //         <h1>teste</h1>
-    //     </div>
-    // )
+    return (
+        <div>
+            {/*{donations.map((donation) => (*/}
+            {/*    <div>{*/}
+            {/*        donation.Address + ", " +*/}
+            {/*        donation.BusinessDonor + ", " +*/}
+            {/*        donation.Description + ", " +*/}
+            {/*        donation.Name + ", " +*/}
+            {/*        donation.Quantity + ", " +*/}
+            {/*        donation.ShelfLife + ", " +*/}
+            {/*        donation.TypeFood + ", " +*/}
+            {/*        donation.Weight*/}
+            {/*    }</div>*/}
+
+            {/*))}*/}
+
+            <h1>teste</h1>
+            {paramId}
+        </div>
+    )
 
 }
 

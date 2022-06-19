@@ -11,6 +11,7 @@ import "./../styles/dashboard.css";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ThemeComponent from './ThemeComponent';
+import {useHistory} from "react-router-dom";
 
 function DonationDashboard() {
 
