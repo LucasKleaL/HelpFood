@@ -1,7 +1,8 @@
 import { React, useState } from "react";
-import { Container, Grid, Button, Box, TextField, Select } from "@material-ui/core";
+import { Container, Grid, Button, Box, TextField, Select, Avatar, Typography, } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import MaterialButtonTheme from "./../themes/MaterialButtonTheme";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import Axios from "axios";
@@ -21,12 +22,13 @@ function UserRegister() {
     const [ongName, setOngName] = useState("");
     const [password, setPassword] = useState("");
     const [retryPassword, setRetryPassword] = useState("");
+    const avatarStyle = { backgroundColor: '#1bbd7e' }
 
     function addUser() {
         let nonce = "HelpFood#sha256#420"
         let hashPassword = Base64.stringify(sha256(nonce + password));
         if (name !== "" && cpf !== "" && email !== "" && ongName !== "" && password !== "" && retryPassword !== "") {
-            Axios.post(window.url+"/user/add", {
+            Axios.post(window.url + "/user/add", {
                 name: name,
                 cpf: cpf,
                 email: email,
@@ -34,7 +36,7 @@ function UserRegister() {
                 password: hashPassword,
                 retryPassword: retryPassword
             });
-        }else {
+        } else {
             alert("Por favor preencha os campos cadastrais corretamente.")
         }
     }
@@ -65,40 +67,42 @@ function UserRegister() {
 
             <Header theme={theme} />
 
-            <Container align="center" style={{marginTop: "6rem"}}>
+            <Container align="center" style={{ marginTop: "6rem" }}>
 
                 <div>
                     <Box style={BoxStyle}>
-                        <div>
-                            <TextField variant="outlined" type="text" label="Nome"
-                                style={{ ...TextFieldSytle, ...{ marginTop: "2rem" } }}
-                                onChange={(e) => { setName(e.target.value) }}
-                            />
-                            <InputMask
-                                mask="999.999.999-99"
-                                value={cpf}
-                                disabled={false}
-                                onChange={(e) => setCpf(e.target.value)}
-                            >
-                                {() => <TextField variant="outlined" label="CPF" style={TextFieldSytle} />}
-                            </InputMask>
-                            <TextField variant="outlined" label="Email" type="EMAIL"
-                                style={TextFieldSytle}
-                                onChange={(e) => { setEmail(e.target.value) }}
-                            />
-                            <TextField variant="outlined" label="Nome da ONG" type="text"
-                                style={TextFieldSytle}
-                                onChange={(e) => { setOngName(e.target.value) }}
-                            />
-                            <TextField variant="outlined" label="Senha" type="password"
-                                style={TextFieldSytle}
-                                onChange={(e) => { setPassword(e.target.value) }}
-                            />
-                            <TextField variant="outlined" label="Confirme a senha" type="password"
-                                style={TextFieldSytle}
-                                onChange={(e) => { setRetryPassword(e.target.value) }}
-                            />
-                        </div>
+                        <Grid align='center'>
+                            <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                            <Typography variant='caption' gutterBottom>Cadastre-se agora mesmo!</Typography>
+                        </Grid>
+                        <TextField variant="outlined" type="text" label="Nome"
+                            style={{ ...TextFieldSytle, ...{ marginTop: "2rem" } }}
+                            onChange={(e) => { setName(e.target.value) }}
+                        />
+                        <InputMask
+                            mask="999.999.999-99"
+                            value={cpf}
+                            disabled={false}
+                            onChange={(e) => setCpf(e.target.value)}
+                        >
+                            {() => <TextField variant="outlined" label="CPF" style={TextFieldSytle} />}
+                        </InputMask>
+                        <TextField variant="outlined" label="Email" type="EMAIL"
+                            style={TextFieldSytle}
+                            onChange={(e) => { setEmail(e.target.value) }}
+                        />
+                        <TextField variant="outlined" label="Nome da ONG" type="text"
+                            style={TextFieldSytle}
+                            onChange={(e) => { setOngName(e.target.value) }}
+                        />
+                        <TextField variant="outlined" label="Senha" type="password"
+                            style={TextFieldSytle}
+                            onChange={(e) => { setPassword(e.target.value) }}
+                        />
+                        <TextField variant="outlined" label="Confirme a senha" type="password"
+                            style={TextFieldSytle}
+                            onChange={(e) => { setRetryPassword(e.target.value) }}
+                        />
                         <div>
                             <Button variant="contained" color="primary" style={RegisterButtonStyle} onClick={addUser}>Cadastrar</Button>
                         </div>

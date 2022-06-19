@@ -1,7 +1,9 @@
 import { React, useEffect, useState } from "react";
-import { Container, Grid, Button, Box, TextField, Select, Typography } from "@material-ui/core";
+import { Container, Grid, Button, Box, TextField, Select, Avatar, Typography } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import MaterialButtonTheme from "./../themes/MaterialButtonTheme";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
 import Axios from "axios";
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
@@ -124,6 +126,7 @@ function CompanyRegister () {
             setErrorRetryPasswordText("A senha inserida não confere com a verificação.")
         }
     }
+    const avatarStyle = { backgroundColor: '#1bbd7e' }
 
     const BoxStyle = {
         backgroundColor: "var(--white-background)",
@@ -162,7 +165,10 @@ function CompanyRegister () {
 
                 <div>
                     <Box style={BoxStyle}>
-                        <div>
+                    <Grid align='center'>
+                            <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                            <Typography variant='caption' gutterBottom>Cadastre a sua empresa!</Typography>
+                        </Grid>
                             <TextField variant="outlined" type="text" label="Nome da Empresa" 
                             style={{...TextFieldSytle,...{marginTop: "2rem"}}}
                             onChange={(e) => {setName(e.target.value); handleName(e.target.value)}}
@@ -193,7 +199,6 @@ function CompanyRegister () {
                             error={errorRetryPassword}
                             helperText={errorRetryPasswordText}
                             />
-                        </div>
                         <div>
                             <Button variant="contained" color="primary" style={RegisterButtonStyle} onClick={addCompany}>Cadastrar</Button>
                         </div> 
