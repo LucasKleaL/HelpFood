@@ -108,9 +108,24 @@ function DonationDashboard() {
 
     const history = useHistory();
     const donation = (donationId) => {
-        DetailsDonation(donationId)
-        history.push("/Details")
+        // DetailsDonation(donationId)
+        history.push("/Details?donationId=" + donationId)
         window.location.reload()
+
+        //window.location = '/player_detail?username='+username;
+
+        //window.location.href = "http://localhost:3000/Details/?donationId=" + donationId;
+        //console.log("teste id")
+        //console.log(donationId)
+
+
+        // const { location } = this.props;
+        // const query = new URLSearchParams(location.search);
+        //
+        // const Id = query.get('group_Id');;
+        // console.log(Id);
+        // let url = 'http://localhost:0000/api/Group/GroupDetailsDisplay?group_Id='+Id;
+
     }
 
     return (
@@ -167,7 +182,7 @@ function DonationDashboard() {
                                             <Button size="small" sx={{width: "50%"}}
                                                     onClick={() => alertRequestDonation(item.Id)}>Solicitar</Button>
                                             <Button size="small" sx={{width: "50%"}}
-                                                    onClick={() => donation(item.id)}>Detalhes</Button>
+                                                    onClick={() => donation(item.Id)}>Detalhes</Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>

@@ -1,42 +1,54 @@
 import {useEffect, useState} from "react";
 
-const DetailsDonation = (donationId) => {
 
-    const [donations, setDonation] = useState([]);
+const id = window.location.search;
 
-    useEffect(() => {
-        fetch("http://localhost:3001/donation/getDonationById/:" + donationId, {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            }
-        })
-            .then((res) => res.json())
-            .then(
-                (result) => {
-                    setDonation(result)
-                }
-            );
-    }, [])
+const urlParam = new URLSearchParams(id);
 
-    return (
-        <div>
-            {donations.map((donation) => (
-                <div>{
-                    donation.Address + ", " +
-                    donation.BusinessDonor + ", " +
-                    donation.Description + ", " +
-                    donation.Name + ", " +
-                    donation.Quantity + ", " +
-                    donation.ShelfLife + ", " +
-                    donation.TypeFood + ", " +
-                    donation.Weight
-                }</div>
+const paramId = urlParam.get("donationId");
 
-            ))}
-        </div>
-    )
+console.log(paramId);
+console.log("caiu")
+
+
+function DetailsDonation(){
+    // const [donations, setDonation] = useState([]);
+
+    // useEffect(() => {
+    //     fetch("http://localhost:3001/donation/getDonationById/:" + donationId, {
+    //         method: "GET",
+    //         headers: {
+    //             Accept: "application/json",
+    //             "Content-Type": "application/json"
+    //         }
+    //     })
+    //         .then((res) => res.json())
+    //         .then(
+    //             (result) => {
+    //                 setDonation(result)
+    //             }
+    //         );
+    // }, [])
+
+    // return (
+    //     <div>
+    //         {/*{donations.map((donation) => (*/}
+    //         {/*    <div>{*/}
+    //         {/*        donation.Address + ", " +*/}
+    //         {/*        donation.BusinessDonor + ", " +*/}
+    //         {/*        donation.Description + ", " +*/}
+    //         {/*        donation.Name + ", " +*/}
+    //         {/*        donation.Quantity + ", " +*/}
+    //         {/*        donation.ShelfLife + ", " +*/}
+    //         {/*        donation.TypeFood + ", " +*/}
+    //         {/*        donation.Weight*/}
+    //         {/*    }</div>*/}
+    //
+    //         {/*))}*/}
+    //
+    //         <h1>teste</h1>
+    //     </div>
+    // )
 
 }
 
