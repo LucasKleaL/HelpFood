@@ -68,8 +68,8 @@ function DetailsDonation() {
                             {donations.map((donation) => (
                                 <Grid item key={donation.Id}>
                                     <Card sx={{
-                                        maxWidth: 315,
-                                        minWidth: 315,
+                                        maxWidth: 515,
+                                        minWidth: 515,
                                         backgroundColor: themeComponent.getCardBackgroundColor(theme)
                                     }}>
                                         <CardMedia
@@ -88,15 +88,43 @@ function DetailsDonation() {
                                             </Typography>
                                         </div>
                                         <CardContent>
-                                            <Typography className="nameCard" gutterBottom variant="h6" component="div"
-                                                        sx={{color: themeComponent.getTypographyColor(theme)}}>
-                                                {donation.Name}
-                                            </Typography>
-                                            <Typography className="description" variant="body2"
-                                                        sx={{color: themeComponent.getTypographyColor(theme)}}>
-                                                {donation.Description}
+                                            <Typography className="nameCard" gutterBottom variant="h6" component="div">
+                                                Dados da Doação
                                             </Typography>
 
+                                            <CardContent>
+                                                <Typography className="description" variant="body2">
+                                                    Nome: {donation.Name}
+                                                </Typography>
+                                                <Typography className="description" variant="body2">
+                                                    Tipo: {donation.TypeFood}
+                                                </Typography>
+                                                <Typography className="description" variant="body2">
+                                                    Quantia doada: {donation.Weight}
+                                                </Typography>
+                                                <Typography className="description" variant="body2">
+                                                    Número da Doação: {donation.Number}
+                                                </Typography>
+                                                <Typography className="description" variant="body2">
+                                                    Descrição: {donation.Description}
+                                                </Typography>
+                                            </CardContent>
+
+                                            <Typography className="nameCard" gutterBottom variant="h6" component="div">
+                                                Dados do Doador
+                                            </Typography>
+
+                                            <CardContent>
+                                                <Typography className="description" variant="body2">
+                                                    Nome: {donation.NameDonor}
+                                                </Typography>
+                                                <Typography className="description" variant="body2">
+                                                    Email: {donation.EmailDonor}
+                                                </Typography>
+                                                <Typography className="description" variant="body2">
+                                                    Telefone: {donation.Phone}
+                                                </Typography>
+                                            </CardContent>
                                         </CardContent>
 
                                         <CardContent>
