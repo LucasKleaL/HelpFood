@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import ThemeComponent from "../components/ThemeComponent";
 import CardActions from "@mui/material/CardActions";
+import {useHistory} from "react-router-dom";
 
 function DetailsDonation() {
     const id = window.location.search;
@@ -38,6 +39,11 @@ function DetailsDonation() {
                 }
             );
     }, [])
+
+    const history = useHistory();
+    const dashboard = () => {
+        history.push("/Dashboard")
+    }
 
     return (
         <div>
@@ -117,7 +123,7 @@ function DetailsDonation() {
 
                                             <Divider/>
                                             <CardActions sx={{alignContent: "center"}}>
-                                                <Button size="small" sx={ButtonStyle}>Voltar</Button>
+                                                <Button size="small" sx={ButtonStyle} onClick={() => dashboard()}>Voltar</Button>
                                                 <Button size="small" sx={ButtonStyle}>Solicitar</Button>
                                             </CardActions>
                                             <Divider/>
