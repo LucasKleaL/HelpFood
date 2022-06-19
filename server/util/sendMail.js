@@ -5,7 +5,7 @@ class sendMail {
     constructor() {
 
     }
-    async sendMailToCompany(donationName, companyName, companyEmail) {
+    async sendMailToCompany(donationName, companyName, companyEmail, receiverName, receiverEmail) {
         let transporter = nodemailer.createTransport({
             service: "hotmail",
             host: SMTP_CONFIG.host,
@@ -62,7 +62,7 @@ class sendMail {
                                                             style="display:inline-block;text-decoration:none;text-transform:none;vertical-align:middle"
                                                             target="_blank">
                                                             <img alt="HelpFood" height="auto"
-                                                              src="../util/logo.png"
+                                                              src="https://firebasestorage.googleapis.com/v0/b/helpfood-29ce0.appspot.com/o/Screenshot_88.png?alt=media&token=fffb19a9-9655-4b05-83ac-d46b46d79ac2"
                                                               style="max-width:160px;width:160px;border:0;display:block;outline:none;text-decoration:none;height:auto;font-size:13px"
                                                               width="160" class="CToWUd"> </a></td>
                                                       </tr>
@@ -135,25 +135,28 @@ class sendMail {
                                                                         style="text-decoration:none;color:#2277ff;font-weight:800"
                                                                         target="_blank"
                                                                         data-saferedirecturl="#">${donationName}</a>
-                                                                      foi solicitada. Você pode ver quem irá retirar clicando no botão abaixo.</span>
+                                                                      foi solicitada. Você pode conferir quem irá retirar nas informações abaixo.</span>
                                                                   </div>
                                                                 </td>
                                                               </tr>
                                                               <tr>
-                                                                <td style="padding:0">
-                                                                  <div style="display:inline-block">
-                                                                    <a href="#"
-                                                                      style="color:#000000;text-decoration:none" target="_blank">
-                                                                      <div
-                                                                        style="padding:15px 64px;margin-top:25px;line-height:30px;text-align:center;background-color:#000000">
-                                                                        <span
-                                                                          style="font-weight:bold;font-size:24px;color:#ffffff">Ver
-                                                                          detalhes da solicitação</span>
-                                                                      </div>
-                                                                    </a>
+                                                              <td style="padding:0">
+                                                                  <div style="margin-top:25px;line-height:36px;font-size:24px;font-style:bold;font-family:'Open Sans',OpenSans,Helvetica,Arial;font-weight:500;color:#000000">
+                                                                      <span>
+                                                                          ${receiverName}
+                                                                      </span>
                                                                   </div>
-                                                                </td>
-                                                              </tr>
+                                                              </td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td style="padding:0">
+                                                                  <div style="line-height:36px;font-size:18px;font-family:'Open Sans',OpenSans,Helvetica,Arial;font-weight:500;color:#000000">
+                                                                      <span>
+                                                                          E-mail: ${receiverEmail}
+                                                                      </span>
+                                                                  </div>
+                                                              </td>
+                                                            </tr>
                                                               <tr>
                                                                 <td style="padding:0">
                                                                   <div
@@ -254,7 +257,7 @@ class sendMail {
                                                             style="display:inline-block;text-decoration:none;text-transform:none;vertical-align:middle"
                                                             target="_blank">
                                                             <img alt="HelpFood" height="auto"
-                                                              src="../util/logo.png"
+                                                              src="https://firebasestorage.googleapis.com/v0/b/helpfood-29ce0.appspot.com/o/Screenshot_88.png?alt=media&token=fffb19a9-9655-4b05-83ac-d46b46d79ac2"
                                                               style="max-width:160px;width:160px;border:0;display:block;outline:none;text-decoration:none;height:auto;font-size:13px"
                                                               width="160" class="CToWUd"> </a></td>
                                                       </tr>

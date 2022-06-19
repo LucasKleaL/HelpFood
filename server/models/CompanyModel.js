@@ -38,7 +38,7 @@ class CompanyModel {
             await db.collection("Company").doc(companyRecord.uid).set({
                 Cnpj: cnpj,
                 Donations: donations,
-                Allowed: allowed,
+                Allowed: true,
                 Name: name,
                 Email: email
             })

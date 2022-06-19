@@ -170,7 +170,6 @@ class DonationModel {
   }
 
   async reserveDonation(donationId, receiverId, receiverName, receiverEmail) {
-    console.log(donationId)
     var donationName = "";
     var companyName = "";
     var companyEmail = "";
@@ -186,7 +185,7 @@ class DonationModel {
         donationName = snapshot.data().Name;
         companyName = snapshot.data().NameDonor;
         companyEmail = snapshot.data().EmailDonor;
-        donationAddress = snapshot.data().Street + ", " + snapshot.data().Number + ". " + snapshot.data().District + ".";
+        donationAddress = snapshot.data().Street + ", " + snapshot.data().Number + " - " + snapshot.data().District + ".";
         phone = snapshot.data().Phone;
         docRef.update({
           Receiver: receiverId,
@@ -194,7 +193,7 @@ class DonationModel {
         }).then(() => {
 
           console.log("Successfully reserved donation");
-          sendEmail.sendMailToCompany(donationName, companyName, companyEmail);
+          sendEmail.sendMailToCompany(donationName, companyName, companyEmail, receiverName, receiverEmail);
           sendEmail.sendMailToUser(userName, donationName, companyName, companyEmail, userEmail, donationAddress, phone);
           return true;
         }).catch((e) => {

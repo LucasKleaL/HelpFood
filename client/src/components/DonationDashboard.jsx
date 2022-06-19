@@ -64,7 +64,7 @@ function DonationDashboard() {
                     if (response.status === 200) {
                         Swal.fire(
                             'Sucesso!',
-                            'Seu pedido foi recebido.',
+                            'Seu pedido foi recebido. <br> Verifique o seu e-mail para acessar os detalhes da retirada!',
                             'success'
                         ).then((result) => {
                             if (result.isConfirmed) {
