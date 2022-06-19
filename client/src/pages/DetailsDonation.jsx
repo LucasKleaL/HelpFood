@@ -26,7 +26,7 @@ function DetailsDonation() {
     }
 
     useEffect(() => {
-        fetch("http://localhost:3001/donation/getDonationById/" + paramId, {
+        fetch(window.url + "/donation/getDonationById/" + paramId, {
             method: "GET",
             headers: {
                 Accept: "application/json",
