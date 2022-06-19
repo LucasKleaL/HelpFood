@@ -25,15 +25,18 @@ function UserRegister() {
     function addUser() {
         let nonce = "HelpFood#sha256#420"
         let hashPassword = Base64.stringify(sha256(nonce + password));
-
-        Axios.post(window.url+"/user/add", {
-            name: name,
-            cpf: cpf,
-            email: email,
-            ongName: ongName,
-            password: hashPassword,
-            retryPassword: retryPassword
-        });
+        if (name !== "" && cpf !== "" && email !== "" && ongName !== "" && password !== "" && retryPassword !== "") {
+            Axios.post(window.url+"/user/add", {
+                name: name,
+                cpf: cpf,
+                email: email,
+                ongName: ongName,
+                password: hashPassword,
+                retryPassword: retryPassword
+            });
+        }else {
+            alert("Por favor preencha os campos cadastrais corretamente.")
+        }
     }
 
     const BoxStyle = {
