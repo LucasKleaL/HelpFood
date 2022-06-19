@@ -57,7 +57,7 @@ class DonationModel {
           ShelfLife: doc.data().ShelfLife,
           TypeFood: doc.data().TypeFood,
           Weight: doc.data().Weight,
-          Street: doc.data().District,
+          Street: doc.data().Street,
           Number: doc.data().Number,
           Phone: doc.data().Phone,
           Active: doc.data().Active

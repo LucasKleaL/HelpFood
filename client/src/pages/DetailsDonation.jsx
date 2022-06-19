@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Container, Grid} from "@mui/material";
+import {Button, Container, Grid} from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import ThemeComponent from "../components/ThemeComponent";
+import CardActions from "@mui/material/CardActions";
 
 function DetailsDonation() {
     const id = window.location.search;
@@ -53,44 +54,33 @@ function DetailsDonation() {
                         <Grid>
                             <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
                                 <Grid item>
-                                    <h3 style={{
-                                        fontSize: "60px",
-                                        color: themeComponent.getTypographyColor(theme)
-                                    }}>Detalhes da Doação</h3>
+                                    <h3 style={{fontSize: "60px",color: themeComponent.getTypographyColor(theme)}}>
+                                        Detalhes da Doação</h3>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Divider style={{
-                            backgroundColor: themeComponent.getTypographyContrastColor(theme),
-                            opacity: "25%"
-                        }}/>
+
+                        <Divider style={{backgroundColor: themeComponent.getTypographyContrastColor(theme),opacity: "25%"}}/>
+
                         <Grid container spacing={1.3} padding={3} justifyContent="center">
                             {donations.map((donation) => (
                                 <Grid item key={donation.Id}>
-                                    <Card sx={{
-                                        maxWidth: 515,
-                                        minWidth: 515,
-                                        backgroundColor: themeComponent.getCardBackgroundColor(theme)
-                                    }}>
+                                    <Card sx={{maxWidth: 515,minWidth: 515,backgroundColor: themeComponent.getCardBackgroundColor(theme)}}>
                                         <CardMedia
                                             component="img"
                                             height="140"
                                             image="https://static.vecteezy.com/ti/vetor-gratis/p1/2554852-seamless-pattern-with-food-on-dark-blue-background-gr%C3%A1tis-vetor.jpg"
                                             alt="HelpFood img"
                                         />
-                                        <div>
-                                            <Typography variant="body2" sx={{
-                                                color: themeComponent.getTypographyColor(theme),
-                                                float: "right",
-                                                paddingRight: "4px"
-                                            }}>
-                                                Validade: {donation.ShelfLife}
-                                            </Typography>
-                                        </div>
                                         <CardContent>
-                                            <Typography className="nameCard" gutterBottom variant="h6" component="div">
-                                                {donation.Name}
-                                            </Typography>
+                                            <div>
+                                                <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{float: "right"}}>
+                                                    {donation.Quantity} unidades
+                                                </Typography>
+                                                <Typography className="nameCard" gutterBottom variant="h6" component="div">
+                                                    {donation.Name}
+                                                </Typography>
+                                            </div>
                                             <Typography className="description" variant="body2" sx={{float: "right"}}>
                                                 Tipo: {donation.TypeFood}
                                             </Typography>
@@ -98,12 +88,14 @@ function DetailsDonation() {
                                                 Quantia doada: {donation.Weight}
                                             </Typography>
                                             <Typography className="description" variant="body2" sx={{float: "right"}}>
-                                                Número da Doação: {donation.Number}
+                                                Validade: {donation.ShelfLife}
                                             </Typography>
                                             <Typography className="description" variant="body2">
                                                 Descrição: {donation.Description}
                                             </Typography>
                                         </CardContent>
+
+                                        <Divider/>
 
                                         <CardContent>
                                             <Typography className="nameCard" gutterBottom variant="h6" component="div">
@@ -115,26 +107,24 @@ function DetailsDonation() {
                                             <Typography className="description" variant="body2">
                                                 Nome: {donation.NameDonor}
                                             </Typography>
+                                            <Typography variant="body2" sx={{float: "right"}}>
+                                                Endereço: <br/>
+                                                R. {donation.Street}, {donation.Number} - {donation.District}
+                                            </Typography>
                                             <Typography className="description" variant="body2">
                                                 Email: {donation.EmailDonor}
                                             </Typography>
-                                        </CardContent>
 
-                                        <CardContent>
-                                            <Typography variant="body2" sx={{
-                                                float: "right",
-                                                paddingRight: "4px",
-                                                color: themeComponent.getTypographyColor(theme)
-                                            }}>
-                                                {donation.Quantity} un.
-                                            </Typography>
-                                            <Typography variant="body2"
-                                                        sx={{color: themeComponent.getTypographyColor(theme)}}>
-                                                Bairro: {donation.District}
-                                            </Typography>
+                                            <Divider/>
+                                            <CardActions sx={{alignContent: "center"}}>
+                                                <Button size="small" sx={ButtonStyle}>Voltar</Button>
+                                                <Button size="small" sx={ButtonStyle}>Solicitar</Button>
+                                            </CardActions>
+                                            <Divider/>
+
                                             <input type={"hidden"} id={donation.Id} value={donation.Id}></input>
                                         </CardContent>
-                                        <Divider/>
+
                                     </Card>
                                 </Grid>
                             ))}
