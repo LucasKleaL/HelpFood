@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThemeSwitchComponent from "../components/ThemeSwitchComponent";
 import MyDonationsComponent from "../components/MyDonations";
+import LoginForm from "../components/LoginForm";
 
 function MyDonations() {
 
@@ -71,9 +72,11 @@ function MyDonations() {
             themeComponent.setThemeSwitch("dark");
         }
     }
-    function renderMyDonations(isBusiness){
-        if(isBusiness)
+    function renderMyDonations(isBusiness, isAuth){
+        if(isBusiness && isAuth)
             return <MyDonationsComponent/>
+        else    
+            return <LoginForm redirectCompany={true} />
     }
 
     return (
@@ -84,7 +87,7 @@ function MyDonations() {
                 getThemeSwitch()
             }
             {
-                renderMyDonations(isBusiness)
+                renderMyDonations(isBusiness, isAuth)
             }
             <Footer theme={themeComponent.getActualTheme()} />
         </div>
