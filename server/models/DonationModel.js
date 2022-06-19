@@ -51,6 +51,8 @@ class DonationModel {
           BusinessDonor: doc.data().BusinessDonor,
           Description: doc.data().Description,
           Name: doc.data().Name,
+          NameDonor: doc.data().NameDonor,
+          EmailDonor: doc.data().EmailDonor,
           Quantity: doc.data().Quantity,
           ShelfLife: doc.data().ShelfLife,
           TypeFood: doc.data().TypeFood,
