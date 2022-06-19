@@ -1,30 +1,30 @@
-import { React, useState, useEffect } from "react";
-import { Container, Grid, Button, Box, Select, Typography } from "@material-ui/core";
-import {
-    Chart,
-    PieSeries,
-    Title,
-    Legend
-} from '@devexpress/dx-react-chart-material-ui';
-import {
-    Animation
-} from '@devexpress/dx-react-chart';
+import { React, useState, useEffect, useLayoutEffect } from "react";
+import { Container, Grid, Button, Box, Select, Typography, Switch } from "@material-ui/core";
+import {Chart, PieSeries, Title, Legend } from '@devexpress/dx-react-chart-material-ui';
+import { Animation, Palette } from '@devexpress/dx-react-chart';
 import "./../styles/admin.css";
 
+import ThemeComponent from "../components/ThemeComponent";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
-import TopMenu from "../components/TopMenu";
+import ThemeSwitchComponent from "../components/ThemeSwitchComponent";
 
 function LandingPage() {
 
+    const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
+
+    const [themeSwitch, setThemeSwitch] = useState(false);
     const [items, setItems] = useState([]);
-    let [countLanches, setCountLanches] = useState(0);
-    let [countComidas, setCountComidas] = useState(0);
-    let [countBebidas, setCountBebidas] = useState(0);
-    let [countVerduras, setCountVerduras] = useState(0);
-    let [countLegumes, setCountLegumes] = useState(0);
-    let [countFrutas, setCountFrutas] = useState(0);
+    const [countLanches, setCountLanches] = useState(0);
+    const [countComidas, setCountComidas] = useState(0);
+    const [countBebidas, setCountBebidas] = useState(0);
+    const [countVerduras, setCountVerduras] = useState(0);
+    const [countLegumes, setCountLegumes] = useState(0);
+    const [countFrutas, setCountFrutas] = useState(0);
+
     useEffect(() => {
-        const response = fetch("http://localhost:3001/donation/getAll", {
+        const response = fetch(window.url+"/donation/getAll", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -40,6 +40,12 @@ function LandingPage() {
             );
         console.log(items)
     }, [])
+
+    useLayoutEffect(() => {
+        if (theme != "dark") {
+            setThemeSwitch(true);
+        }
+    }, [themeSwitch]);
 
     function teste(result) {
         var comidaFilter = result.filter(function(item){
@@ -81,12 +87,26 @@ function LandingPage() {
         console.log(frutaFilter.length)
     }
 
-    const HeaderTitleStyle = {
-        color: "var(--white)",
-        fontSize: "2rem",
-        fontWeight: "900",
-        marginLeft: "1rem",
+    function getThemeSwitch() {
+        if (theme != "dark") {
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent defaultChecked onChange={ () => { handleThemeSwitch() } } /></div>;
+        }
+        else {
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent onChange={ () => { handleThemeSwitch() } } /></div>;
+        }
     }
+
+    function handleThemeSwitch() {
+        if (!themeSwitch) {
+            setThemeSwitch(true);
+            themeComponent.setThemeSwitch("light");
+        }
+        else {
+            setThemeSwitch(false);
+            themeComponent.setThemeSwitch("dark");
+        }
+    }
+
     const data = [
         { argument: 'Lanche', value: countLanches },
         { argument: 'Comida', value: countComidas },
@@ -98,31 +118,28 @@ function LandingPage() {
 
     return (
         
-        <div style={{ backgroundColor: "white" }}>
-            <TopMenu/>
+        <div style={{ backgroundColor: themeComponent.getBackgroundColor(theme) }}>
 
-            <div style={{ backgroundColor: "white" }}>
+            <Header theme={theme} />
 
-                <header>
-                    <div style={{ float: "left", marginTop: "0.5" }}>
-                        <Typography className="nunito-text" style={HeaderTitleStyle}>HelpFoods</Typography>
-                    </div>
-                </header>
+            {
+                getThemeSwitch()
+            }
 
-                <div className="chartContainer" style={{ backgroundColor: "white" }}>
-                    <Chart
-                        data={data}
-                        label={"test"}
-                        
-                    >
+            <Container align="center" maxWidth="lg">
+            <div style={{ backgroundColor: themeComponent.getBackgroundColor(theme) }}>
+                <div className="chartContainer" style={{ color: themeComponent.getTypographyColor(theme), backgroundColor: themeComponent.getBackgroundColor(theme) }}>
+                    <Chart data={data} label={"test"} >
                         <PieSeries valueField="value" argumentField="argument" />
-                        <Title text="Doações recebidas" />
-                        <Legend></Legend>
-                        <Animation/>
+                        <Title text="Doações recebidas" className="white-typography" />
+                        <Legend />
+                        <Animation />
                     </Chart>
                 </div>
             </div>
-            <Footer></Footer>
+            </Container>
+            
+            <Footer theme={themeComponent.getActualTheme()} />
         </div>
     )
 }

@@ -26,16 +26,16 @@ class Footer extends Component {
             fontColor = "var(--white)";
         }
         else {
-            footerColor = "var(--white-background)";
-            fontColor = "var(--black)";
+            footerColor = "var(--gray-dark-background)";
+            fontColor = "var(--white)";
         }
 
         return (
             <AppBar position="static" elevation={0} component="footer" style={{backgroundColor: footerColor}}>
                 <Toolbar style={{ justifyContent: "center" }}>
-                    <Typography variant="caption" style={{backgroundColor: {fontColor}}} >Lucas Kusman, Tiago Felipe e Vitor Felix ©2022</Typography>
+                    <Typography variant="caption" style={{color: {fontColor}}} >Lucas Kusman, Tiago Felipe e Vitor Felix ©2022</Typography>
                     <a href="https://github.com/LucasKleaL/HelpFood" rel="noreferrer" target="_blank">
-                        <GitHubIcon style={{marginLeft: "0.5rem"}} />
+                        <GitHubIcon style={{marginLeft: "0.5rem", color: "white"}} />
                     </a>
                 </Toolbar>
             </AppBar>

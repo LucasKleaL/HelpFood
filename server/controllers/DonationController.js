@@ -31,6 +31,8 @@ class DonationController {
                 req.body.name,
                 req.body.description,
                 req.body.businessDonor,
+                req.body.nameDonor,
+                req.body.emailDonor,
                 req.body.district,
                 req.body.weight,
                 req.body.quantity,
@@ -49,10 +51,11 @@ class DonationController {
         });
 
         app.post('/donation/reserve', (req, res) => {
-            console.log(req.body.receiverId)
             var result = donation.reserveDonation(
                 req.body.donationId,
-                req.body.receiverId
+                req.body.receiverId,
+                req.body.receiverName,
+                req.body.receiverEmail
             );
             if (result) {
                 res.sendStatus(200)

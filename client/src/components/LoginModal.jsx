@@ -6,7 +6,7 @@ import Axios from "axios";
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 
-function LoginModal() {
+function LoginModal(props) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,11 +26,12 @@ function LoginModal() {
     async function login() {
         let nonce = "HelpFood#sha256#420"
         let hashPassword = Base64.stringify(sha256(nonce + password));
-        await Axios.post("http://localhost:3001/user/authUser", {
+        await Axios.post(window.url+"/user/authUser", {
           email: email,
           password: hashPassword
         }).then((response) => {
             console.log("Login response "+response.data);
+            debugger
             if (response.data) {
                 handleClose();
                 window.location.reload();
@@ -76,10 +77,14 @@ function LoginModal() {
                             </div>
 
                             <div style={{"paddingTop": "1rem", "paddingBottom": "1rem"}}>
-                                <Typography >Não possui cadastro? 
-                                    <Link to="/company/add" style={{"textDecoration": "none"}} onClick={handleClose}>
-                                        <b className="b-signup"> Criar conta</b>
-                                    </Link>
+                                <Typography >Não possui cadastro?
+                                    {
+                                        props.isCompany ? 
+                                        <Link to="/company/add" style={{"textDecoration": "none"}} onClick={handleClose}> <b className="b-signup"> Criar conta</b></Link> 
+                                        : 
+                                        <Link to="/user/add" style={{"textDecoration": "none"}} onClick={handleClose}> <b className="b-signup"> Criar conta</b></Link> 
+                                    }
+                                    
                                 </Typography>
                             </div>
 

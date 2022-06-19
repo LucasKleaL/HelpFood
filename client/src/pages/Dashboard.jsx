@@ -1,26 +1,82 @@
 import { React, useState, useEffect, useLayoutEffect } from "react";
 import { Button, Grid, Container, DataGrid } from '@mui/material';
-import  { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Axios from "axios";
 
 import LoginModal from "../components/LoginModal";
+import LoginForm from "../components/LoginForm";
+
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThemeComponent from "../components/ThemeComponent";
 import DonationDashboard from "../components/DonationDashboard";
-import TopMenu from "../components/TopMenu";
+import CompanyDashboard from "../components/CompanyDashboard";
+import ThemeSwitchComponent from "../components/ThemeSwitchComponent";
 
 function Dashboard() {
 
+    const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
+
     const [isAuth, setIsAuth] = useState(false);
     const [isBusiness, setIsBusiness] = useState(false);
-    const themeComponent = new ThemeComponent();
+    const [themeSwitch, setThemeSwitch] = useState(false);
 
     useLayoutEffect(() => {
-        Axios.get("http://localhost:3001/user/getUserAuth")
+        if (theme != "dark") {
+            setThemeSwitch(true);
+        }
+    }, [themeSwitch]);
+    
+    function getThemeSwitch() {
+        if (theme != "dark") {
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent defaultChecked onChange={ () => { handleThemeSwitch() } } /></div>;
+        }
+        else {
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent onChange={ () => { handleThemeSwitch() } } /></div>;
+        }
+    }
+
+    function handleThemeSwitch() {
+        if (!themeSwitch) {
+            setThemeSwitch(true);
+            themeComponent.setThemeSwitch("light");
+        }
+        else {
+            setThemeSwitch(false);
+            themeComponent.setThemeSwitch("dark");
+        }
+    }
+    function getDashboard(){
+        if (isAuth && isBusiness) 
+            return <CompanyDashboard/>
+        else if(isAuth && isBusiness === false)
+            return <DonationDashboard />
+        else
+            return <LoginForm isCompany={false} />
+    }
+
+    useLayoutEffect(() => {
+        Axios.get(window.url+"/user/getUserAuth")
             .then((result) => {
-                console.log("useEffect " + result.data)
                 setIsAuth(result.data);
-                
+                Axios.get(window.url+"/user/getCurrentUserId")
+                    .then((result) => {
+                        var url = window.url+"/user/isBusiness/" + result.data
+                        Axios.get(url)
+                            .then((result) => {
+                                if (result.data === true) {
+                                    setIsBusiness(true);
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             })
             .catch((error) => {
                 console.log(error);
@@ -28,27 +84,16 @@ function Dashboard() {
 
     }, []);
 
-    useEffect(() => {
-        
-        
-    }, [isAuth]);
     return (
         <div>
-            <TopMenu />
+            <Header theme={theme} isAuth={isAuth} />
             {
-                isAuth ? <div /> : <LoginModal />
+                getThemeSwitch()
             }
             {
-                isBusiness ?
-                    <Container maxWidth="lg" >
-                        <Grid container justifyContent="center" paddingTop={15}>
-                            <h1 style={{ color: "white" }}>TODO Dashboard empresa</h1>
-                        </Grid>
-                    </Container>
-                    :
-                    <DonationDashboard />
+                getDashboard()
             }
-            <Footer theme={themeComponent.getActualTheme()} />
+            <Footer theme={theme} />
         </div>
     )
 }

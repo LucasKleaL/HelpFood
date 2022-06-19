@@ -12,16 +12,14 @@ class UserModel {
         auth = getAuth();
     }
     async authUser(email, password) {
-        
         let isAuth = false;
-
-        await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential)=>{
+        try {
+            let userCredential = await signInWithEmailAndPassword(auth, email, password)
             isAuth = true;
-            console.log("Sucessful login");
-        }).catch((error)=>{
+            console.log("Successful login");
+        }catch(error){
             console.log("Email ou senha incorretos." + error.message)
-        });
+        }
         return isAuth;
     }
 
@@ -39,14 +37,64 @@ class UserModel {
     getCurrentUserId(result) {
         initializeApp(firebaseConfig)
         const auth = getAuth();
-        if (auth.currentUser !== null) 
-        result(null, auth.currentUser.uid);
+        if (auth.currentUser !== null)
+            result(null, auth.currentUser.uid);
+    }
+
+    getCurrentUserName(result) {
+        initializeApp(firebaseConfig)
+        const auth = getAuth();
+        if (auth.currentUser !== null)
+            result(null, auth.currentUser.displayName);
+    }
+    getCurrentUserEmail(result) {
+        initializeApp(firebaseConfig)
+        const auth = getAuth();
+        if (auth.currentUser !== null)
+            result(null, auth.currentUser.email);
+    }
+
+    getCurrentCompanyData(result) {
+        initializeApp(firebaseConfig)
+        const auth = getAuth();
+        if (auth.currentUser == null) {
+            let resultGetUserData = { message: 'No such document!' };
+            result(null, resultGetUserData);
+        } else {
+            db.collection('Company').doc(auth.currentUser.uid).get().then((doc) => {
+                if (!doc.exists) {
+                    let resultGetUserById = { message: 'No such document!' };
+                    result(null, resultGetUserById);
+                } else {
+                    let companyData = [];
+                    companyData.push({
+                        Id: auth.currentUser.uid,
+                        Email: auth.currentUser.email,
+                        EmailVerified: auth.currentUser.emailVerified,
+                        Name: auth.currentUser.displayName,
+                        Allowed: doc.data().allowed,
+                        Cnpj: doc.data().cnpj,
+                        Donations: doc.data().Donations,
+                    });
+                    result(null, companyData);
+                }
+            }).catch(error => {
+                result(null, error);
+            });
+        }
     }
 
     async getAllUsers(result) {
         const snapshot = await db.collection('Users').get();
         let resultGetAllUsers = snapshot.docs.map(doc => doc.data());
         result(null, resultGetAllUsers);
+    }
+
+    async getAllOngs(result) {
+        const snapshot = await db.collection('Users').get();
+        let resultGetAllUsers = snapshot.docs.map(doc => doc.data().ongName);
+        var unique = resultGetAllUsers.filter((v, i, a) => a.indexOf(v) === i);
+        result(null, unique);
     }
 
     async getUserById(userId, result) {
@@ -119,6 +167,18 @@ class UserModel {
             })
             .catch((error) => {
                 console.log("Error creating a new user. ", error);
+                return false;
+            })
+    }
+
+    async logout() {
+        getAuth().signOut()
+            .then((result) => {
+                console.log("Sucessful signout.")
+                return true;
+            })
+            .catch((error) => {
+                console.log("Error on signout " + error);
                 return false;
             })
     }
