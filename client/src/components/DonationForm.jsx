@@ -58,6 +58,13 @@ function DonationForm() {
       icon: 'error'
     })
   }
+  function alertEmptyInput() {
+    MySwal.fire({
+      title: <strong>Todos os campos devem ser preenchidos!</strong>,
+      html: <i>Preencha todas as informações e tente novamente.</i>,
+      icon: 'error'
+    })
+  }
 
   //Consulta o id do usuário que é o mesmo da empresa e em seguida cria a doação no banco
   function addDonation() {
@@ -68,7 +75,10 @@ function DonationForm() {
     }
   }
   function postDonation() {
-    alert(emailDonor)
+    if(name === "" || description === "" || district === "" || weight === "" 
+    || quantity === "" || typeFood === "" || shelfLife === "" || street === "" || phone === "" || number === ""){
+      alertEmptyInput()
+    }else{
     Axios.post(window.url+"/donation/add", {
       name: name,
       description: description,
@@ -91,8 +101,9 @@ function DonationForm() {
       }
     });
   }
+  }
 
-  const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
+  const paperStyle = { padding: 20, width: 500, margin: "0 auto"}
   const avatarStyle = { backgroundColor: '#1bbd7e' }
   const btnstyle = { margin: '8px 0', }
 

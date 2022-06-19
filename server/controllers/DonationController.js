@@ -106,9 +106,9 @@ class DonationController {
             }
         });
 
-        app.post('/donation/RemoveDonationById', (req, res) => {
+        app.post('/donation/RemoveDonationById/:id', (req, res) => {
             var result = donation.removeDonationById(
-                req.body.donationId
+                req.params.id
             );
             if (result) {
                 res.sendStatus(200)

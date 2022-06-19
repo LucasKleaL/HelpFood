@@ -78,7 +78,7 @@ function MyDonations() {
         else    
             return <LoginForm redirectCompany={true} />
     }
-
+    
     return (
 
         <div >

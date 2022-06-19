@@ -104,7 +104,7 @@ class Header extends Component {
             <header style={HeaderStyle}>
                 <div style={HeaderContainerStyle}>
                     <div style={{ width: "10rem", float: "left" }}>
-                        <Link to="/" style={{ textDecoration: "none" }} >
+                        <Link to="/dashboard" style={{ textDecoration: "none" }} >
                             <Typography style={HeaderTitleStyle} >HelpFood</Typography>
                         </Link>
                     </div>

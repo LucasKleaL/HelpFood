@@ -31,6 +31,7 @@ function MyDonations() {
                 Axios.get(window.url + "/user/getCurrentUserId")
                     .then((result) => {
                         getActiveDonations(result.data)
+                        setCompanyId(result.data)
                         getDisabledDonations(result.data)
                         var url = window.url + "/user/isBusiness/" + result.data
                         Axios.get(url)
@@ -89,6 +90,40 @@ function MyDonations() {
                 }
             );
     }
+    function removeActiveDonation(donationId) {
+        Axios.post(window.url + "/donation/RemoveDonationById/" + donationId, {
+        }).then((response) => {
+            if (response.status === 200) {
+                Swal.fire(
+                    'Sucesso!',
+                    'Sua doação foi removida.',
+                    'success'
+                ).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(window.url + "/donation/getActiveDonationsByCompanyId/" + companyId, {
+                            method: "GET",
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json"
+                            }
+                        })
+                            .then((res) => res.json())
+                            .then(
+                                (result) => {
+                                    setActiveDonations(result)
+                                }
+                            );
+                    }
+                })
+            } else {
+                Swal.fire(
+                    'Ops!',
+                    'Não foi possível excluir a doação ' + response.status,
+                    'error'
+                )
+            }
+        });
+    }
 
     function getThemeSwitch() {
         if (theme != "dark") {
@@ -114,7 +149,7 @@ function MyDonations() {
             return <div><Grid>
                 <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
                     <Grid item>
-                        <h3 style={{ fontSize: "40px", color: themeComponent.getTypographyColor(theme) }}>Doações finalizadas</h3>
+                        <h3 style={{ fontSize: "40px", color: themeComponent.getTypographyColor(theme) }}>Doações realizadas</h3>
                     </Grid>
                 </Grid>
             </Grid>
@@ -151,7 +186,7 @@ function MyDonations() {
             </div>
     }
     function renderActiveDonations(activeDonations) {
-        if (activeDonations.length > 0){
+        if (activeDonations.length > 0) {
             return <Grid container spacing={1.3} padding={3} justifyContent="center">
                 {activeDonations.map((item) => (
                     <Grid item key={item.Id}>
@@ -172,7 +207,7 @@ function MyDonations() {
                             </CardContent>
                             <CardContent>
                                 <Typography variant="body2" sx={{ float: "left", paddingRight: "4px", color: themeComponent.getTypographyColor(theme) }}>
-                                    <DeleteIcon className="deleteIcon" onClick={() => alertDeleteDonation()} sx={{ cursor: "pointer" }}></DeleteIcon>
+                                    <DeleteIcon className="deleteIcon" onClick={() => alertDeleteDonation(item.Id)} sx={{ cursor: "pointer" }}></DeleteIcon>
                                 </Typography>
                                 <Typography variant="body2" sx={{ float: "right", paddingRight: "4px", color: themeComponent.getTypographyColor(theme) }}>
                                     {item.Quantity} un.
@@ -185,18 +220,18 @@ function MyDonations() {
                 ))}
             </Grid>
         }
-        
+
     }
-    function renderZeroActives(activeDonations){
-        if(activeDonations.length < 0){
+    function renderZeroActives(activeDonations) {
+        if (activeDonations.length < 0) {
             return <Container maxWidth="lg" >
-            <Grid container justifyContent="center" paddingTop={5}>
-                <h1 style={{ color: themeComponent.getTypographyColor(theme) }}>Você não possui nenhuma doação ativa. </h1>
-            </Grid>
-            <Grid container justifyContent="center" paddingTop={3}>
-                <Button style={{ color: themeComponent.getTypographyColor(theme) }}>Clique aqui para doar agora!</Button>
-            </Grid>
-        </Container>
+                <Grid container justifyContent="center" paddingTop={5}>
+                    <h1 style={{ color: themeComponent.getTypographyColor(theme) }}>Você não possui nenhuma doação ativa. </h1>
+                </Grid>
+                <Grid container justifyContent="center" paddingTop={3}>
+                    <Button style={{ color: themeComponent.getTypographyColor(theme) }}>Clique aqui para doar agora!</Button>
+                </Grid>
+            </Container>
         }
     }
 
@@ -212,6 +247,7 @@ function MyDonations() {
             confirmButtonText: 'Sim'
         }).then((result) => {
             if (result.isConfirmed) {
+                removeActiveDonation(donationId)
             }
         })
     }
@@ -236,7 +272,7 @@ function MyDonations() {
                 {
                     renderDisabledDonations(disabledDonations)
                 }
-                
+
 
             </Container>
         </div>
