@@ -6,7 +6,7 @@ import Donate from "./pages/Donate";
 import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
 import MyDonations from "./pages/MyDonations";
-
+import DetailsDonation from "./pages/DetailsDonation";
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -18,6 +18,7 @@ const Routes = () => {
                 <Route exact={true} path="/admin" component={Admin} />
                 <Route exact={true} path="/dashboard" component={Dashboard} />
                 <Route exact={true} path="/myDonations" component={MyDonations} />
+                <Route exact={true} path="/Details" component={DetailsDonation} />
             </Switch>
         </BrowserRouter>
     )

@@ -11,6 +11,7 @@ import "./../styles/dashboard.css";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ThemeComponent from './ThemeComponent';
+import {useHistory} from "react-router-dom";
 
 function DonationDashboard() {
 
@@ -127,6 +128,12 @@ function DonationDashboard() {
         fontWeigth: "solid",
     }
 
+    const history = useHistory();
+    const donation = (donationId) => {
+        history.push("/Details?donationId=" + donationId)
+        window.location.reload()
+    }
+
     return (
         <div>
             {
@@ -184,7 +191,7 @@ function DonationDashboard() {
 
                                         <CardActions sx={{ alignContent: "center" }}>
                                             <Button size="small" sx={ButtonStyle} onClick={() => alertRequestDonation(item.Id)} >Solicitar</Button>
-                                            <Button size="small" sx={ButtonStyle} >Detalhes</Button>
+                                            <Button size="small" sx={ButtonStyle} onClick={() => donation(item.Id)}>Detalhes</Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
