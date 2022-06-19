@@ -89,42 +89,35 @@ function DetailsDonation() {
                                         </div>
                                         <CardContent>
                                             <Typography className="nameCard" gutterBottom variant="h6" component="div">
-                                                Dados da Doação
+                                                {donation.Name}
                                             </Typography>
+                                            <Typography className="description" variant="body2" sx={{float: "right"}}>
+                                                Tipo: {donation.TypeFood}
+                                            </Typography>
+                                            <Typography className="description" variant="body2">
+                                                Quantia doada: {donation.Weight}
+                                            </Typography>
+                                            <Typography className="description" variant="body2" sx={{float: "right"}}>
+                                                Número da Doação: {donation.Number}
+                                            </Typography>
+                                            <Typography className="description" variant="body2">
+                                                Descrição: {donation.Description}
+                                            </Typography>
+                                        </CardContent>
 
-                                            <CardContent>
-                                                <Typography className="description" variant="body2">
-                                                    Nome: {donation.Name}
-                                                </Typography>
-                                                <Typography className="description" variant="body2">
-                                                    Tipo: {donation.TypeFood}
-                                                </Typography>
-                                                <Typography className="description" variant="body2">
-                                                    Quantia doada: {donation.Weight}
-                                                </Typography>
-                                                <Typography className="description" variant="body2">
-                                                    Número da Doação: {donation.Number}
-                                                </Typography>
-                                                <Typography className="description" variant="body2">
-                                                    Descrição: {donation.Description}
-                                                </Typography>
-                                            </CardContent>
-
+                                        <CardContent>
                                             <Typography className="nameCard" gutterBottom variant="h6" component="div">
                                                 Dados do Doador
                                             </Typography>
-
-                                            <CardContent>
-                                                <Typography className="description" variant="body2">
-                                                    Nome: {donation.NameDonor}
-                                                </Typography>
-                                                <Typography className="description" variant="body2">
-                                                    Email: {donation.EmailDonor}
-                                                </Typography>
-                                                <Typography className="description" variant="body2">
-                                                    Telefone: {donation.Phone}
-                                                </Typography>
-                                            </CardContent>
+                                            <Typography className="description" variant="body2" sx={{float: "right"}}>
+                                                Telefone: {donation.Phone}
+                                            </Typography>
+                                            <Typography className="description" variant="body2">
+                                                Nome: {donation.NameDonor}
+                                            </Typography>
+                                            <Typography className="description" variant="body2">
+                                                Email: {donation.EmailDonor}
+                                            </Typography>
                                         </CardContent>
 
                                         <CardContent>
