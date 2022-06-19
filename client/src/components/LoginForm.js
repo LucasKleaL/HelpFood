@@ -9,7 +9,7 @@ import Axios from "axios";
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 
-function LoginForm(){
+function LoginForm(props) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,67 +17,56 @@ function LoginForm(){
     let hashPassword = Base64.stringify(sha256(nonce + password));
 
     function authUser() {
-      console.log(hashPassword)
-      Axios.post("http://localhost:3001/user/authUser", {
-          email: email,
-          password: hashPassword
-      });
-      
-  }
-   /* function logar() {
-        firebase.auth().signInWithEmailAndPassword(email, senha)
-        .then( async (usuario)=>{
+        console.log(hashPassword)
+        Axios.post(window.url+"/user/authUser", {
+            email: email,
+            password: hashPassword
+        }).then((response) => {
+            console.log("Login response " + response.data);
+            if (response.data) {
+                window.location.href = "/dashboard";
+            }
+        })
+            .catch((error) => {
+                console.log("Error on login response " + error);
+            });
 
-          let uid = usuario.user.uid;
-          window.sessionStorage.setItem("uid", uid)
+    }
 
-          history.push("/");
+    const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
+    const avatarStyle = { backgroundColor: '#1bbd7e' }
+    const btnstyle = { margin: '8px 0', backgroundColor: '#1bbd7e' }
 
-        }).catch((error)=>{
-          if(error.code === 'auth/weak-password'){
-            alert('A senha é muito fraca!')
-          }else if(error.code === 'auth/email-already-in-use'){
-            alert('O e-mail já está sendo usado.')
-          }
-        });
-      }
-      function sair() {
-        firebase.auth().signOut();
-      }
-      */
-
-    const paperStyle={ padding: 20, width: 500, margin: "0 auto" }
-    const avatarStyle={backgroundColor:'#1bbd7e'}
-    const btnstyle={margin:'8px 0', backgroundColor: '#1bbd7e'}
-    
-    return(
+    return (
         <Grid>
             <Paper elevation={0} style={paperStyle}>
                 <Grid align='center'>
-                     <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
-                     <Typography variant='caption' gutterBottom>Entre com os seus dados!</Typography>
+                    <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                    <Typography variant='caption' gutterBottom>Entre com os seus dados!</Typography>
                 </Grid>
-                <TextField label='E-mail' placeholder='Insira o e-mail' onChange={(e) => { setEmail(e.target.value) }} fullWidth required/>
-                <TextField label='Senha' placeholder='Insira a senha' type='password' onChange={(e) => { setPassword(e.target.value) }} fullWidth required/>
+                <TextField label='E-mail' placeholder='Insira o e-mail' onChange={(e) => { setEmail(e.target.value) }} fullWidth required />
+                <TextField label='Senha' placeholder='Insira a senha' type='password' onChange={(e) => { setPassword(e.target.value) }} fullWidth required />
                 <FormControlLabel
                     control={
-                    <Checkbox
-                        name="checkedB"
-                        color="primary"
-                    />
+                        <Checkbox
+                            name="checkedB"
+                            color="primary"
+                        />
                     }
                     label="Lembre-se de mim"
-                 />
+                />
                 <Button type='submit' color='primary' className='sendButton' variant="contained" style={btnstyle} onClick={authUser} fullWidth>Entrar</Button>
-                <Typography >
-                    <Link href="#" >
-                    Esqueceu sua senha?
-                    </Link>
-                </Typography>
                 <Typography > Não possui uma conta?
-                    <Link href="#">
-                        Cadastre-se
-                    </Link>
+                    <br />
+                    {props.redirectCompany ?
+                        <Link href="/company/add" color='blue'>
+                            Cadastre-se
+                        </Link>
+                        :
+                        <Link href="/user/add" color='blue'>
+                            Cadastre-se
+                        </Link>
+                    }
                 </Typography>
             </Paper>
         </Grid>

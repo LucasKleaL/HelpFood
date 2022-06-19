@@ -6,20 +6,62 @@ class UserController {
         const user = new UserModel();
 
         app.post('/user/authUser', (req, res) => {
-            var result = user.authUser(
+            let result = user.authUser(
                 req.body.email,
                 req.body.password
             );
             if (result) {
-                res.sendStatus(200)
+                result.then((response) => {
+                    res.status(200).send(response);
+                })
             }
             else {
-                res.sendStatus(500);
+                res.status(500).send(false);
+            }
+        });
+
+        app.get('/user/getUserAuth', (req, res) => {
+            let result = user.getUserAuth();
+            if (result) {
+                result.then((response) => {
+                    res.status(200).send(response);
+                })
+            }
+            else {
+                res.status(500).send(false);
             }
         });
 
         app.get('/user/getCurrentUserId', (req, res) => {
             user.getCurrentUserId(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+        
+        app.get('/user/getCurrentUserName', (req, res) => {
+            user.getCurrentUserName(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+        app.get('/user/getCurrentUserEmail', (req, res) => {
+            user.getCurrentUserEmail(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+        app.get('/user/getCurrentCompanyData', (req, res) => {
+            user.getCurrentCompanyData(function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {
@@ -38,8 +80,39 @@ class UserController {
             });
         });
 
+        app.get('/user/getAllOngs', (req, res) => {
+            user.getAllOngs(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
         app.get('/user/getUserById', (req, res) => {
             user.getUserById(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+
+        app.get('/user/isBusiness/:id', (req, res) => {
+            var userId = req.params.id;
+            user.isBusiness(userId, function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
+        app.get('/user/isAdmin/:id', (req, res) => {
+            var userId = req.params.id;
+            user.isAdmin(userId, function (error, result) {
                 if (error) {
                     res.send(error);
                 } else {
@@ -70,6 +143,17 @@ class UserController {
             );
             if (result) {
                 res.sendStatus(200)
+            }
+            else {
+                res.sendStatus(500);
+            }
+        });
+
+        app.get('/user/logout', (req, res) => {
+            var result = user.logout();
+            console.log("user/logout")
+            if (result) {
+                res.sendStatus(200);
             }
             else {
                 res.sendStatus(500);

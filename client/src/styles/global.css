@@ -18,9 +18,9 @@
     --gray-dark-text: #3F3F3F;
     --black: #000000;
     --black-background: #121212;
+    --gray-dark-background: #3E3E42;
     --green-up: #30B72D;
-    --grace-green: #A3C856;
-    --vine-green: #B9E667;
+    --help-food-green: #81C784;
     --light-blue: #00D8FF;
     --interaction-blue: #1a73e8;
     --material-blue: #3f51b5;
@@ -29,9 +29,11 @@
     --red-fire: #FF0000;
 }
 
+/*
 body {
     background-color: var(--black-background);
 }
+*/
 
 header {
     width: 100%;
@@ -122,6 +124,6 @@ footer {
 }
      
 ::-webkit-scrollbar-thumb {
-    background: var(--gray-line);
+    background: var(--white);
     border-radius: 10px;
 }

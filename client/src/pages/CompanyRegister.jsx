@@ -1,13 +1,20 @@
 import { React, useEffect, useState } from "react";
-import { Container, Grid, Button, Box, TextField, Select, Typography } from "@material-ui/core";
+import { Container, Grid, Button, Box, TextField, Select, Avatar, Typography } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import MaterialButtonTheme from "./../themes/MaterialButtonTheme";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
 import Axios from "axios";
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
+import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ThemeComponent from "./../components/ThemeComponent";
 
 function CompanyRegister () {
+
+    const themeComponent = new ThemeComponent();
+    const theme = themeComponent.getActualTheme();
 
     // company register values
     const [name, setName] = useState("");
@@ -41,7 +48,7 @@ function CompanyRegister () {
         let hashPassword = Base64.stringify(sha256(nonce + password));
         
         if (isName && isCnpj && isEmail && isPassword && isRetryPassword) {
-            Axios.post("http://localhost:3001/company/add", {
+            Axios.post(window.url+"/company/add", {
                 name: name,
                 cnpj: cnpj,
                 email: email,
@@ -119,6 +126,7 @@ function CompanyRegister () {
             setErrorRetryPasswordText("A senha inserida não confere com a verificação.")
         }
     }
+    const avatarStyle = { backgroundColor: '#1bbd7e' }
 
     const BoxStyle = {
         backgroundColor: "var(--white-background)",
@@ -150,17 +158,17 @@ function CompanyRegister () {
 
     return (
         <div style={{height: "100%"}}>
-            <Container align="center">
 
-                <header>
-                    <div style={{float: "left", marginTop: "0.5"}}>
-                        <Typography className="nunito-text" style={HeaderTitleStyle}>HelpFoods</Typography>
-                    </div>
-                </header>
+            <Header theme={theme} />
+
+            <Container align="center" style={{marginTop: "6rem"}}>
 
                 <div>
                     <Box style={BoxStyle}>
-                        <div>
+                    <Grid align='center'>
+                            <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
+                            <Typography variant='caption' gutterBottom>Cadastre a sua empresa!</Typography>
+                        </Grid>
                             <TextField variant="outlined" type="text" label="Nome da Empresa" 
                             style={{...TextFieldSytle,...{marginTop: "2rem"}}}
                             onChange={(e) => {setName(e.target.value); handleName(e.target.value)}}
@@ -191,7 +199,6 @@ function CompanyRegister () {
                             error={errorRetryPassword}
                             helperText={errorRetryPasswordText}
                             />
-                        </div>
                         <div>
                             <Button variant="contained" color="primary" style={RegisterButtonStyle} onClick={addCompany}>Cadastrar</Button>
                         </div> 
@@ -199,7 +206,9 @@ function CompanyRegister () {
                 </div>
 
             </Container>
-            <Footer></Footer>
+
+            <Footer theme={theme} /> 
+
         </div>
     )
 }

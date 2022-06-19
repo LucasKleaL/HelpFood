@@ -26,7 +26,6 @@ class CompanyModel {
     };
 
     async addCompany(name, cnpj, email, donations, allowed, password) {
-
         await admin.auth()
         .createUser({
             email: email,
@@ -37,9 +36,11 @@ class CompanyModel {
             console.log("Successfully created a new company. ", companyRecord.uid);
             //creating the company doc in firestore
             await db.collection("Company").doc(companyRecord.uid).set({
-                cnpj: cnpj,
-                donations: donations,
-                allowed: allowed,
+                Cnpj: cnpj,
+                Donations: donations,
+                Allowed: true,
+                Name: name,
+                Email: email
             })
             return true;
         })
@@ -47,7 +48,6 @@ class CompanyModel {
             console.log("Error creating a new company.");
             return false;
         });
-
     }
 
     async removeCompanyById(companyId) {
