@@ -23,11 +23,13 @@ class DonationModel {
             BusinessDonor: doc.data().BusinessDonor,
             Description: doc.data().Description,
             Name: doc.data().Name,
+            NameDonor: doc.data().NameDonor,
+            EmailDonor: doc.data().EmailDonor,
             Quantity: doc.data().Quantity,
             ShelfLife: doc.data().ShelfLife,
             TypeFood: doc.data().TypeFood,
             Weight: doc.data().Weight,
-            Street: doc.data().District,
+            Street: doc.data().Street,
             Number: doc.data().Number,
             Phone: doc.data().Phone,
             Active: doc.data().Active
@@ -212,13 +214,13 @@ class DonationModel {
       if (snapshot.exists) {
         let docRef = db.collection('Donation').doc(donationId);
         let businessDonor = snapshot.data().BusinessDonor;
-        console.log("business donor "+businessDonor)
+        console.log("business donor " + businessDonor)
         docRef.delete().then(() => {
           db.collection('Company').doc(businessDonor).get().then((doc) => {
             let donationIdList = [];
             if (doc.exists) {
               donationIdList = doc.data().Donations.filter(item => item !== donationId)
-              console.log("id das donations "+donationIdList)
+              console.log("id das donations " + donationIdList)
               db.collection("Company").doc(businessDonor).update({
                 Donations: donationIdList
               })
