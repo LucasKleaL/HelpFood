@@ -14,6 +14,15 @@ class DonationController {
                 }
             });
         });
+        app.get('/donation/getAllActiveAndInactiveDonations', (req, res) => {
+            donation.getAllActiveAndInactiveDonations(function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
 
         app.get('/donation/getDonationById/:id', (req, res) => {
             const itemId = req.params.id;

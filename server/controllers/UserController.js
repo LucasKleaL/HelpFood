@@ -110,6 +110,16 @@ class UserController {
                 }
             });
         });
+        app.get('/user/isAdmin/:id', (req, res) => {
+            var userId = req.params.id;
+            user.isAdmin(userId, function (error, result) {
+                if (error) {
+                    res.send(error);
+                } else {
+                    res.status(200).send(result);
+                }
+            });
+        });
 
         app.post('/user/add', (req, res) => {
             var result = user.add(

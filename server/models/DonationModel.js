@@ -40,6 +40,32 @@ class DonationModel {
     });
   }
 
+  async getAllActiveAndInactiveDonations(result) {
+    await db.collection('Donation').get().then((data) => {
+      let donations = [];
+      data.forEach((doc) => {
+        donations.push({
+          Id: doc.id,
+          District: doc.data().District,
+          BusinessDonor: doc.data().BusinessDonor,
+          Description: doc.data().Description,
+          Name: doc.data().Name,
+          NameDonor: doc.data().NameDonor,
+          EmailDonor: doc.data().EmailDonor,
+          Quantity: doc.data().Quantity,
+          ShelfLife: doc.data().ShelfLife,
+          TypeFood: doc.data().TypeFood,
+          Weight: doc.data().Weight,
+          Street: doc.data().Street,
+          Number: doc.data().Number,
+          Phone: doc.data().Phone,
+          Active: doc.data().Active
+        });
+      });
+      result(null, donations);
+    });
+  }
+
   async getDonationById(id, result) {
     db.collection('Donation').doc(id).get().then((doc) => {
       if (!doc.exists) {

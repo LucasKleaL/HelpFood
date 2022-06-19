@@ -1,8 +1,10 @@
 import { React, useState, useEffect, useLayoutEffect } from "react";
 import { Container, Grid, Button, Box, Select, Typography, Switch } from "@material-ui/core";
-import {Chart, PieSeries, Title, Legend } from '@devexpress/dx-react-chart-material-ui';
+import Axios from "axios";
+import { Chart, PieSeries, Title, Legend } from '@devexpress/dx-react-chart-material-ui';
 import { Animation, Palette } from '@devexpress/dx-react-chart';
 import "./../styles/admin.css";
+import LoginForm from "../components/LoginForm";
 
 import ThemeComponent from "../components/ThemeComponent";
 import Header from "../components/Header";
@@ -22,9 +24,11 @@ function Admin() {
     const [countVerduras, setCountVerduras] = useState(0);
     const [countLegumes, setCountLegumes] = useState(0);
     const [countFrutas, setCountFrutas] = useState(0);
+    const [isAuth, setIsAuth] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        const response = fetch(window.url+"/donation/getAll", {
+        const response = fetch(window.url + "/donation/getAllActiveAndInactiveDonations", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -42,45 +46,73 @@ function Admin() {
     }, [])
 
     useLayoutEffect(() => {
+        Axios.get(window.url + "/user/getUserAuth")
+            .then((result) => {
+                setIsAuth(result.data);
+                Axios.get(window.url + "/user/getCurrentUserId")
+                    .then((result) => {
+                        var url = window.url + "/user/isAdmin/" + result.data
+                        Axios.get(url)
+                            .then((result) => {
+                                if (result.data === true) {
+                                    setIsAdmin(true);
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    }, []);
+
+    useLayoutEffect(() => {
         if (theme != "dark") {
             setThemeSwitch(true);
         }
     }, [themeSwitch]);
 
     function teste(result) {
-        var comidaFilter = result.filter(function(item){
-            var type = item.TypeFood === "Comida";     
-            return type   
+        var comidaFilter = result.filter(function (item) {
+            var type = item.TypeFood === "Comida";
+            return type
         });
         setCountComidas(comidaFilter.length)
 
-        var lancheFilter = result.filter(function(item){
-            var type = item.TypeFood === "Lanche";     
-            return type   
+        var lancheFilter = result.filter(function (item) {
+            var type = item.TypeFood === "Lanche";
+            return type
         });
         setCountLanches(lancheFilter.length)
 
-        var bebidaFilter = result.filter(function(item){
-            var type = item.TypeFood === "Bebida";     
-            return type   
+        var bebidaFilter = result.filter(function (item) {
+            var type = item.TypeFood === "Bebida";
+            return type
         });
         setCountBebidas(bebidaFilter.length)
 
-        var verduraFilter = result.filter(function(item){
-            var type = item.TypeFood === "Verdura";     
-            return type   
+        var verduraFilter = result.filter(function (item) {
+            var type = item.TypeFood === "Verdura";
+            return type
         });
         setCountVerduras(verduraFilter.length)
 
-        var legumeFilter = result.filter(function(item){
-            var type = item.TypeFood === "Legume";     
-            return type   
+        var legumeFilter = result.filter(function (item) {
+            var type = item.TypeFood === "Legume";
+            return type
         });
         setCountLegumes(legumeFilter.length)
 
-        var frutaFilter = result.filter(function(item){
-            var type = item.TypeFood === "Fruta";     
-            return type   
+        var frutaFilter = result.filter(function (item) {
+            var type = item.TypeFood === "Fruta";
+            return type
         });
         setCountFrutas(frutaFilter.length)
 
@@ -89,10 +121,10 @@ function Admin() {
 
     function getThemeSwitch() {
         if (theme != "dark") {
-            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent defaultChecked onChange={ () => { handleThemeSwitch() } } /></div>;
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent defaultChecked onChange={() => { handleThemeSwitch() }} /></div>;
         }
         else {
-            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent onChange={ () => { handleThemeSwitch() } } /></div>;
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }} ><ThemeSwitchComponent onChange={() => { handleThemeSwitch() }} /></div>;
         }
     }
 
@@ -108,37 +140,52 @@ function Admin() {
     }
 
     const data = [
-        { argument: 'Lanche', value: countLanches },
-        { argument: 'Comida', value: countComidas },
-        { argument: 'Bebida', value: countBebidas },
-        { argument: 'Verdura', value: countVerduras },
-        { argument: 'Legume', value: countLegumes },
-        { argument: 'Fruta', value: countFrutas },
+        { argument: 'Lanche: ' + countLanches, value: countLanches },
+        { argument: 'Comida: ' + countComidas, value: countComidas },
+        { argument: 'Bebida: ' + countBebidas, value: countBebidas },
+        { argument: 'Verdura: ' + countVerduras, value: countVerduras },
+        { argument: 'Legume: ' + countLegumes, value: countLegumes },
+        { argument: 'Fruta: ' + countFrutas, value: countFrutas },
     ];
+    function renderChart(isAdmin) {
+        if (isAdmin) {
+            return <Container align="center" maxWidth="lg">
+                <div style={{ backgroundColor: themeComponent.getBackgroundColor(theme) }}>
+                    <div className="chartContainer" style={{ color: themeComponent.getTypographyColor(theme), backgroundColor: themeComponent.getBackgroundColor(theme) }}>
+                        <Chart data={data} label={"test"} >
+                            <PieSeries valueField="value" argumentField="argument" />
+                            <Title text="Doações recebidas" className="white-typography" />
+                            <Legend />
+                        </Chart>
+                    </div>
+                </div>
+            </Container>
+        } else if(isAuth && isAdmin === false) {
+            return <Container align="center" maxWidth="lg">
+                <Grid container justifyContent="center" paddingTop={15}>
+                    <h1 style={{ color: themeComponent.getTypographyContrastColor(theme) }}>Você não tem permissão para acessar essa página!</h1>
+                </Grid>
+            </Container>
+        }else{
+            return <LoginForm redirectCompany={false}/>
+        }
+
+    }
 
     return (
-        
+
         <div style={{ backgroundColor: themeComponent.getBackgroundColor(theme) }}>
 
-            <Header theme={theme} />
+            <Header isAuth={isAuth} isAdmin={isAdmin} theme={theme} />
 
             {
                 getThemeSwitch()
             }
+            {
+                renderChart(isAdmin)
+            }
 
-            <Container align="center" maxWidth="lg">
-            <div style={{ backgroundColor: themeComponent.getBackgroundColor(theme) }}>
-                <div className="chartContainer" style={{ color: themeComponent.getTypographyColor(theme), backgroundColor: themeComponent.getBackgroundColor(theme) }}>
-                    <Chart data={data} label={"test"} >
-                        <PieSeries valueField="value" argumentField="argument" />
-                        <Title text="Doações recebidas" className="white-typography" />
-                        <Legend />
-                        <Animation />
-                    </Chart>
-                </div>
-            </div>
-            </Container>
-            
+
             <Footer theme={themeComponent.getActualTheme()} />
         </div>
     )

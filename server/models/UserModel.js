@@ -123,6 +123,22 @@ class UserModel {
         });
     };
 
+    async isAdmin(userId, result) {
+        db.collection('Users').doc(userId).get().then((doc) => {
+            if (!doc.exists) {
+                let resultGetUserById = { message: 'No such document!' };
+                result(null, false);
+            } else {
+                if(doc.data().isAdmin)
+                    result(null, true);
+                else
+                    result(null, false);
+            }
+        }).catch(error => {
+            result(null, error);
+        });
+    };
+
     async removeUserById(userId) {
         getAuth()
             .deleteUser(userId)
