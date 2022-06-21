@@ -5,10 +5,12 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
-import ThemeComponent from "../components/ThemeComponent";
+import ThemeSwitchComponent from "../components/ThemeSwitchComponent";
 import CardActions from "@mui/material/CardActions";
 import {useHistory} from "react-router-dom";
-import DonationDashboard from "../components/DonationDashboard";
+import ThemeComponent from "../components/ThemeComponent";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function DetailsDonation() {
     const id = window.location.search;
@@ -19,11 +21,10 @@ function DetailsDonation() {
 
     const themeComponent = new ThemeComponent();
     const theme = themeComponent.getActualTheme();
-
-    const ButtonStyle = {
-        width: "50%",
-        fontWeigth: "solid",
-    }
+    const history = useHistory();
+    const [themeSwitch, setThemeSwitch] = useState(false);
+    const [isAuth, setIsAuth] = useState(false);
+    const [isBusiness, setIsBusiness] = useState(false);
 
     useEffect(() => {
         fetch(window.url + "/donation/getDonationById/" + paramId, {
@@ -41,13 +42,44 @@ function DetailsDonation() {
             );
     }, [])
 
-    const history = useHistory();
+    const ButtonStyle = {
+        width: "50%",
+        fontWeigth: "solid",
+    }
+
     const dashboard = () => {
         history.push("/Dashboard")
     }
 
+    function getThemeSwitch() {
+        if (theme != "dark") {
+            return <div style={{marginTop: "0.5rem", marginLeft: "0.5rem"}}><ThemeSwitchComponent defaultChecked
+                                                                                                  onChange={() => {
+                                                                                                      handleThemeSwitch()
+                                                                                                  }}/></div>;
+        } else {
+            return <div style={{marginTop: "0.5rem", marginLeft: "0.5rem"}}><ThemeSwitchComponent onChange={() => {
+                handleThemeSwitch()
+            }}/></div>;
+        }
+    }
+
+    function handleThemeSwitch() {
+        if (!themeSwitch) {
+            setThemeSwitch(true);
+            themeComponent.setThemeSwitch("light");
+        } else {
+            setThemeSwitch(false);
+            themeComponent.setThemeSwitch("dark");
+        }
+    }
+
     return (
         <div>
+            <Header theme={theme} isAuth={isAuth}/>
+            {
+                getThemeSwitch()
+            }
             {
                 donations.length === 0 ?
                     <Container maxWidth="lg">
@@ -137,6 +169,7 @@ function DetailsDonation() {
                         </Grid>
                     </Container>
             }
+            <Footer theme={theme}/>
         </div>
     )
 
