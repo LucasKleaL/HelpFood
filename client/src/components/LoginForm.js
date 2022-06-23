@@ -18,19 +18,19 @@ function LoginForm(props) {
 
     function authUser() {
         console.log(hashPassword)
-        Axios.post(window.url+"/user/authUser", {
+        Axios.post(window.url + "/user/authUser", {
             email: email,
             password: hashPassword
         }).then((response) => {
-            console.log("Login response " + response.data);
             if (response.data) {
                 window.location.href = "/dashboard";
+            } else {
+                alert("E-mail ou senha inválidos");
             }
         })
             .catch((error) => {
                 console.log("Error on login response " + error);
             });
-
     }
 
     const paperStyle = { padding: 20, width: 500, margin: "0 auto" }
