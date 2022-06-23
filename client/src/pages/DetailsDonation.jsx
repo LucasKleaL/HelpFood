@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Button, Container, Grid} from "@mui/material";
+import React, { useEffect, useState, useLayoutEffect } from "react";
+import { Button, Container, Grid } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -7,9 +7,10 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import ThemeSwitchComponent from "../components/ThemeSwitchComponent";
 import CardActions from "@mui/material/CardActions";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ThemeComponent from "../components/ThemeComponent";
 import Header from "../components/Header";
+import Axios from "axios";
 import Footer from "../components/Footer";
 
 function DetailsDonation() {
@@ -42,6 +43,34 @@ function DetailsDonation() {
             );
     }, [])
 
+    useLayoutEffect(() => {
+        Axios.get(window.url+"/user/getUserAuth")
+            .then((result) => {
+                setIsAuth(result.data);
+                Axios.get(window.url+"/user/getCurrentUserId")
+                    .then((result) => {
+                        var url = window.url+"/user/isBusiness/" + result.data
+                        Axios.get(url)
+                            .then((result) => {
+                                if (result.data === true) {
+                                    setIsBusiness(true);
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    }, []);
+
     const ButtonStyle = {
         width: "50%",
         fontWeigth: "solid",
@@ -53,14 +82,14 @@ function DetailsDonation() {
 
     function getThemeSwitch() {
         if (theme != "dark") {
-            return <div style={{marginTop: "0.5rem", marginLeft: "0.5rem"}}><ThemeSwitchComponent defaultChecked
-                                                                                                  onChange={() => {
-                                                                                                      handleThemeSwitch()
-                                                                                                  }}/></div>;
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }}><ThemeSwitchComponent defaultChecked
+                onChange={() => {
+                    handleThemeSwitch()
+                }} /></div>;
         } else {
-            return <div style={{marginTop: "0.5rem", marginLeft: "0.5rem"}}><ThemeSwitchComponent onChange={() => {
+            return <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }}><ThemeSwitchComponent onChange={() => {
                 handleThemeSwitch()
-            }}/></div>;
+            }} /></div>;
         }
     }
 
@@ -76,7 +105,7 @@ function DetailsDonation() {
 
     return (
         <div>
-            <Header theme={theme} isAuth={isAuth}/>
+            <Header theme={theme} isAuth={isAuth} />
             {
                 getThemeSwitch()
             }
@@ -84,7 +113,7 @@ function DetailsDonation() {
                 donations.length === 0 ?
                     <Container maxWidth="lg">
                         <Grid container justifyContent="center" paddingTop={15}>
-                            <h1 style={{color: themeComponent.getTypographyContrastColor(theme)}}>Nenhuma doação
+                            <h1 style={{ color: themeComponent.getTypographyContrastColor(theme) }}>Nenhuma doação
                                 disponível no momento. 🙁</h1>
                         </Grid>
                     </Container>
@@ -93,18 +122,18 @@ function DetailsDonation() {
                         <Grid>
                             <Grid container spacing={1.3} justifyContent="center" padding={3} style={{}}>
                                 <Grid item>
-                                    <h3 style={{fontSize: "60px",color: themeComponent.getTypographyColor(theme)}}>
+                                    <h3 style={{ fontSize: "60px", color: themeComponent.getTypographyColor(theme) }}>
                                         Detalhes da Doação</h3>
                                 </Grid>
                             </Grid>
                         </Grid>
 
-                        <Divider style={{backgroundColor: themeComponent.getTypographyContrastColor(theme),opacity: "25%"}}/>
+                        <Divider style={{ backgroundColor: themeComponent.getTypographyContrastColor(theme), opacity: "25%" }} />
 
                         <Grid container spacing={1.3} padding={3} justifyContent="center">
                             {donations.map((donation) => (
                                 <Grid item key={donation.Id}>
-                                    <Card sx={{maxWidth: 515,minWidth: 515,backgroundColor: themeComponent.getCardBackgroundColor(theme)}}>
+                                    <Card sx={{ maxWidth: 515, minWidth: 515, backgroundColor: themeComponent.getCardBackgroundColor(theme) }}>
                                         <CardMedia
                                             component="img"
                                             height="140"
@@ -113,63 +142,60 @@ function DetailsDonation() {
                                         />
                                         <CardContent>
                                             <div>
-                                                <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{float: "right", color: themeComponent.getTypographyColor(theme)}}>
+                                                <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{ float: "right", color: themeComponent.getTypographyColor(theme) }}>
                                                     {donation.Quantity} unidades
                                                 </Typography>
-                                                <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{color: themeComponent.getTypographyColor(theme)}}>
+                                                <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }}>
                                                     {donation.Name}
                                                 </Typography>
                                             </div>
-                                            <Typography className="description" variant="body2" sx={{float: "right", color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="description" variant="body2" sx={{ float: "right", color: themeComponent.getTypographyColor(theme) }}>
                                                 Tipo: {donation.TypeFood}
                                             </Typography>
-                                            <Typography className="description" variant="body2" sx={{color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="description" variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }}>
                                                 Quantia doada: {donation.Weight}
                                             </Typography>
-                                            <Typography className="description" variant="body2" sx={{float: "right", color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="description" variant="body2" sx={{ float: "right", color: themeComponent.getTypographyColor(theme) }}>
                                                 Validade: {donation.ShelfLife}
                                             </Typography>
-                                            <Typography className="description" variant="body2" sx={{color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="description" variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }}>
                                                 Descrição: {donation.Description}
                                             </Typography>
                                         </CardContent>
 
-                                        <Divider/>
+                                        <Divider />
 
                                         <CardContent>
-                                            <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="nameCard" gutterBottom variant="h6" component="div" sx={{ color: themeComponent.getTypographyColor(theme) }}>
                                                 Dados do Doador
                                             </Typography>
-                                            <Typography className="description" variant="body2" sx={{float: "right", color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="description" variant="body2" sx={{ float: "right", color: themeComponent.getTypographyColor(theme) }}>
                                                 Telefone: {donation.Phone}
                                             </Typography>
-                                            <Typography className="description" variant="body2" sx={{color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="description" variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }}>
                                                 Nome: {donation.NameDonor}
                                             </Typography>
-                                            <Typography variant="body2" sx={{float: "right", color: themeComponent.getTypographyColor(theme)}}>
-                                                Endereço: <br/>
+                                            <Typography variant="body2" sx={{ float: "right", color: themeComponent.getTypographyColor(theme) }}>
+                                                Endereço: <br />
                                                 R. {donation.Street}, {donation.Number} - {donation.District}
                                             </Typography>
-                                            <Typography className="description" variant="body2" sx={{color: themeComponent.getTypographyColor(theme)}}>
+                                            <Typography className="description" variant="body2" sx={{ color: themeComponent.getTypographyColor(theme) }}>
                                                 Email: {donation.EmailDonor}
                                             </Typography>
-
-                                            <Divider/>
-                                            <CardActions sx={{alignContent: "center"}}>
-                                                <Button size="small" sx={ButtonStyle} onClick={() => dashboard()}>Voltar</Button>
-                                            </CardActions>
-                                            <Divider/>
-
                                             <input type={"hidden"} id={donation.Id} value={donation.Id}></input>
                                         </CardContent>
-
+                                        <Divider />
+                                        <CardActions sx={{ alignContent: "center" }}>
+                                            <Button size="small" sx={ButtonStyle} style={{ width: "100%" }} onClick={() => dashboard()}>Voltar</Button>
+                                        </CardActions>
+                                        <Divider />
                                     </Card>
                                 </Grid>
                             ))}
                         </Grid>
                     </Container>
             }
-            <Footer theme={theme}/>
+            <Footer theme={theme} />
         </div>
     )
 
