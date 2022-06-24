@@ -95,9 +95,14 @@ function DonationForm() {
       number: number
     }).then((response) => {
       if (response.status === 200) {
-        alertSuccessDonation()
+        Swal.fire(
+          'Sua doação foi registrada com sucesso!',
+          'Em breve alguém irá retirá-la.',
+          'success'
+      ).then((result) => {
+         window.location.href = "/myDonations"
+      })
       } else {
-        alertErrorDonation()
       }
     });
   }
