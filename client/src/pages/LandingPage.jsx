@@ -1,6 +1,6 @@
-import { React, useState, useEffect, useLayoutEffect } from "react";
+import { React, useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
-import { Container, Grid, Button, Box, Select, Typography, } from "@material-ui/core";
+import { Container, Grid, Button, Typography, } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import WhiteButtonTheme from "./../themes/WhiteButtonTheme";
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
@@ -14,6 +14,53 @@ function LandingPage() {
 
     const themeComponent = new ThemeComponent();
     const [redirectCompany, setRedirectCompany] = useState(false);
+    const [donations, setDonations] = useState([]);
+    const [companys, setCompanys] = useState([]);
+    const [users, setUsers] = useState([]);
+
+    useLayoutEffect(() => {
+        fetch(window.url + "/donation/getAllActiveAndInactiveDonations", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setDonations(result)
+                }
+            );
+
+        fetch(window.url + "/company/getAll", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setCompanys(result)
+                }
+            );
+
+        fetch(window.url + "/user/getAll", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setUsers(result)
+                }
+            );
+    }, [])
 
     const HeaderWallpaperStyle = {
         width: "100%",
@@ -61,6 +108,31 @@ function LandingPage() {
         cursor: "pointer"
     }
 
+    const GridCardStyle = {
+        width: "10rem", 
+        height: "10rem", 
+        borderRadius: "10px", 
+        backgroundColor: "var(--gray-line)"
+    }
+
+    const CardTypographyStyle = {
+        color: "var(--dark-background)",
+        fontSize: "4rem",
+        fontWeight: "900",
+        width: "100%",
+        height: "100%",
+        textAlign: "center",
+        paddingTop: "1.8rem"
+    }
+
+    const CardTitleStyle = {
+        color: "var(--gray-line)",
+        fontSize: "2rem",
+        fontWeight: "900",
+        textAlign: "center",
+        width: "100%",
+    }
+
     function changeRedirectCompany(isCompany) {
         setRedirectCompany(isCompany)
     }
@@ -68,7 +140,6 @@ function LandingPage() {
     return (
         <div>
             <div className="header-wallpaper">
-
                 <header>
                     <div style={{ float: "left", marginTop: "0.5" }}>
                         <Typography className="nunito-text" style={HeaderTitleStyle}>HelpFoods</Typography>
@@ -101,6 +172,41 @@ function LandingPage() {
                         <ArrowDropDownCircleIcon style={BodyDropDownArrowStyle} />
                     </Container>
                 </div>
+            </div>
+
+            <div>
+                <Container maxWidth="lg" style={{width: "100%"}}>
+                    <Grid container style={{marginTop: "5rem", width: "100%"}} spacing={10}>
+
+                        <Grid item direction="column" justify="center" xs={4}>
+                            <div class="div-container">
+                                <Typography className="nunito-text" style={CardTitleStyle}>Total de doações cadastradas</Typography>
+                                <div style={GridCardStyle}>
+                                    <Typography className="nunito-text" style={CardTypographyStyle}>{donations.length}</Typography>
+                                </div>
+                            </div>
+                        </Grid>
+
+                        <Grid item direction="column" justify="center" xs={4}>
+                            <div class="div-container">
+                                <Typography className="nunito-text" style={CardTitleStyle}>Total de empresas cadastradas</Typography>
+                                <div style={GridCardStyle}>
+                                    <Typography className="nunito-text" style={CardTypographyStyle}>{companys.length}</Typography>
+                                </div>
+                            </div>
+                        </Grid>
+
+                        <Grid item direction="column" justify="center" xs={4}>
+                            <div class="div-container">
+                                <Typography className="nunito-text" style={CardTitleStyle}>Total de ONGS cadastradas</Typography>
+                                <div style={GridCardStyle}>
+                                    <Typography className="nunito-text" style={CardTypographyStyle}>{users.length}</Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
+                </Container>
+                
             </div>
 
             <Footer theme={themeComponent.getActualTheme()} />
