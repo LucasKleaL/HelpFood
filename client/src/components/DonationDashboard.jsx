@@ -19,8 +19,6 @@ function DonationDashboard() {
     const theme = themeComponent.getActualTheme();
 
     const [items, setItems] = useState([]);
-    const [donationId, setDonationId] = useState("");
-    const [receiverId, setReceiverId] = useState("");
     const [receiverName, setReceiverName] = useState("");
     const [receiverEmail, setReceiverEmail] = useState("");
     const MySwal = withReactContent(Swal)
@@ -51,7 +49,6 @@ function DonationDashboard() {
 
 
     function reserveDonation(donationId) {
-
         Axios.get(window.url + "/user/getCurrentUserId")
             .then((result) => {
                 Axios.post(window.url + "/donation/reserve", {

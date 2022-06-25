@@ -1,16 +1,7 @@
 import { Button, Grid, Container, DataGrid } from '@mui/material';
 import React, { useState, useEffect, useLayoutEffect } from 'react'
-import Axios from "axios";
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import "./../styles/companyDashboard.css";
-import Footer from "./Footer";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import ThemeComponent from './ThemeComponent';
 
 
